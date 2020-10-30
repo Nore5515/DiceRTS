@@ -1,0 +1,123 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Dice.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Camera.gd" type="Script" id=2]
+[ext_resource path="res://DiceCounter.gd" type="Script" id=3]
+
+[sub_resource type="BoxShape" id=2]
+
+[sub_resource type="CubeMesh" id=3]
+
+[node name="DiceRoller" type="Spatial"]
+script = ExtResource( 3 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.821478, 0.570241, 0, -0.570241, 0.821478, 1.97845, 19.7419, 23.3723 )
+current = true
+script = ExtResource( 2 )
+
+[node name="Camera2" type="Camera" parent="."]
+transform = Transform( -0.990641, 0.0234339, -0.134468, 0.00428138, 0.990002, 0.140987, 0.136427, 0.139092, -0.980837, 2.02846, 19.7145, -25.2419 )
+
+[node name="Dice" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.35531, 17.7374, 0.29368 )
+initSpawn = true
+
+[node name="DEST" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.55165, -2.0969 )
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -230.871
+margin_top = -95.7872
+margin_right = -66.3708
+margin_bottom = -69.7872
+rect_scale = Vector2( 2.87767, 3.59072 )
+text = "sdasdas"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="charge" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -230.871
+margin_top = -597.731
+margin_right = -66.3708
+margin_bottom = -571.731
+rect_scale = Vector2( 2.87767, 3.59072 )
+text = "sdasdas"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Box" type="Spatial" parent="."]
+
+[node name="Floor5" type="KinematicBody" parent="Box"]
+transform = Transform( -7.28953e-07, -0.20389, 4.87818e-07, 0, -1.51744e-09, -1.90014, 12.2279, -6.53489e-09, 1.56351e-14, -16.3195, 2.13248, -0.530743 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Floor5"]
+shape = SubResource( 2 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Box/Floor5"]
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="Floor4" type="KinematicBody" parent="Box"]
+transform = Transform( -7.28953e-07, -0.20389, 4.87818e-07, 0, -1.51744e-09, -1.90014, 12.2279, -6.53489e-09, 1.56351e-14, 15.9901, 2.13248, -0.530743 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Floor4"]
+shape = SubResource( 2 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Box/Floor4"]
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="Floor3" type="KinematicBody" parent="Box"]
+transform = Transform( 16.6765, 0, 0, 0, -1.51744e-09, -1.90014, 0, 0.20389, -4.87818e-07, 0.122246, 2.13248, 11.0802 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Floor3"]
+shape = SubResource( 2 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Box/Floor3"]
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="Floor2" type="KinematicBody" parent="Box"]
+transform = Transform( 16.6765, 0, 0, 0, -1.51744e-09, -1.90014, 0, 0.20389, -4.87818e-07, 0.122246, 2.13248, -11.1712 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Floor2"]
+shape = SubResource( 2 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Box/Floor2"]
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="Floor" type="KinematicBody" parent="Box"]
+transform = Transform( 16.6765, 0, 0, 0, 0.20389, 0, 0, 0, 11.16, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Box/Floor"]
+shape = SubResource( 2 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Box/Floor"]
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="Label2" type="Label" parent="."]
+margin_right = 185.0
+margin_bottom = 31.0
+rect_scale = Vector2( 1.54963, 1.54963 )
+text = "Hold \"R\" to charge your kick.
+Release \"R\" to kick the table!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
