@@ -37,3 +37,14 @@ text = "SELECTING"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Paused" type="Label" parent="."]
+margin_left = 402.805
+margin_top = -211.53
+margin_right = 453.805
+margin_bottom = -197.53
+rect_scale = Vector2( 8.94092, 8.94092 )
+text = "PAUSED"
+__meta__ = {
+"_edit_use_anchors_": false
+}

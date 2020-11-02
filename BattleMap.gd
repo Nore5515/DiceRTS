@@ -7,6 +7,8 @@ export (int) var playerTeam = 1
 export (Color) var playerColor
 
 var SELECTING = false
+var PAUSED = false
+
 var childSelected
 
 
@@ -22,19 +24,12 @@ func _ready():
 func _input(event):
 	if event.is_action_pressed("click"):
 		
-		print ("aoo")
-		
 		# If you don't haave anyone selected
 		if SELECTING == false:
-			print ("boo")
 			for child in get_children():
-				print ("coo")
 				if child.is_in_group("Unit"):
-					print ("doo")
 					if child.MOUSE_OVER == true:
-						print ("eoo")
 						if child.team == playerTeam:
-							print ("foo")
 							childSelected = child
 							child.SELECTED = true
 							SELECTING = true
@@ -50,7 +45,11 @@ func _input(event):
 			for child in get_children():
 				if child.is_in_group("Unit"):
 					if child.MOUSE_OVER == true:
-						pass
+						return
+			
+			# If you didn't click anyone it'll just move there
+			childSelected.dest = get_global_mouse_position()
+			childSelected.moving = true
 			
 
 
