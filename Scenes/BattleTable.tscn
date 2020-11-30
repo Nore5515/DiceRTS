@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/Art/forstMap.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/BattleTable.gd" type="Script" id=2]
+
+[node name="BattleTable" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="CSGBox" type="CSGBox" parent="."]
+transform = Transform( 2.938, 0, 0, 0, 0.343, 0, 0, 0, 1.555, 0, 0, 0 )
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform( 0.575604, 0, 0, 0, -1.90356e-08, 0.435484, 0, -0.30473, -1.33202e-08, 0, 0.353584, -0.00969541 )
+texture = ExtResource( 1 )
+
+[node name="CameraAnchor" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0 )
+
+[node name="Camera" type="Camera" parent="CameraAnchor"]
+transform = Transform( 1, 0, 0, 0, 0.861558, 0.507659, 0, -0.507659, 0.861558, 0, 2.66691, 3.21705 )
+current = true

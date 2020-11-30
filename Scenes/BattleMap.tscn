@@ -1,0 +1,65 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Assets/Art/forstMap.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/InfUnit.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Scripts/Camera2D.gd" type="Script" id=3]
+[ext_resource path="res://Assets/Scripts/BattleMap.gd" type="Script" id=4]
+
+[node name="BattleMap" type="Node2D"]
+position = Vector2( 2.86395, -1.43198 )
+script = ExtResource( 4 )
+playerColor = Color( 0.278431, 0.737255, 0.211765, 1 )
+badColor = Color( 0.729412, 0.329412, 0.329412, 1 )
+
+[node name="forstMap" type="Sprite" parent="."]
+position = Vector2( -455.131, -396.404 )
+scale = Vector2( 2.173, 1.57951 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 679.918, 390.683 )
+current = true
+zoom = Vector2( 2, 2 )
+script = ExtResource( 3 )
+
+[node name="InfUnit" parent="." instance=ExtResource( 2 )]
+position = Vector2( -60.4841, -70.3273 )
+team = 1
+
+[node name="InfUnit2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 492.945, 141.167 )
+team = 1
+
+[node name="InfUnit3" parent="." instance=ExtResource( 2 )]
+position = Vector2( 577.413, 722.71 )
+team = 2
+
+[node name="zoomTime" type="Timer" parent="."]
+one_shot = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="selecting" type="Label" parent="CanvasLayer"]
+visible = false
+margin_left = 368.579
+margin_top = 514.884
+margin_right = 436.579
+margin_bottom = 528.884
+rect_scale = Vector2( 3.88654, 5.0192 )
+text = "SELECTING"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Paused" type="Label" parent="CanvasLayer"]
+margin_left = 334.553
+margin_top = -1.07423
+margin_right = 385.553
+margin_bottom = 12.9258
+rect_scale = Vector2( 5.99901, 5.99901 )
+text = "PAUSED"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="timeout" from="zoomTime" to="." method="_on_zoomTime_timeout"]

@@ -1,0 +1,117 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Scenes/InfUnit.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/Art/forstMap.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Scripts/BattleMap.gd" type="Script" id=3]
+[ext_resource path="res://Assets/Scripts/Camera2D.gd" type="Script" id=4]
+[ext_resource path="res://Scenes/Goal.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/Art/wooden-plank-textured-background-material_53876-33591.jpg" type="Texture" id=6]
+[ext_resource path="res://Assets/Fonts/Font.tres" type="DynamicFont" id=7]
+[ext_resource path="res://Scenes/Slowdown.gd" type="Script" id=8]
+[ext_resource path="res://Scenes/PlacementBox.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scenes/BuyScreen.tscn" type="PackedScene" id=11]
+
+[node name="Level1" type="Node2D"]
+position = Vector2( 2.86395, -1.43198 )
+script = ExtResource( 3 )
+playerColor = Color( 0.278431, 0.737255, 0.211765, 1 )
+badColor = Color( 0.729412, 0.329412, 0.329412, 1 )
+
+[node name="wooden-plank-textured-background-material_53876-33591" type="Sprite" parent="."]
+position = Vector2( 1058.6, 517.865 )
+scale = Vector2( 9.01582, 6.45268 )
+texture = ExtResource( 6 )
+
+[node name="forstMap" type="Sprite" parent="."]
+position = Vector2( -1010.37, -324.503 )
+scale = Vector2( 3.84277, 1.57951 )
+texture = ExtResource( 2 )
+centered = false
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 679.918, 390.683 )
+current = true
+zoom = Vector2( 2, 2 )
+limit_left = -1283
+limit_top = -695
+limit_right = 3385
+limit_bottom = 1746
+editor_draw_limits = true
+script = ExtResource( 4 )
+
+[node name="zoomTime" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="Goal" parent="." instance=ExtResource( 5 )]
+position = Vector2( 2474.42, 1066.04 )
+scale = Vector2( 5.89165, 5.89165 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Paused" type="Label" parent="CanvasLayer"]
+margin_right = 179.0
+margin_bottom = 18.0
+rect_scale = Vector2( 5.74111, 5.74111 )
+custom_fonts/font = ExtResource( 7 )
+text = "PAUSED"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="selecting" type="Label" parent="CanvasLayer"]
+margin_top = 510.385
+margin_right = 265.0
+margin_bottom = 528.385
+rect_scale = Vector2( 3.88654, 5.0192 )
+custom_fonts/font = ExtResource( 7 )
+text = "SELECTING"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Slowdown" type="Area2D" parent="."]
+position = Vector2( 322.69, 361.559 )
+script = ExtResource( 8 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Slowdown"]
+polygon = PoolVector2Array( -1333.41, -685.913, 490.499, -699.145, 498.089, -630.839, 589.164, -554.944, 534.123, -484.193, 553.644, -396.348, 839.956, -311.755, 846.463, -253.192, 1526.45, -87.2609, 1523.2, -67.7395, 2092.57, 46.1345, 2596.87, 81.9235, 2600.12, 950.62, 1705.4, 937.606, 1262.92, 791.196, 1243.4, 602.491, 872.491, 501.631, 748.857, 534.166, 403.981, 456.081, 316.135, 335.7, -158.882, 160.009, -1359.44, 46.1346, -1337.17, -648.716, -1639.99, -947.934, -1558.47, 1282.57, 2954.62, 1311.17, 2861.49, -1023.97, -1611.14, -968.062 )
+
+[node name="PlacementBox" parent="." instance=ExtResource( 10 )]
+position = Vector2( 444.156, 236.209 )
+
+[node name="BuyScreen" parent="." instance=ExtResource( 11 )]
+budget = 8
+
+[node name="lossTime" type="Timer" parent="."]
+autostart = true
+
+[node name="InfUnit" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1158.82, 293.165 )
+team = 2
+
+[node name="InfUnit2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 47.8848, 1399.67 )
+team = 2
+
+[node name="InfUnit3" parent="." instance=ExtResource( 1 )]
+position = Vector2( -828.471, 9.89856 )
+team = 2
+
+[node name="InfUnit4" parent="." instance=ExtResource( 1 )]
+position = Vector2( -332.754, -215.829 )
+team = 2
+
+[node name="InfUnit5" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1982.06, 815.437 )
+team = 2
+
+[node name="InfUnit6" parent="." instance=ExtResource( 1 )]
+position = Vector2( 2132.55, -136.161 )
+team = 2
+[connection signal="timeout" from="zoomTime" to="." method="_on_zoomTime_timeout"]
+[connection signal="body_entered" from="Slowdown" to="Slowdown" method="_on_Slowdown_body_entered"]
+[connection signal="body_exited" from="Slowdown" to="Slowdown" method="_on_Slowdown_body_exited"]
+[connection signal="timeout" from="lossTime" to="." method="_on_lossTime_timeout"]

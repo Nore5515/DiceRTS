@@ -1,0 +1,377 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://Assets/Art/damage.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Scripts/Camera.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Scripts/DiceCounter.gd" type="Script" id=3]
+[ext_resource path="res://Assets/Sounds/damageSound.wav" type="AudioStream" id=4]
+[ext_resource path="res://Assets/Models/dicebox.obj" type="ArrayMesh" id=5]
+[ext_resource path="res://Assets/Materials/dicebox.tres" type="Material" id=6]
+[ext_resource path="res://Assets/Models/basicTable.obj" type="ArrayMesh" id=7]
+[ext_resource path="res://Assets/Art/wooden-plank-textured-background-material_53876-33591.jpg" type="Texture" id=8]
+[ext_resource path="res://Assets/Art/bg.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Art/kick.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Fonts/Font.tres" type="DynamicFont" id=11]
+
+[sub_resource type="Environment" id=1]
+background_mode = 1
+background_color = Color( 0.129412, 0.203922, 0.133333, 1 )
+ambient_light_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_texture = ExtResource( 8 )
+
+[sub_resource type="ConcavePolygonShape" id=3]
+data = PoolVector3Array( 4.6563, 1.4003, -8.3976, 0, 1.4003, -8.3976, 4.6563, -0.7798, -8.3976, 4.6563, -0.7798, -8.3976, 0, 1.4003, -8.3976, 0, -0.7798, -8.3976, -4.6563, 1.4003, 6.346, -4.6563, 1.4003, 8.3976, -4.6563, -0.7798, 6.346, -4.6563, -0.7798, 6.346, -4.6563, 1.4003, 8.3976, -4.6563, -0.7798, 8.3976, 5.1776, 1.4003, -6.3456, 5.1776, -1.4003, -6.3456, 5.1776, 1.4003, -9.3378, 5.1776, 1.4003, -9.3378, 5.1776, -1.4003, -6.3456, 5.1776, -1.4003, -9.3378, -5.1776, 1.4003, 0, -4.6563, 1.4003, 0, -5.1776, 1.4003, -4.6134, -5.1776, 1.4003, -4.6134, -4.6563, 1.4003, 0, -4.6563, 1.4003, -4.5937, 4.6563, -0.7798, 8.3976, 4.6563, 1.4003, 8.3976, 4.6563, -0.7798, 6.346, 4.6563, -0.7798, 6.346, 4.6563, 1.4003, 8.3976, 4.6563, 1.4003, 6.346, 0, -0.7798, -8.3976, 0, 1.4003, -8.3976, -4.6563, -0.7798, -8.3976, -4.6563, -0.7798, -8.3976, 0, 1.4003, -8.3976, -4.6563, 1.4003, -8.3976, 0, -1.4003, 9.3378, -5.1776, -1.4003, 9.3378, 0, -1.4003, 6.701, 0, -1.4003, 6.701, -5.1776, -1.4003, 9.3378, -5.1776, -1.4003, 6.3456, 0, -1.4003, -9.3378, -5.1776, -1.4003, -9.3378, 0, 1.4003, -9.3378, 0, 1.4003, -9.3378, -5.1776, -1.4003, -9.3378, -5.1776, 1.4003, -9.3378, 4.6563, 1.4003, -8.3976, 4.6563, 1.4003, -6.346, 5.1776, 1.4003, -9.3378, 5.1776, 1.4003, -9.3378, 4.6563, 1.4003, -6.346, 5.1776, 1.4003, -6.3456, -4.6563, -0.7798, -8.3976, -4.6563, 1.4003, -8.3976, -4.6563, -0.7798, -6.346, -4.6563, -0.7798, -6.346, -4.6563, 1.4003, -8.3976, -4.6563, 1.4003, -6.346, 0, -0.7798, 6.346, 0, -0.7798, 8.3976, 4.6563, -0.7798, 6.346, 4.6563, -0.7798, 6.346, 0, -0.7798, 8.3976, 4.6563, -0.7798, 8.3976, 0, -0.7798, -4.5937, 0, -0.7798, -6.346, -4.6563, -0.7798, -4.5937, -4.6563, -0.7798, -4.5937, 0, -0.7798, -6.346, -4.6563, -0.7798, -6.346, 5.1776, 1.4003, 6.3456, 4.6563, 1.4003, 6.346, 5.1776, 1.4003, 9.3378, 5.1776, 1.4003, 9.3378, 4.6563, 1.4003, 6.346, 4.6563, 1.4003, 8.3976, 0, -0.7798, -6.346, 0, -0.7798, -8.3976, -4.6563, -0.7798, -6.346, -4.6563, -0.7798, -6.346, 0, -0.7798, -8.3976, -4.6563, -0.7798, -8.3976, -5.1776, 1.4003, -9.3378, -4.6563, 1.4003, -8.3976, 0, 1.4003, -9.3378, 0, 1.4003, -9.3378, -4.6563, 1.4003, -8.3976, 0, 1.4003, -8.3976, 4.6563, 1.4003, -6.346, 4.6563, 1.4003, -8.3976, 4.6563, -0.7798, -6.346, 4.6563, -0.7798, -6.346, 4.6563, 1.4003, -8.3976, 4.6563, -0.7798, -8.3976, -5.1776, -1.4003, -6.3456, -5.1776, -1.4003, -9.3378, 0, -1.4003, -6.701, 0, -1.4003, -6.701, -5.1776, -1.4003, -9.3378, 0, -1.4003, -9.3378, 4.6563, -0.7798, -8.3976, 0, -0.7798, -8.3976, 4.6563, -0.7798, -6.346, 4.6563, -0.7798, -6.346, 0, -0.7798, -8.3976, 0, -0.7798, -6.346, 4.6563, 1.4003, -6.346, 4.6563, 1.4003, -4.5937, 5.1776, 1.4003, -6.3456, 5.1776, 1.4003, -6.3456, 4.6563, 1.4003, -4.5937, 5.1776, 1.4003, -4.6134, -4.6563, 1.4003, 6.346, -4.6563, 1.4003, 4.5937, -4.6563, 1.651, 6.346, -4.6563, 1.651, 6.346, -4.6563, 1.4003, 4.5937, -4.6563, 1.651, 4.5937, -4.6563, 1.4003, -6.346, -5.1776, 1.4003, -6.3456, -4.6563, 1.651, -6.346, -4.6563, 1.651, -6.346, -5.1776, 1.4003, -6.3456, -5.1776, 2.4008, -6.3456, -5.1776, -1.4003, -6.3456, -5.1776, -1.4003, -4.6134, -5.1776, 1.4003, -6.3456, -5.1776, 1.4003, -6.3456, -5.1776, -1.4003, -4.6134, -5.1776, 1.4003, -4.6134, 5.1776, 1.4003, -4.6134, 5.1776, -1.4003, -4.6134, 5.1776, 1.4003, -6.3456, 5.1776, 1.4003, -6.3456, 5.1776, -1.4003, -4.6134, 5.1776, -1.4003, -6.3456, 5.1776, 1.4003, 0, 5.1776, -1.4003, 0, 5.1776, 1.4003, -4.6134, 5.1776, 1.4003, -4.6134, 5.1776, -1.4003, 0, 5.1776, -1.4003, -4.6134, 4.6563, 1.4003, -4.5937, 4.6563, 1.4003, 0, 5.1776, 1.4003, -4.6134, 5.1776, 1.4003, -4.6134, 4.6563, 1.4003, 0, 5.1776, 1.4003, 0, -5.1776, -1.4003, -9.3378, -5.1776, -1.4003, -6.3456, -5.1776, 1.4003, -9.3378, -5.1776, 1.4003, -9.3378, -5.1776, -1.4003, -6.3456, -5.1776, 1.4003, -6.3456, 4.6563, 1.4003, -4.5937, 4.6563, 1.4003, -6.346, 4.6563, -0.7798, -4.5937, 4.6563, -0.7798, -4.5937, 4.6563, 1.4003, -6.346, 4.6563, -0.7798, -6.346, 4.6563, -0.7798, -6.346, 0, -0.7798, -6.346, 4.6563, -0.7798, -4.5937, 4.6563, -0.7798, -4.5937, 0, -0.7798, -6.346, 0, -0.7798, -4.5937, -5.1776, -1.4003, -4.6134, -5.1776, -1.4003, -6.3456, 0, -1.4003, -4.8607, 0, -1.4003, -4.8607, -5.1776, -1.4003, -6.3456, 0, -1.4003, -6.701, -5.1776, 1.4003, 9.3378, -5.1776, -1.4003, 9.3378, 0, 1.4003, 9.3378, 0, 1.4003, 9.3378, -5.1776, -1.4003, 9.3378, 0, -1.4003, 9.3378, 0, -1.4003, -6.701, 5.1776, -1.4003, -6.3456, 0, -1.4003, -4.8607, 0, -1.4003, -4.8607, 5.1776, -1.4003, -6.3456, 5.1776, -1.4003, -4.6134, -5.1776, -1.4003, -4.6134, -5.1776, -1.4003, 0, -5.1776, 1.4003, -4.6134, -5.1776, 1.4003, -4.6134, -5.1776, -1.4003, 0, -5.1776, 1.4003, 0, -4.6563, -0.7798, -6.346, -4.6563, 1.4003, -6.346, -4.6563, -0.7798, -4.5937, -4.6563, -0.7798, -4.5937, -4.6563, 1.4003, -6.346, -4.6563, 1.4003, -4.5937, -5.1776, 1.4003, -6.3456, -4.6563, 1.4003, -6.346, -5.1776, 1.4003, -9.3378, -5.1776, 1.4003, -9.3378, -4.6563, 1.4003, -6.346, -4.6563, 1.4003, -8.3976, -4.6563, -0.7798, 8.3976, 0, -0.7798, 8.3976, -4.6563, -0.7798, 6.346, -4.6563, -0.7798, 6.346, 0, -0.7798, 8.3976, 0, -0.7798, 6.346, 5.1776, 1.4003, 4.6134, 4.6563, 1.4003, 4.5937, 5.1776, 1.4003, 6.3456, 5.1776, 1.4003, 6.3456, 4.6563, 1.4003, 4.5937, 4.6563, 1.4003, 6.346, 0, 1.4003, -8.3976, 4.6563, 1.4003, -8.3976, 0, 1.4003, -9.3378, 0, 1.4003, -9.3378, 4.6563, 1.4003, -8.3976, 5.1776, 1.4003, -9.3378, -4.6563, -0.7798, 6.346, 0, -0.7798, 6.346, -4.6563, -0.7798, 4.5937, -4.6563, -0.7798, 4.5937, 0, -0.7798, 6.346, 0, -0.7798, 4.5937, 0, 1.4003, 8.3976, -4.6563, 1.4003, 8.3976, 0, 1.4003, 9.3378, 0, 1.4003, 9.3378, -4.6563, 1.4003, 8.3976, -5.1776, 1.4003, 9.3378, -5.1776, 1.4003, 4.6134, -5.1776, -1.4003, 4.6134, -5.1776, 1.4003, 6.3456, -5.1776, 1.4003, 6.3456, -5.1776, -1.4003, 4.6134, -5.1776, -1.4003, 6.3456, 5.1776, 1.4003, -9.3378, 5.1776, -1.4003, -9.3378, 0, 1.4003, -9.3378, 0, 1.4003, -9.3378, 5.1776, -1.4003, -9.3378, 0, -1.4003, -9.3378, 0, -1.4003, -9.3378, 5.1776, -1.4003, -9.3378, 0, -1.4003, -6.701, 0, -1.4003, -6.701, 5.1776, -1.4003, -9.3378, 5.1776, -1.4003, -6.3456, 0, -0.7798, 8.3976, 0, 1.4003, 8.3976, 4.6563, -0.7798, 8.3976, 4.6563, -0.7798, 8.3976, 0, 1.4003, 8.3976, 4.6563, 1.4003, 8.3976, -5.1776, -1.4003, 0, -5.1776, -1.4003, -4.6134, 0, -1.4003, 0, 0, -1.4003, 0, -5.1776, -1.4003, -4.6134, 0, -1.4003, -4.8607, 4.6563, -0.7798, -4.5937, 0, -0.7798, -4.5937, 4.6563, -0.7798, 0, 4.6563, -0.7798, 0, 0, -0.7798, -4.5937, 0, -0.7798, 0, 4.6563, 1.4003, 0, 4.6563, 1.4003, -4.5937, 4.6563, -0.7798, 0, 4.6563, -0.7798, 0, 4.6563, 1.4003, -4.5937, 4.6563, -0.7798, -4.5937, -4.6563, 1.4003, 4.5937, -4.6563, 1.4003, 0, -5.1776, 1.4003, 4.6134, -5.1776, 1.4003, 4.6134, -4.6563, 1.4003, 0, -5.1776, 1.4003, 0, 5.1776, -1.4003, 9.3378, 5.1776, -1.4003, 6.3456, 5.1776, 1.4003, 9.3378, 5.1776, 1.4003, 9.3378, 5.1776, -1.4003, 6.3456, 5.1776, 1.4003, 6.3456, -4.6563, -0.7798, -4.5937, -4.6563, 1.4003, -4.5937, -4.6563, -0.7798, 0, -4.6563, -0.7798, 0, -4.6563, 1.4003, -4.5937, -4.6563, 1.4003, 0, 0, -0.7798, 0, 0, -0.7798, -4.5937, -4.6563, -0.7798, 0, -4.6563, -0.7798, 0, 0, -0.7798, -4.5937, -4.6563, -0.7798, -4.5937, -4.6563, 1.4003, 8.3976, 0, 1.4003, 8.3976, -4.6563, -0.7798, 8.3976, -4.6563, -0.7798, 8.3976, 0, 1.4003, 8.3976, 0, -0.7798, 8.3976, 0, -1.4003, -4.8607, 5.1776, -1.4003, -4.6134, 0, -1.4003, 0, 0, -1.4003, 0, 5.1776, -1.4003, -4.6134, 5.1776, -1.4003, 0, 5.1776, -1.4003, 6.3456, 5.1776, -1.4003, 4.6134, 5.1776, 1.4003, 6.3456, 5.1776, 1.4003, 6.3456, 5.1776, -1.4003, 4.6134, 5.1776, 1.4003, 4.6134, 5.1776, -1.4003, 4.6134, 5.1776, -1.4003, 0, 5.1776, 1.4003, 4.6134, 5.1776, 1.4003, 4.6134, 5.1776, -1.4003, 0, 5.1776, 1.4003, 0, 5.1776, 1.4003, 0, 4.6563, 1.4003, 0, 5.1776, 1.4003, 4.6134, 5.1776, 1.4003, 4.6134, 4.6563, 1.4003, 0, 4.6563, 1.4003, 4.5937, -5.1776, 1.4003, 6.3456, -5.1776, -1.4003, 6.3456, -5.1776, 1.4003, 9.3378, -5.1776, 1.4003, 9.3378, -5.1776, -1.4003, 6.3456, -5.1776, -1.4003, 9.3378, 4.6563, -0.7798, 6.346, 4.6563, 1.4003, 6.346, 4.6563, -0.7798, 4.5937, 4.6563, -0.7798, 4.5937, 4.6563, 1.4003, 6.346, 4.6563, 1.4003, 4.5937, 0, -0.7798, 4.5937, 0, -0.7798, 6.346, 4.6563, -0.7798, 4.5937, 4.6563, -0.7798, 4.5937, 0, -0.7798, 6.346, 4.6563, -0.7798, 6.346, 0, -1.4003, 6.701, -5.1776, -1.4003, 6.3456, 0, -1.4003, 4.8607, 0, -1.4003, 4.8607, -5.1776, -1.4003, 6.3456, -5.1776, -1.4003, 4.6134, 5.1776, -1.4003, 4.6134, 5.1776, -1.4003, 6.3456, 0, -1.4003, 4.8607, 0, -1.4003, 4.8607, 5.1776, -1.4003, 6.3456, 0, -1.4003, 6.701, -5.1776, 1.4003, 0, -5.1776, -1.4003, 0, -5.1776, 1.4003, 4.6134, -5.1776, 1.4003, 4.6134, -5.1776, -1.4003, 0, -5.1776, -1.4003, 4.6134, -4.6563, 1.4003, 4.5937, -4.6563, 1.4003, 6.346, -4.6563, -0.7798, 4.5937, -4.6563, -0.7798, 4.5937, -4.6563, 1.4003, 6.346, -4.6563, -0.7798, 6.346, -4.6563, 1.4003, 8.3976, -4.6563, 1.4003, 6.346, -5.1776, 1.4003, 9.3378, -5.1776, 1.4003, 9.3378, -4.6563, 1.4003, 6.346, -5.1776, 1.4003, 6.3456, 5.1776, 1.4003, 9.3378, 4.6563, 1.4003, 8.3976, 0, 1.4003, 9.3378, 0, 1.4003, 9.3378, 4.6563, 1.4003, 8.3976, 0, 1.4003, 8.3976, 0, -1.4003, 9.3378, 5.1776, -1.4003, 9.3378, 0, 1.4003, 9.3378, 0, 1.4003, 9.3378, 5.1776, -1.4003, 9.3378, 5.1776, 1.4003, 9.3378, 5.1776, -1.4003, 6.3456, 5.1776, -1.4003, 9.3378, 0, -1.4003, 6.701, 0, -1.4003, 6.701, 5.1776, -1.4003, 9.3378, 0, -1.4003, 9.3378, 0, -1.4003, 4.8607, -5.1776, -1.4003, 4.6134, 0, -1.4003, 0, 0, -1.4003, 0, -5.1776, -1.4003, 4.6134, -5.1776, -1.4003, 0, 0, -0.7798, 0, 0, -0.7798, 4.5937, 4.6563, -0.7798, 0, 4.6563, -0.7798, 0, 0, -0.7798, 4.5937, 4.6563, -0.7798, 4.5937, 4.6563, -0.7798, 4.5937, 4.6563, 1.4003, 4.5937, 4.6563, -0.7798, 0, 4.6563, -0.7798, 0, 4.6563, 1.4003, 4.5937, 4.6563, 1.4003, 0, -4.6563, 1.4003, 0, -4.6563, 1.4003, 4.5937, -4.6563, -0.7798, 0, -4.6563, -0.7798, 0, -4.6563, 1.4003, 4.5937, -4.6563, -0.7798, 4.5937, -4.6563, -0.7798, 4.5937, 0, -0.7798, 4.5937, -4.6563, -0.7798, 0, -4.6563, -0.7798, 0, 0, -0.7798, 4.5937, 0, -0.7798, 0, 5.1776, -1.4003, 0, 5.1776, -1.4003, 4.6134, 0, -1.4003, 0, 0, -1.4003, 0, 5.1776, -1.4003, 4.6134, 0, -1.4003, 4.8607, -4.6563, 1.651, 6.346, -4.6563, 1.651, 4.5937, -5.1776, 2.4008, 6.3456, -5.1776, 2.4008, 6.3456, -4.6563, 1.651, 4.5937, -5.1776, 2.4008, 4.6134, -5.1776, 2.4008, -4.6134, -4.6563, 1.651, -4.5937, -5.1776, 2.4008, -6.3456, -5.1776, 2.4008, -6.3456, -4.6563, 1.651, -4.5937, -4.6563, 1.651, -6.346, -5.1776, 1.4003, -4.6134, -4.6563, 1.4003, -4.5937, -5.1776, 2.4008, -4.6134, -5.1776, 2.4008, -4.6134, -4.6563, 1.4003, -4.5937, -4.6563, 1.651, -4.5937, -4.6563, 1.4003, 4.5937, -5.1776, 1.4003, 4.6134, -4.6563, 1.651, 4.5937, -4.6563, 1.651, 4.5937, -5.1776, 1.4003, 4.6134, -5.1776, 2.4008, 4.6134, -5.1776, 1.4003, 4.6134, -5.1776, 1.4003, 6.3456, -5.1776, 2.4008, 4.6134, -5.1776, 2.4008, 4.6134, -5.1776, 1.4003, 6.3456, -5.1776, 2.4008, 6.3456, -5.1776, 1.4003, -6.3456, -5.1776, 1.4003, -4.6134, -5.1776, 2.4008, -6.3456, -5.1776, 2.4008, -6.3456, -5.1776, 1.4003, -4.6134, -5.1776, 2.4008, -4.6134, -5.1776, 1.4003, 6.3456, -4.6563, 1.4003, 6.346, -5.1776, 2.4008, 6.3456, -5.1776, 2.4008, 6.3456, -4.6563, 1.4003, 6.346, -4.6563, 1.651, 6.346, -4.6563, 1.4003, -4.5937, -4.6563, 1.4003, -6.346, -4.6563, 1.651, -4.5937, -4.6563, 1.651, -4.5937, -4.6563, 1.4003, -6.346, -4.6563, 1.651, -6.346 )
+
+[node name="DiceRoller" type="Spatial"]
+script = ExtResource( 3 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.821478, 0.570241, 0, -0.570241, 0.821478, 1.97845, 19.7419, 23.3723 )
+environment = SubResource( 1 )
+current = true
+script = ExtResource( 2 )
+
+[node name="DEST" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.55165, -2.0969 )
+
+[node name="basicTable" type="MeshInstance" parent="."]
+transform = Transform( -2.64094e-07, 0, 1.703, 0, 2.688, 0, -1.621, 0, -2.77454e-07, 1.06654, -3.22609, -1.70349 )
+mesh = ExtResource( 7 )
+material/0 = SubResource( 2 )
+
+[node name="dicebox" type="MeshInstance" parent="."]
+transform = Transform( -1.12863e-07, 0, -2.582, 0, 2.582, 0, 2.582, 0, -1.12863e-07, 0.148825, 0, -0.0405121 )
+mesh = ExtResource( 5 )
+material/0 = ExtResource( 6 )
+
+[node name="StaticBody" type="StaticBody" parent="dicebox"]
+visible = false
+
+[node name="CollisionShape" type="CollisionShape" parent="dicebox/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -510.882
+margin_top = -84.7745
+margin_right = -156.0
+margin_bottom = -58.7745
+rect_scale = Vector2( 2.87767, 3.59072 )
+custom_fonts/font = ExtResource( 11 )
+text = "sdasdas"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="charge" type="Label" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -230.871
+margin_top = -597.731
+margin_right = -66.3708
+margin_bottom = -571.731
+rect_scale = Vector2( 2.87767, 3.59072 )
+custom_fonts/font = ExtResource( 11 )
+text = "sdasdas"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="."]
+margin_right = 185.0
+margin_bottom = 31.0
+rect_scale = Vector2( 1.28875, 1.20527 )
+custom_fonts/font = ExtResource( 11 )
+text = "Hold \"R\" to charge your kick.
+Release \"R\" to kick the table!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="returnmap" type="Label" parent="."]
+visible = false
+margin_left = 734.284
+margin_top = 523.008
+margin_right = 907.284
+margin_bottom = 568.0
+rect_scale = Vector2( 1.69522, 1.69522 )
+custom_fonts/font = ExtResource( 11 )
+text = "To return to map, hit Ctrl"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="allied" type="Label" parent="."]
+visible = false
+margin_left = 1.10806
+margin_top = 180.61
+margin_right = 64.1081
+margin_bottom = 194.61
+rect_scale = Vector2( 1.74759, 1.74759 )
+custom_fonts/font = ExtResource( 11 )
+text = "ALLIED"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="alliedHP" type="Label" parent="."]
+margin_top = 142.936
+margin_right = 63.0
+margin_bottom = 156.936
+rect_scale = Vector2( 1.74759, 1.74759 )
+custom_fonts/font = ExtResource( 11 )
+text = "ALLIED"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="enemy" type="Label" parent="."]
+visible = false
+margin_left = 913.661
+margin_top = 179.444
+margin_right = 976.661
+margin_bottom = 193.444
+rect_scale = Vector2( 1.74759, 1.74759 )
+custom_fonts/font = ExtResource( 11 )
+text = "ENEMY"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="defenderEnemy" type="Label" parent="."]
+visible = false
+margin_left = 908.777
+margin_top = 79.8058
+margin_right = 974.777
+margin_bottom = 93.8058
+rect_scale = Vector2( 1.74759, 1.74759 )
+custom_fonts/font = ExtResource( 11 )
+text = "DEFENDER"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="defenderAllied" type="Label" parent="."]
+visible = false
+margin_top = 79.8058
+margin_right = 66.0
+margin_bottom = 93.8058
+rect_scale = Vector2( 1.74759, 1.74759 )
+custom_fonts/font = ExtResource( 11 )
+text = "DEFENDER"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="enemyHP" type="Label" parent="."]
+margin_left = 642.628
+margin_top = 142.936
+margin_right = 858.628
+margin_bottom = 211.0
+rect_scale = Vector2( 1.74759, 1.74759 )
+custom_fonts/font = ExtResource( 11 )
+text = "ENEMY"
+align = 2
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="alliedName" type="Label" parent="."]
+margin_left = 1.11771
+margin_top = 193.406
+margin_right = 41.1177
+margin_bottom = 211.406
+custom_fonts/font = ExtResource( 11 )
+text = "1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="enemyName" type="Label" parent="."]
+margin_left = 604.0
+margin_top = 193.406
+margin_right = 1022.59
+margin_bottom = 211.406
+custom_fonts/font = ExtResource( 11 )
+text = "2"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="alliedValue" type="Label" parent="."]
+margin_left = 1.11771
+margin_top = 212.067
+margin_right = 41.1177
+margin_bottom = 230.067
+custom_fonts/font = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="enemyValue" type="Label" parent="."]
+margin_left = 538.0
+margin_top = 211.406
+margin_right = 1023.42
+margin_bottom = 229.406
+custom_fonts/font = ExtResource( 11 )
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnemyTurn" type="Label" parent="."]
+margin_top = 423.415
+margin_right = 222.0
+margin_bottom = 449.415
+rect_scale = Vector2( 4.61155, 4.61155 )
+custom_fonts/font = ExtResource( 11 )
+text = "ENEMY TURN"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="YourTurn" type="Label" parent="."]
+margin_top = 423.415
+margin_right = 222.0
+margin_bottom = 449.415
+rect_scale = Vector2( 4.61155, 4.61155 )
+custom_fonts/font = ExtResource( 11 )
+text = "YOUR TURN"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DiceDelay" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[node name="results" type="Label" parent="."]
+visible = false
+margin_left = 332.41
+margin_top = 274.793
+margin_right = 499.731
+margin_bottom = 332.136
+rect_scale = Vector2( 2.13679, 2.13679 )
+custom_fonts/font = ExtResource( 11 )
+text = "DECISIVE VICTORY"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AIResultsDelay" type="Timer" parent="."]
+one_shot = true
+
+[node name="PlayerResultsDelay" type="Timer" parent="."]
+one_shot = true
+
+[node name="damage1" type="Sprite" parent="."]
+visible = false
+position = Vector2( 214.813, 272.21 )
+scale = Vector2( 0.153915, 0.153915 )
+texture = ExtResource( 1 )
+
+[node name="damage2" type="Sprite" parent="."]
+visible = false
+position = Vector2( 345.34, 406.947 )
+scale = Vector2( 0.153915, 0.153915 )
+texture = ExtResource( 1 )
+
+[node name="damage3" type="Sprite" parent="."]
+visible = false
+position = Vector2( 106.392, 436.421 )
+scale = Vector2( 0.153915, 0.153915 )
+texture = ExtResource( 1 )
+
+[node name="damage4" type="Sprite" parent="."]
+visible = false
+position = Vector2( 946.393, 251.158 )
+scale = Vector2( 0.153915, 0.153915 )
+texture = ExtResource( 1 )
+
+[node name="damage5" type="Sprite" parent="."]
+visible = false
+position = Vector2( 773.761, 278.526 )
+scale = Vector2( 0.153915, 0.153915 )
+texture = ExtResource( 1 )
+
+[node name="damage6" type="Sprite" parent="."]
+visible = false
+position = Vector2( 888.498, 440.632 )
+scale = Vector2( 0.153915, 0.153915 )
+texture = ExtResource( 1 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = 24.0
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.85697, 0 )
+
+[node name="Label3" type="Label" parent="."]
+margin_left = 1005.39
+margin_top = 568.013
+margin_right = 1045.4
+margin_bottom = 582.013
+rect_scale = Vector2( 1.94255, 1.94255 )
+text = "?"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="noKick" type="Label" parent="."]
+visible = false
+margin_left = 350.46
+margin_top = 2.26898
+margin_right = 498.46
+margin_bottom = 16.269
+rect_scale = Vector2( 2.07341, 2.07341 )
+text = "No kicking at this time!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="progressBarBG" type="ProgressBar" parent="."]
+margin_left = 1.10806
+margin_top = 48.0385
+margin_right = 286.0
+margin_bottom = 84.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="progressBar" type="Sprite" parent="."]
+position = Vector2( 1.10806, 64.922 )
+scale = Vector2( 1e-05, 0.022 )
+texture = ExtResource( 9 )
+
+[node name="kick" type="Sprite" parent="."]
+position = Vector2( 940.625, 76.802 )
+scale = Vector2( 0.15883, 0.15883 )
+texture = ExtResource( 10 )
+[connection signal="timeout" from="DiceDelay" to="." method="_on_DiceDelay_timeout"]
+[connection signal="timeout" from="AIResultsDelay" to="." method="_on_AIResultsDelay_timeout"]
+[connection signal="timeout" from="PlayerResultsDelay" to="." method="_on_PlayerResultsDelay_timeout"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

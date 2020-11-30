@@ -1,0 +1,153 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Scenes/PlacementBox.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Art/inf.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Art/artillery.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Art/vehical.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Art/bg.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Fonts/Font.tres" type="DynamicFont" id=6]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 396.046, 176.679 )
+
+[node name="PlacementBox" type="Node2D"]
+visible = false
+script = ExtResource( 1 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 1 )
+
+[node name="bg" type="Sprite" parent="Area2D/CollisionShape2D"]
+modulate = Color( 0.180392, 0.180392, 0.180392, 0.203922 )
+position = Vector2( -0.762421, -0.195228 )
+scale = Vector2( 0.40619, 0.320928 )
+texture = ExtResource( 5 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="inf" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 160.068, 518.538 )
+scale = Vector2( 0.120836, 0.120836 )
+texture = ExtResource( 2 )
+
+[node name="vehical" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 511.279, 480.854 )
+scale = Vector2( 0.280258, 0.280258 )
+texture = ExtResource( 4 )
+
+[node name="artillery" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 877.562, 532.104 )
+scale = Vector2( 0.149748, 0.149748 )
+texture = ExtResource( 3 )
+
+[node name="infCount" type="Label" parent="CanvasLayer"]
+margin_left = 126.076
+margin_top = 383.246
+margin_right = 166.076
+margin_bottom = 401.246
+rect_scale = Vector2( 4.03747, 5.50926 )
+custom_fonts/font = ExtResource( 6 )
+text = "7"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="vehCount" type="Label" parent="CanvasLayer"]
+margin_left = 451.076
+margin_top = 383.246
+margin_right = 491.076
+margin_bottom = 401.246
+rect_scale = Vector2( 4.03747, 5.50926 )
+custom_fonts/font = ExtResource( 6 )
+text = "7"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="artCount" type="Label" parent="CanvasLayer"]
+margin_left = 831.076
+margin_top = 383.246
+margin_right = 871.076
+margin_bottom = 401.246
+rect_scale = Vector2( 4.03747, 5.50926 )
+custom_fonts/font = ExtResource( 6 )
+text = "7"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="infButton" type="Button" parent="CanvasLayer"]
+margin_left = 103.13
+margin_top = 468.996
+margin_right = 223.861
+margin_bottom = 588.0
+rect_scale = Vector2( 0.966974, 1 )
+focus_mode = 0
+enabled_focus_mode = 0
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="vehButton" type="Button" parent="CanvasLayer"]
+margin_left = 403.0
+margin_top = 465.0
+margin_right = 609.0
+margin_bottom = 582.0
+rect_scale = Vector2( 0.966974, 1 )
+focus_mode = 0
+enabled_focus_mode = 0
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="artButton" type="Button" parent="CanvasLayer"]
+margin_left = 788.0
+margin_top = 468.13
+margin_right = 1005.0
+margin_bottom = 594.0
+rect_scale = Vector2( 0.966974, 1 )
+focus_mode = 0
+enabled_focus_mode = 0
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+visible = false
+margin_left = 367.787
+margin_top = 283.931
+margin_right = 444.787
+margin_bottom = 307.931
+rect_scale = Vector2( 3.0339, 3.0339 )
+custom_fonts/font = ExtResource( 6 )
+text = "BEGIN"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cursor" type="Node2D" parent="."]
+
+[node name="infCursor" type="Sprite" parent="Cursor"]
+scale = Vector2( 0.0721965, 0.0721965 )
+texture = ExtResource( 2 )
+
+[node name="vehCursor" type="Sprite" parent="Cursor"]
+position = Vector2( -0.814516, -17.9191 )
+scale = Vector2( 0.134131, 0.137985 )
+texture = ExtResource( 4 )
+
+[node name="artCursor" type="Sprite" parent="Cursor"]
+position = Vector2( 9.77408, -8.14508 )
+scale = Vector2( 0.117061, 0.117061 )
+texture = ExtResource( 3 )
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_Area2D_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_Area2D_mouse_exited"]
+[connection signal="pressed" from="CanvasLayer/infButton" to="." method="_on_infButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/vehButton" to="." method="_on_vehButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/artButton" to="." method="_on_artButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_Button_pressed"]

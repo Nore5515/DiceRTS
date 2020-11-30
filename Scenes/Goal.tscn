@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/Art/flagpole.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Scripts/Goal.gd" type="Script" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 16.478
+
+[node name="Goal" type="Area2D"]
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="flagpole" type="Sprite" parent="."]
+position = Vector2( 8.04674, -15.9357 )
+scale = Vector2( 0.0762895, 0.0762895 )
+texture = ExtResource( 1 )
+[connection signal="body_entered" from="." to="." method="_on_Goal_body_entered"]

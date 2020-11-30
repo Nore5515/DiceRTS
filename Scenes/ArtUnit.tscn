@@ -1,0 +1,103 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Scenes/ArtUnit.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Art/shield.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Art/target.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Art/box.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Art/artillery.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Art/slowArrow.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Art/dot.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Fonts/Font.tres" type="DynamicFont" id=8]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 984.102, 544.302 )
+
+[sub_resource type="CircleShape2D" id=2]
+resource_local_to_scene = true
+radius = 1600.0
+
+[node name="ArtUnit" type="KinematicBody2D" groups=[
+"Unit",
+"vehicle",
+]]
+scale = Vector2( 0.106775, 0.106775 )
+input_pickable = true
+collision_layer = 512
+script = ExtResource( 1 )
+
+[node name="inf" type="Sprite" parent="."]
+position = Vector2( 308.045, -378.314 )
+scale = Vector2( 2.77261, 2.77261 )
+texture = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -0.0568848, -52.4062 )
+shape = SubResource( 1 )
+
+[node name="box" type="Sprite" parent="."]
+position = Vector2( -0.0568848, -162.812 )
+scale = Vector2( 2.16418, 1.83518 )
+texture = ExtResource( 4 )
+
+[node name="target" type="Sprite" parent="."]
+position = Vector2( 2316.16, 0 )
+texture = ExtResource( 3 )
+offset = Vector2( 150, 150 )
+
+[node name="Detection" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection"]
+shape = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="Detection/CollisionShape2D"]
+modulate = Color( 1, 1, 1, 0.376471 )
+scale = Vector2( 23.8221, 23.8221 )
+texture = ExtResource( 3 )
+offset = Vector2( 148.114, 177.188 )
+
+[node name="HP" type="Label" parent="."]
+margin_left = -149.008
+margin_top = 1058.59
+margin_right = -109.008
+margin_bottom = 1072.59
+rect_scale = Vector2( 16.2109, 28.5783 )
+custom_fonts/font = ExtResource( 8 )
+text = "5"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="shield" type="Sprite" parent="."]
+position = Vector2( 125.026, -144.981 )
+texture = ExtResource( 2 )
+
+[node name="slowArrow" type="Sprite" parent="."]
+position = Vector2( -7.2627, 541.482 )
+scale = Vector2( 0.957602, 0.957602 )
+texture = ExtResource( 6 )
+
+[node name="slowArrow2" type="Sprite" parent="."]
+position = Vector2( -593.801, 547.528 )
+scale = Vector2( 0.957602, 0.957602 )
+texture = ExtResource( 6 )
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="dot" type="Sprite" parent="."]
+visible = false
+position = Vector2( -835.248, -877.445 )
+texture = ExtResource( 7 )
+
+[node name="dot2" type="Sprite" parent="."]
+visible = false
+position = Vector2( 0, -877.445 )
+texture = ExtResource( 7 )
+
+[node name="dot3" type="Sprite" parent="."]
+visible = false
+position = Vector2( 810.992, -877.445 )
+texture = ExtResource( 7 )
+[connection signal="mouse_entered" from="." to="." method="_on_InfUnit_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_InfUnit_mouse_exited"]
+[connection signal="body_entered" from="Detection" to="." method="_on_Detection_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

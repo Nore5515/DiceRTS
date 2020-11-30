@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/dicebox.obj-1996f59c85dbd12c9ad1bf8f59c17572.mesh"
+
+[deps]
+
+files=[ "res://.import/dicebox.obj-1996f59c85dbd12c9ad1bf8f59c17572.mesh" ]
+
+source_file="res://Assets/Models/dicebox.obj"
+dest_files=[ "res://.import/dicebox.obj-1996f59c85dbd12c9ad1bf8f59c17572.mesh", "res://.import/dicebox.obj-1996f59c85dbd12c9ad1bf8f59c17572.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true
