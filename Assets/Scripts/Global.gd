@@ -63,6 +63,14 @@ var unitTags = []
 
 var corpses = []
 
+var beat1 = false
+var beat2 = false
+var beat3 = false
+
+var budget = 20
+
+var squad = []
+
 var init
 
 func _process(delta):

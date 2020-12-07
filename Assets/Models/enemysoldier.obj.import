@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/enemysoldier.obj-28599bc0c2b2be60d324cf658a729583.mesh"
+
+[deps]
+
+files=[ "res://.import/enemysoldier.obj-28599bc0c2b2be60d324cf658a729583.mesh" ]
+
+source_file="res://Assets/Models/enemysoldier.obj"
+dest_files=[ "res://.import/enemysoldier.obj-28599bc0c2b2be60d324cf658a729583.mesh", "res://.import/enemysoldier.obj-28599bc0c2b2be60d324cf658a729583.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

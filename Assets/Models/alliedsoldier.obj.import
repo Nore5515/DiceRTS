@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/alliedsoldier.obj-37eb0781b7d0f3250127944a6c029bab.mesh"
+
+[deps]
+
+files=[ "res://.import/alliedsoldier.obj-37eb0781b7d0f3250127944a6c029bab.mesh" ]
+
+source_file="res://Assets/Models/alliedsoldier.obj"
+dest_files=[ "res://.import/alliedsoldier.obj-37eb0781b7d0f3250127944a6c029bab.mesh", "res://.import/alliedsoldier.obj-37eb0781b7d0f3250127944a6c029bab.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

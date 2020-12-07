@@ -1,10 +1,25 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Assets/Art/campaignMap.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Models/pawn.obj" type="ArrayMesh" id=2]
 [ext_resource path="res://Assets/Scripts/Campaign.gd" type="Script" id=3]
 [ext_resource path="res://Assets/Scripts/CameraAnchor.gd" type="Script" id=4]
 [ext_resource path="res://Assets/Art/wooden-plank-textured-background-material_53876-33591.jpg" type="Texture" id=5]
+[ext_resource path="res://Assets/Models/flagpole.obj" type="ArrayMesh" id=6]
+[ext_resource path="res://Assets/Materials/FlagpoleTextured.png" type="Texture" id=7]
+[ext_resource path="res://Imported Assets/Godot-orbit-camera-master/OrbitCamera.gd" type="Script" id=8]
+[ext_resource path="res://Assets/Fonts/Font.tres" type="DynamicFont" id=9]
+[ext_resource path="res://Scenes/HelpButton.gd" type="Script" id=10]
+[ext_resource path="res://Scenes/UnitList.gd" type="Script" id=11]
+[ext_resource path="res://Scenes/SquadButton.gd" type="Script" id=12]
+[ext_resource path="res://Assets/Art/BetterBuyMenu.png" type="Texture" id=13]
+[ext_resource path="res://Assets/Art/inf.png" type="Texture" id=14]
+[ext_resource path="res://Assets/Art/vehical.png" type="Texture" id=15]
+[ext_resource path="res://Assets/Art/artillery.png" type="Texture" id=16]
+[ext_resource path="res://Scenes/BuyMenu.gd" type="Script" id=17]
+[ext_resource path="res://Imported Assets/Table/table_med_trestle_dif.png" type="Texture" id=18]
+[ext_resource path="res://Imported Assets/Table/table_medieval_trestle.obj" type="ArrayMesh" id=19]
+[ext_resource path="res://Scenes/LoadingScreen.tscn" type="PackedScene" id=20]
 
 [sub_resource type="PlaneMesh" id=1]
 
@@ -17,11 +32,436 @@ albedo_texture = ExtResource( 5 )
 [sub_resource type="Environment" id=4]
 background_mode = 1
 background_color = Color( 0.368627, 0.47451, 0.407843, 1 )
-ambient_light_color = Color( 1, 1, 1, 1 )
-ambient_light_energy = 0.05
+ambient_light_color = Color( 0.556863, 0.556863, 0.556863, 1 )
+ambient_light_energy = 0.38
+
+[sub_resource type="BoxShape" id=5]
+
+[sub_resource type="SpatialMaterial" id=6]
+albedo_texture = ExtResource( 7 )
+
+[sub_resource type="SpatialMaterial" id=7]
+
+[sub_resource type="SpatialMaterial" id=8]
+albedo_texture = ExtResource( 7 )
+
+[sub_resource type="SpatialMaterial" id=9]
+albedo_texture = ExtResource( 18 )
 
 [node name="Campaign" type="Spatial"]
 script = ExtResource( 3 )
+camPath = NodePath("CameraRig/ClippedCamera")
+loc1 = NodePath("Entry Point")
+loc2 = NodePath("Ambush")
+loc3 = NodePath("Siege")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -86.3326
+margin_top = 98.4705
+margin_right = -40.3326
+margin_bottom = 118.47
+rect_scale = Vector2( 1.77069, 1.77069 )
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Help!"
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="CanvasLayer/Button"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/Button/Control"]
+margin_left = -529.549
+margin_top = -225.037
+margin_right = -431.0
+margin_bottom = -211.037
+text = "This is the title of the mission!"
+autowrap = true
+
+[node name="Label2" type="Label" parent="CanvasLayer/Button/Control"]
+margin_left = -526.72
+margin_top = 13.2423
+margin_right = -330.72
+margin_bottom = 27.2423
+text = "These are the units in your squad. You can see their HP as CurrentHP/MaxHP"
+
+[node name="Label3" type="Label" parent="CanvasLayer/Button/Control"]
+margin_left = -405.055
+margin_top = -92.1495
+margin_right = -78.0553
+margin_bottom = -61.1495
+text = "Click on a flagpole to go to that mission!
+The confirm button will appear once you've arrived."
+align = 1
+
+[node name="Label4" type="Label" parent="CanvasLayer/Button/Control"]
+margin_left = -528.171
+margin_top = -149.754
+margin_right = -253.0
+margin_bottom = -118.754
+rect_scale = Vector2( 0.602717, 0.602717 )
+text = "Use the middle mouse button to rotate the camera, and WASD to move the camera!"
+align = 1
+autowrap = true
+
+[node name="LocationTitle" type="Label" parent="CanvasLayer"]
+anchor_right = 1.0
+margin_right = -651.0
+margin_bottom = 31.0
+rect_scale = Vector2( 2.75043, 2.75043 )
+custom_fonts/font = ExtResource( 9 )
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LocationDesc" type="Label" parent="CanvasLayer"]
+margin_top = 48.6871
+margin_right = 1026.0
+margin_bottom = 121.0
+custom_fonts/font = ExtResource( 9 )
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer"]
+margin_top = 451.511
+margin_right = 1028.0
+margin_bottom = 597.535
+follow_focus = true
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="CanvasLayer/ScrollContainer"]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/ScrollContainer"]
+margin_right = 128.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 128, 128 )
+rect_clip_content = true
+size_flags_horizontal = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+margin_top = 325.414
+margin_right = 40.0
+margin_bottom = 365.414
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BeginButton" type="Button" parent="CanvasLayer"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -75.5
+margin_top = -166.698
+margin_right = 1.5
+margin_bottom = -142.698
+rect_scale = Vector2( 2.44472, 2.409 )
+custom_fonts/font = ExtResource( 9 )
+text = "BEGIN"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SquadButton" type="Button" parent="CanvasLayer"]
+margin_left = 937.667
+margin_top = 348.01
+margin_right = 987.667
+margin_bottom = 368.01
+rect_scale = Vector2( 1.64485, 1.64485 )
+text = "Squad"
+script = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BuyMenu" type="Control" parent="CanvasLayer/SquadButton"]
+visible = false
+margin_left = -570.062
+margin_top = -211.575
+margin_right = -530.062
+margin_bottom = -171.575
+script = ExtResource( 17 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BetterBuyMenu" type="Sprite" parent="CanvasLayer/SquadButton/BuyMenu"]
+scale = Vector2( 0.609269, 0.609269 )
+texture = ExtResource( 13 )
+centered = false
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/SquadButton/BuyMenu"]
+margin_left = 3.04536
+margin_top = 29.5997
+margin_right = 129.0
+margin_bottom = 295.0
+rect_scale = Vector2( 1.19332, 1.25803 )
+scroll_horizontal_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SquadButton/BuyMenu/ScrollContainer"]
+margin_right = 125.0
+margin_bottom = 263.0
+rect_min_size = Vector2( 125, 263 )
+
+[node name="InfButton" type="TextureButton" parent="CanvasLayer/SquadButton/BuyMenu/ScrollContainer/VBoxContainer"]
+margin_right = 125.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+texture_normal = ExtResource( 14 )
+expand = true
+stretch_mode = 4
+
+[node name="VehButton" type="TextureButton" parent="CanvasLayer/SquadButton/BuyMenu/ScrollContainer/VBoxContainer"]
+margin_top = 68.0
+margin_right = 125.0
+margin_bottom = 132.0
+rect_min_size = Vector2( 64, 64 )
+texture_normal = ExtResource( 15 )
+expand = true
+stretch_mode = 4
+
+[node name="ArtButton" type="TextureButton" parent="CanvasLayer/SquadButton/BuyMenu/ScrollContainer/VBoxContainer"]
+margin_top = 136.0
+margin_right = 125.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 64, 64 )
+texture_normal = ExtResource( 16 )
+expand = true
+stretch_mode = 4
+
+[node name="DoneButton" type="Button" parent="CanvasLayer/SquadButton/BuyMenu"]
+margin_left = 504.986
+margin_top = 332.633
+margin_right = 580.986
+margin_bottom = 356.633
+custom_fonts/font = ExtResource( 9 )
+text = "DONE"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RecruitButton" type="Button" parent="CanvasLayer/SquadButton/BuyMenu"]
+margin_left = 490.06
+margin_top = 297.917
+margin_right = 595.06
+margin_bottom = 321.917
+custom_fonts/font = ExtResource( 9 )
+text = "RECRUIT"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UnitIcon" type="TextureRect" parent="CanvasLayer/SquadButton/BuyMenu"]
+margin_left = 158.069
+margin_top = 2.43183
+margin_right = 308.0
+margin_bottom = 104.0
+expand = true
+
+[node name="UnitTitle" type="Label" parent="CanvasLayer/SquadButton/BuyMenu"]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = 311.466
+margin_top = 3.91738
+margin_right = 449.0
+margin_bottom = 40.0
+rect_scale = Vector2( 1.05422, 1.64558 )
+custom_fonts/font = ExtResource( 9 )
+text = "b
+A"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UnitDesc" type="Label" parent="CanvasLayer/SquadButton/BuyMenu"]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = 309.486
+margin_top = 67.5997
+margin_right = 568.0
+margin_bottom = 131.0
+rect_scale = Vector2( 0.565549, 0.565549 )
+text = "a bit stupid"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UnitStats" type="Label" parent="CanvasLayer/SquadButton/BuyMenu"]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = 158.069
+margin_top = 104.0
+margin_right = 317.069
+margin_bottom = 122.0
+rect_scale = Vector2( 0.776796, 0.776796 )
+custom_fonts/font = ExtResource( 9 )
+text = "STRENGTH: 7"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CurrentFunds" type="Label" parent="CanvasLayer/SquadButton/BuyMenu"]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = 456.457
+margin_top = 2.43183
+margin_right = 626.0
+margin_bottom = 20.4318
+custom_fonts/font = ExtResource( 9 )
+text = "CURRENT FUNDS"
+align = 1
+autowrap = true
+
+[node name="Funds" type="Label" parent="CanvasLayer/SquadButton/BuyMenu"]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = 456.457
+margin_top = 41.4318
+margin_right = 523.24
+margin_bottom = 80.4318
+rect_scale = Vector2( 2.50389, 2.50389 )
+custom_fonts/font = ExtResource( 9 )
+text = "5"
+align = 1
+autowrap = true
+
+[node name="PriceTag" type="Label" parent="CanvasLayer/SquadButton/BuyMenu"]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = 455.688
+margin_top = 98.0027
+margin_right = 625.231
+margin_bottom = 137.003
+custom_fonts/font = ExtResource( 9 )
+text = "UNIT COST"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Price" type="Label" parent="CanvasLayer/SquadButton/BuyMenu"]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = 455.688
+margin_top = 117.982
+margin_right = 522.472
+margin_bottom = 156.982
+rect_scale = Vector2( 2.50389, 2.50389 )
+custom_fonts/font = ExtResource( 9 )
+text = "5"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PersonalityType" type="Label" parent="CanvasLayer/SquadButton/BuyMenu"]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = 455.688
+margin_top = 176.425
+margin_right = 625.231
+margin_bottom = 215.425
+custom_fonts/font = ExtResource( 9 )
+text = "PERSONALITY TYPE"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Personality" type="Label" parent="CanvasLayer/SquadButton/BuyMenu"]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = 456.457
+margin_top = 215.634
+margin_right = 685.0
+margin_bottom = 254.634
+rect_scale = Vector2( 0.724009, 0.724009 )
+custom_fonts/font = ExtResource( 9 )
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CycleSoul" type="Button" parent="CanvasLayer/SquadButton/BuyMenu"]
+margin_left = 482.196
+margin_top = 231.575
+margin_right = 635.196
+margin_bottom = 255.575
+rect_scale = Vector2( 0.810779, 0.886993 )
+custom_fonts/font = ExtResource( 9 )
+text = "CYCLE SOUL"
+
+[node name="NameLine" type="LineEdit" parent="CanvasLayer/SquadButton/BuyMenu"]
+margin_left = 470.591
+margin_top = 260.099
+margin_right = 611.872
+margin_bottom = 284.099
+text = "Name"
+align = 1
+max_length = 16
+caret_blink = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NotEnoughFunds" type="Label" parent="CanvasLayer/SquadButton/BuyMenu"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 358.929
+margin_top = 310.291
+margin_right = 475.929
+margin_bottom = 324.291
+text = "Not enough funds!"
+
+[node name="CantDoCorrupt" type="Label" parent="CanvasLayer/SquadButton/BuyMenu"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 349.11
+margin_top = 269.862
+margin_right = 466.11
+margin_bottom = 300.862
+text = "You can't recruit corrupted units!"
+autowrap = true
+
+[node name="PickAChoice" type="Label" parent="CanvasLayer/SquadButton/BuyMenu"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 364.704
+margin_top = 291.232
+margin_right = 481.704
+margin_bottom = 305.232
+text = "Pick a unit first!"
+
+[node name="LoadingScreen" parent="CanvasLayer" instance=ExtResource( 20 )]
+position = Vector2( 0, 640.964 )
 
 [node name="pawn" type="MeshInstance" parent="."]
 transform = Transform( 0.340562, 0, 0, 0, 0.340562, 0, 0, 0, 0.340562, -7.65422, 0.0422654, -2.9042 )
@@ -58,6 +498,111 @@ script = ExtResource( 4 )
 [node name="Camera" type="Camera" parent="CameraAnchor/Spatial"]
 transform = Transform( 1, 0, 0, 0, 0.399149, 0.916886, 0, -0.916886, 0.399149, 0.677, 10.3752, 4.99296 )
 environment = SubResource( 4 )
+
+[node name="Entry Point" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.815, 0, -1.66978 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Entry Point"]
+shape = SubResource( 5 )
+
+[node name="square" type="CSGBox" parent="Entry Point"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0413513, -0.031827, 0.0437956 )
+visible = false
+
+[node name="flagpole" type="MeshInstance" parent="Entry Point"]
+transform = Transform( -1.94316e-08, 0, -0.444544, 0, 0.444544, 0, 0.444544, 0, -1.94316e-08, -0.12645, -0.0326813, -0.0309992 )
+mesh = ExtResource( 6 )
+material/0 = SubResource( 6 )
+
+[node name="SpotLight2" type="SpotLight" parent="Entry Point"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.090971, 4.23606, 0.112645 )
+light_energy = 16.0
+shadow_enabled = true
+spot_range = 5.82312
+spot_angle = 25.4415
+
+[node name="Ambush" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0866, 9.53674e-07, -0.762011 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Ambush"]
+shape = SubResource( 5 )
+
+[node name="square" type="CSGBox" parent="Ambush"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0413513, -0.031827, 0.0437956 )
+visible = false
+
+[node name="flagpole" type="MeshInstance" parent="Ambush"]
+transform = Transform( -1.94316e-08, 0, -0.444544, 0, 0.444544, 0, 0.444544, 0, -1.94316e-08, 0.0785546, -0.0326823, 0.0800047 )
+mesh = ExtResource( 6 )
+material/0 = SubResource( 7 )
+
+[node name="SpotLight3" type="SpotLight" parent="Ambush"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.0204051, 4.23606, 0.31615 )
+light_energy = 16.0
+shadow_enabled = true
+spot_range = 5.82312
+spot_angle = 25.4415
+
+[node name="Siege" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.93873, 9.53674e-07, -0.537806 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Siege"]
+shape = SubResource( 5 )
+
+[node name="square" type="CSGBox" parent="Siege"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0413513, -0.031827, 0.0437956 )
+visible = false
+
+[node name="flagpole" type="MeshInstance" parent="Siege"]
+transform = Transform( -1.94316e-08, 0, -0.444544, 0, 0.444544, 0, 0.444544, 0, -1.94316e-08, 0.0181074, -0.0326823, 0.015563 )
+mesh = ExtResource( 6 )
+material/0 = SubResource( 8 )
+
+[node name="SpotLight4" type="SpotLight" parent="Siege"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.270065, 4.23606, 0.257991 )
+light_energy = 16.0
+shadow_enabled = true
+spot_range = 5.82312
+spot_angle = 25.4415
+
+[node name="CameraRig" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.511644, 1.14, -1.22363 )
+script = ExtResource( 8 )
+verticalSensitivity = 0.005
+horizontalSensitivity = 0.006
+target = NodePath("../MovableAnchor")
+
+[node name="ClippedCamera" type="ClippedCamera" parent="CameraRig"]
+keep_aspect = 0
 current = true
+fov = 90.0
+size = 7.31429
+near = 0.1
+far = 2000.0
+margin = 1.0
+
+[node name="table_medieval_trestle" type="MeshInstance" parent="."]
+transform = Transform( 5.76858, 0, 0, 0, 5.76858, 0, 0, 0, 5.76858, -0.213092, -5.70017, -1.44373 )
+mesh = ExtResource( 19 )
+material/0 = SubResource( 9 )
+
+[node name="MovableAnchor" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
+
+[node name="Timer2" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+[connection signal="pressed" from="CanvasLayer/Button" to="CanvasLayer/Button" method="_on_Button_pressed"]
+[connection signal="timeout" from="CanvasLayer/ScrollContainer/Timer" to="CanvasLayer/ScrollContainer" method="_on_Timer_timeout"]
+[connection signal="pressed" from="CanvasLayer/BeginButton" to="." method="_on_BeginButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/SquadButton" to="CanvasLayer/SquadButton" method="_on_SquadButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/SquadButton/BuyMenu/ScrollContainer/VBoxContainer/InfButton" to="CanvasLayer/SquadButton/BuyMenu" method="_on_InfButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/SquadButton/BuyMenu/ScrollContainer/VBoxContainer/VehButton" to="CanvasLayer/SquadButton/BuyMenu" method="_on_VehButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/SquadButton/BuyMenu/ScrollContainer/VBoxContainer/ArtButton" to="CanvasLayer/SquadButton/BuyMenu" method="_on_ArtButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/SquadButton/BuyMenu/DoneButton" to="CanvasLayer/SquadButton/BuyMenu" method="_on_DoneButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/SquadButton/BuyMenu/RecruitButton" to="CanvasLayer/SquadButton/BuyMenu" method="_on_RecruitButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/SquadButton/BuyMenu/CycleSoul" to="CanvasLayer/SquadButton/BuyMenu" method="_on_CycleSoul_pressed"]
+[connection signal="animation_finished" from="CanvasLayer/LoadingScreen" to="." method="_on_LoadingScreen_animation_finished"]
 [connection signal="tween_all_completed" from="Tween" to="." method="_on_Tween_tween_all_completed"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="Timer2" to="." method="_on_Timer2_timeout"]

@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/fadingBark.gd" type="Script" id=1]
+
+[node name="desc" type="Label" groups=[
+"bark",
+]]
+margin_left = 1.10956
+margin_top = -0.146873
+margin_right = 151.11
+margin_bottom = 13.8531
+text = "Enjoys tea and biscuits."
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

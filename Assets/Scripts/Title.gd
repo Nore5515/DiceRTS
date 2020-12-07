@@ -3,16 +3,19 @@ extends Node2D
 
 var difficulty = "med"
 
+var hoveringEasy = false
+
+
 
 func _on_start_pressed():
 	get_node("/root/Global").difficulty = difficulty
 	get_tree().change_scene("res://Scenes/Campaign.tscn")
 
 
-func _on_options_pressed():
-	$optionsMenu.visible = !$optionsMenu.visible
-	if has_node("new"):
-		$new.queue_free()
+#func _on_options_pressed():
+	#$optionsMenu.visible = !$optionsMenu.visible
+	#if has_node("new"):
+		#$new.queue_free()
 
 
 func _on_TextureButton_pressed():
@@ -20,6 +23,7 @@ func _on_TextureButton_pressed():
 
 
 func clearAll():
+	print ("Yep")
 	$optionsMenu/easy.pressed = false
 	$optionsMenu/med.pressed = false
 	$optionsMenu/hard.pressed = false
@@ -44,3 +48,5 @@ func _on_insane_pressed():
 	clearAll()
 	$optionsMenu/insane.pressed = true
 	difficulty = "insane"
+
+
