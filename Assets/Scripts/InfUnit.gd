@@ -8,8 +8,8 @@ var attack = 3
 var defense = 3
 var baseDefense = 3
 
-var detectionRange = 800
-var baseDetectionRange = 800
+var detectionRange = 300
+var baseDetectionRange = 300
 
 export (int) var team = 0
 
@@ -46,15 +46,17 @@ var isArt = false
 
 var tag = ""
 
+var TRACKING = false
+var trackingProgress = 0
+var trackingSpeed = 0.005
+
+const UnitClass = preload("res://Assets/Classes/Unit.gd")
+var myUnit: UnitClass
+
+
+
 func saveMe():
-	var type
-	
-	if isVehicle:
-		type = "Veh"
-	elif isArt:
-		type = "Art"
-	else:
-		type = "Inf"
+	var type = getType()
 	
 	var data = {
 		"type": type,
@@ -69,6 +71,33 @@ func saveMe():
 		"tag": tag
 	}
 	return data
+
+
+func getType() -> String:
+	var type
+	if isVehicle:
+		type = "Veh"
+	elif isArt:
+		type = "Art"
+	else:
+		type = "Inf"
+	return type
+
+
+# return InfUnit
+func getClosestUnit(unitList):
+	if detectedUnits.size() > 0:
+		var closest = detectedUnits[0]
+		var uGP
+		var cGP = closest.global_position.distance_to(self.global_position)
+		for unit in detectedUnits:
+			uGP = unit.global_position.distance_to(self.global_position)
+			if uGP < cGP:
+				closest = unit
+				cGP = closest.global_position.distance_to(self.global_position)
+		return closest
+	return null
+
 
 func loadMe(data):
 	#print ("LOADING ", name, data)
@@ -85,6 +114,12 @@ func loadMe(data):
 
 
 func _ready():
+	
+	myUnit = UnitClass.new("Name", getType())
+	
+	$Line2D.end_cap_mode = 2
+	$Line2D.modulate = Color(0,0.5,0,1)
+	
 	if SLOWED:
 		speed = baseSpeed * 0.5
 	if MEGASLOWED:
@@ -141,6 +176,9 @@ func getNearest(listUnits):
 func _process(delta):
 	$HP.text = String(HP)
 	if !DEAD:
+		
+		if TRACKING:
+			drawLines()
 		
 		if PAUSED:
 			if $Timer.paused == false:
@@ -236,10 +274,38 @@ func _process(delta):
 func _on_Detection_body_entered(body):
 	if body.is_in_group("Unit") && ACTIVATED:
 		if body.team != team:
-			print (name, " has detected unit ", body.name, "!")
-			DETECTED = true
+			print (name, " has detected unit body ", body.name, "!")
+			#DETECTED = true
 			detectedUnit = body
-			#detectedUnits.append(body)
+			detectedUnits.append(body)
+			if team == 1:
+				TRACKING = true
+
+func _on_Detection_body_exited(body):
+	if body.is_in_group("Unit") && ACTIVATED:
+		if body.team != team:
+			TRACKING = false
+			detectedUnits.remove(detectedUnits.find(body))
+			trackingProgress = 0
+			$Line2D.modulate = Color(0,0.5,0,1)
+
+
+
+func drawLines():
+	$Line2D.clear_points()
+	$Line2D.add_point(Vector2(0,0))
+	trackingProgress += trackingSpeed
+	$Line2D.modulate = Color(trackingProgress, 0.5 - (trackingProgress * 0.5), 0, 1)
+	var maybe = Vector2()
+	for unit in detectedUnits:
+		maybe = unit.global_position - global_position
+		$Line2D.add_point(maybe)
+		$Line2D.add_point(Vector2(0,0))
+	
+	if trackingProgress >= 1:
+		DETECTED = true
+		detectedUnit = detectedUnits[0]
+
 
 
 func _on_Timer_timeout():
@@ -253,10 +319,26 @@ func _on_Timer_timeout():
 			$dot3.visible = true
 
 
+
+
+
+
+
+
+
+
+
+
+"""
 func _on_Detection_area_entered(area):
 	if area.get_parent().is_in_group("Unit") && ACTIVATED:
 		if area.get_parent().team != team:
-			print (name, " has detected unit ", area.get_parent().name, "!")
+			print (name, " has detected unit area ", area.get_parent().name, "!")
+			print ("\t", area.name)
 			DETECTED = true
 			detectedUnit = area.get_parent()
 			#detectedUnits.append(body)
+"""
+
+
+

@@ -5,8 +5,10 @@ var name: String
 var type: String # inf, veh, art
 var HP: int
 var maxHP: int
+var baseStrength: int
 var combats: int
 var personality: int
+
 
 var quips = []
 
@@ -25,7 +27,45 @@ var stats = {
 	"Price": 0
 }
 
+var boardLocation
+
 var personalities = ["angry", "sassy", "tired", "frustrated", "sad", "optimist", "dumb"]
+
+var detectedUnits = [] 
+var closestUnit
+
+#const InfUnit = preload("res://Assets/Scripts/InfUnit.gd")
+
+
+
+func harm(amount: int):
+	print ("Harming for ", amount, " out of ", HP)
+	if HP - amount < 0:
+		HP = 0
+	else:
+		HP -= amount
+	stats["HP"] = HP
+	
+	if HP == 1:
+		#print ("Crippled!")
+		stats["Strength"] = round(stats["Strength"] * 0.5)
+
+
+func heal(amount: int):
+	if HP + amount > maxHP:
+		HP = maxHP
+	else:
+		HP += amount
+	stats["HP"] = HP
+	
+	if HP > 1:
+		#print ("No more Crippled!")
+		stats["Strength"] = baseStrength
+
+
+func restore():
+	heal(maxHP)
+
 
 func _init(newName: String, newType: String):
 	randomize()
@@ -39,6 +79,15 @@ func _init(newName: String, newType: String):
 	genStats()
 
 
+# pass inf unit
+func detectUnit(unit):
+	pass
+
+
+
+
+
+
 func setPersonality(newPerson: String):
 	pass
 
@@ -46,7 +95,7 @@ func setPersonality(newPerson: String):
 
 func genStats():
 	
-	if type == "inf":
+	if type == "inf" || type == "Inf":
 		stats.Strength = 3
 		stats.HP = 3
 		stats.MaxHP = 3
@@ -109,6 +158,10 @@ func genStats():
 		stats.Reach = "Short"
 		stats.Price = 4
 		stats.Special = "Growth"
+	
+	baseStrength = stats.Strength
+	HP = stats.HP
+	maxHP = stats.MaxHP
 
 
 

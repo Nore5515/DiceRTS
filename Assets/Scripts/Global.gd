@@ -73,6 +73,14 @@ var squad = []
 
 var init
 
+const UnitClass = preload("res://Assets/Classes/Unit.gd")
+
+var sceneUnits = []
+
+var attackingUnit: UnitClass
+var defendingUnit: UnitClass
+
+
 func _process(delta):
 	if temp != alliedDice:
 		print ("allied dice changed from ", temp, " to ", alliedDice)

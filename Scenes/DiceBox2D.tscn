@@ -1,0 +1,139 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Assets/Fonts/DigitalFont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Scenes/DiceBox2D.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Art/wooden-plank-textured-background-material_53876-33591.jpg" type="Texture" id=3]
+[ext_resource path="res://Scenes/HPBar.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Icon.tscn" type="PackedScene" id=5]
+
+[node name="DiceBox2D" type="Node2D"]
+script = ExtResource( 2 )
+enemyColor = Color( 0.772549, 0.490196, 0.490196, 1 )
+alliedColor = Color( 0.364706, 0.486275, 0.298039, 1 )
+
+[node name="bg" type="Sprite" parent="."]
+modulate = Color( 0.572549, 0.572549, 0.572549, 1 )
+position = Vector2( 509.661, 298.018 )
+scale = Vector2( 1.652, 1.434 )
+texture = ExtResource( 3 )
+
+[node name="DiceMom" type="Node2D" parent="."]
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+collision_layer = 32768
+collision_mask = 32768
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="KinematicBody2D"]
+polygon = PoolVector2Array( 1019.99, -3.6476, 1026.8, 597.637, 1.07581, 594.916, -1.6449, -3.64758, 1009.11, -2.2872, 1009.11, -22.6928, -26.1316, -17.2513, -23.4109, 620.763, 1063.53, 623.484, 1051.28, -25.4135, 1021.36, -26.7739, 1021.36, -26.7739 )
+
+[node name="upperleft" type="Node2D" parent="."]
+
+[node name="bottomRight" type="Node2D" parent="."]
+position = Vector2( 1024.99, 593.891 )
+
+[node name="YourTotal" type="Label" parent="."]
+margin_top = 3.49905
+margin_right = 93.0
+margin_bottom = 23.4991
+rect_scale = Vector2( 4.34197, 4.34197 )
+custom_fonts/font = ExtResource( 1 )
+text = "YOUR TOTAL: 22"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="YourStrength" type="Label" parent="."]
+margin_left = 265.05
+margin_top = 82.3902
+margin_right = 358.05
+margin_bottom = 102.39
+rect_scale = Vector2( 1.81411, 1.81411 )
+custom_fonts/font = ExtResource( 1 )
+text = "Strength: 3"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnemyStrength" type="Label" parent="."]
+margin_left = 659.349
+margin_top = 470.729
+margin_right = 752.349
+margin_bottom = 490.729
+rect_scale = Vector2( 1.81411, 1.81411 )
+custom_fonts/font = ExtResource( 1 )
+text = "Strength: 3"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnemyTotal" type="Label" parent="."]
+margin_left = 568.012
+margin_top = 512.027
+margin_right = 674.012
+margin_bottom = 532.027
+rect_scale = Vector2( 4.34197, 4.34197 )
+custom_fonts/font = ExtResource( 1 )
+text = "ENEMY TOTAL: 22"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Results" type="Label" parent="."]
+margin_left = 10.5513
+margin_top = 188.417
+margin_right = 194.0
+margin_bottom = 208.417
+rect_scale = Vector2( 5.45399, 5.45399 )
+custom_fonts/font = ExtResource( 1 )
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BattleResults" type="Label" parent="."]
+margin_left = 43.9187
+margin_top = 290.083
+margin_right = 376.0
+margin_bottom = 310.083
+rect_scale = Vector2( 2.85261, 2.85261 )
+custom_fonts/font = ExtResource( 1 )
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Hint" type="Label" parent="."]
+margin_left = 13.9187
+margin_top = 347.135
+margin_right = 898.0
+margin_bottom = 367.135
+rect_scale = Vector2( 1.09385, 1.09385 )
+custom_fonts/font = ExtResource( 1 )
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AllyIcon" parent="." instance=ExtResource( 5 )]
+position = Vector2( 112.133, 206.261 )
+type = "art_cannon"
+color = Color( 0.258824, 0.431373, 0.254902, 1 )
+
+[node name="EnemyIcon" parent="." instance=ExtResource( 5 )]
+position = Vector2( 912.617, 465.313 )
+scale = Vector2( -0.619, 0.619 )
+type = "art_off_guard"
+color = Color( 0.407843, 0.211765, 0.211765, 1 )
+
+[node name="AllyHP" parent="." instance=ExtResource( 4 )]
+margin_left = 13.9187
+margin_top = 240.083
+margin_right = 43.9187
+margin_bottom = 290.083
+
+[node name="EnemyHP" parent="." instance=ExtResource( 4 )]
+margin_left = 822.199
+margin_top = 314.729
+margin_right = 852.199
+margin_bottom = 364.729

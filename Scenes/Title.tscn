@@ -95,7 +95,6 @@ texture = ExtResource( 7 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="helpButton/Node2D/helpBox"]
 frames = SubResource( 1 )
-frame = 24
 playing = true
 
 [node name="help0" type="Control" parent="helpButton/Node2D"]

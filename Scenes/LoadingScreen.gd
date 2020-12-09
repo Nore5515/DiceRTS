@@ -18,10 +18,10 @@ func sink():
 
 func _process(delta):
 	if rising:
-		print (frame)
+		#print (frame)
 		self.position.y = lerp (self.position.y, -5.0, 0.1)
 	elif sinking:
-		print (frame)
+		#print (frame)
 		self.position.y = lerp (self.position.y, 1500, 0.1)
 
 
