@@ -24,6 +24,8 @@ var enemyDestroyed = false
 
 var gameOver = false
 
+var firstRound = true
+
 func _ready():
 	dicePath = load("res://Scenes/Dice2D.tscn")
 	#rollDice(7)
@@ -34,8 +36,31 @@ func _ready():
 # ADD RUN AWAY OPTION BETWEEN BATTLES
 
 func _input(event):
+	
+	
+	if event.is_action_pressed("F") && !firstRound:
+		if gameOver == false:
+			withdraw()
+		else:
+			#get_parent().get_parent().get_node("zoomTime").start()
+			if attackingUnit.myUnit.stats["HP"] <= 0:
+				print (attackingUnit.name, " attacker dead")
+				attackingUnit.DEAD = true
+				attackingUnit.queue_free()
+			if defendingUnit.myUnit.stats["HP"] <= 0:
+				print (defendingUnit.name, " defender dead")
+				defendingUnit.DEAD = true
+				defendingUnit.queue_free()
+			clearAll()
+			gameOver = false
+			ready = false
+			firstRound = true
+			get_parent().get_parent().endFight()
+	
+	
 	if event.is_action_pressed("Space") && ready:
 		print ("Begin!")
+		get_parent().get_parent().resetSword()
 		$Hint.text = ""
 		clearAll()
 		print (defendingUnit.myUnit.stats["Strength"])
@@ -43,20 +68,30 @@ func _input(event):
 		rollGoodDice(attackingUnit.myUnit.stats["Strength"])
 		ready = false
 	elif event.is_action_pressed("Space") && gameOver:
-		clearAll()
-		get_parent().get_parent().ENGAGED = false
-		get_parent().get_parent().DETECTED = false
-		get_parent().get_parent().retractBox()
-		get_parent().get_parent().clearUnitValues()
 		#get_parent().get_parent().get_node("zoomTime").start()
 		if attackingUnit.myUnit.stats["HP"] <= 0:
+			print (attackingUnit.name, " attacker dead")
+			attackingUnit.DEAD = true
 			attackingUnit.queue_free()
 		if defendingUnit.myUnit.stats["HP"] <= 0:
+			print (defendingUnit.name, " defender dead")
+			defendingUnit.DEAD = true
 			defendingUnit.queue_free()
+		clearAll()
 		gameOver = false
 		ready = false
+		firstRound = true
+		get_parent().get_parent().endFight()
 
 
+func reset():
+	#$YourStrength.text = ""
+	#$EnemyStrength.text = ""
+	#$YourTotal.text = ""
+	#$EnemyTotal.text = ""
+	$Results.text = ""
+	$BattleResults.text = ""
+	$Hint.text = "Press Space to toss dice"
 
 func _process(delta):
 	if diceRolling() && !done:
@@ -80,6 +115,8 @@ func updateText():
 		$Results.text = getResults()
 		if attackingUnit.myUnit.stats["HP"] > 0 && defendingUnit.myUnit.stats["HP"] > 0:
 			ready = true
+			firstRound = false
+			$WithdrawButton.disabled = false
 
 
 func updateStrength():
@@ -89,32 +126,49 @@ func updateStrength():
 
 
 func fight(aUnit, eUnit):
-	print ("Start the fight!")
-	attackingUnit = aUnit
-	defendingUnit = eUnit
 	
-	$AllyIcon.setPic(attackingUnit.getType())
-	$EnemyIcon.setPic(defendingUnit.getType())
-	
-	goodDice = attackingUnit.myUnit.stats["Strength"]
-	badDice = defendingUnit.myUnit.stats["Strength"]
-	
-	ready = true
-	
-	resetHP(attackingUnit.myUnit.stats["HP"], defendingUnit.myUnit.stats["HP"])
-
+	if aUnit == null || eUnit == null:
+		print ("Hey, one of these doesn't exist!\taUnit:", aUnit, "\teUnit:", eUnit)
+		return false
+	else:
+		print ("Start the fight!")
+		attackingUnit = aUnit
+		defendingUnit = eUnit
+		
+		$AllyIcon.setPic(attackingUnit.getType())
+		$EnemyIcon.setPic(defendingUnit.getType())
+		
+		# calls fight with null unit
+		goodDice = attackingUnit.myUnit.stats["Strength"]
+		badDice = defendingUnit.myUnit.stats["Strength"]
+		
+		updateText()
+		ready = true
+		
+		resetHP(attackingUnit.myUnit.stats["HP"], defendingUnit.myUnit.stats["HP"])
+		return true
 
 func end():
 	print ("End the fight!")
 	if attackingUnit.myUnit.stats["HP"] <= 0:
+		allyDestroyed = true
+	else:
+		allyDestroyed = false
+	if defendingUnit.myUnit.stats["HP"] <= 0:
+		enemyDestroyed = true
+	else:
+		enemyDestroyed = true
+	$BattleResults.text = "DRAW"
+	if attackingUnit.myUnit.stats["HP"] <= defendingUnit.myUnit.stats["HP"]:
 		$BattleResults.text = "ENGAGEMENT LOST"
 		if allyDestroyed:
 			$BattleResults.text += " - " + attackingUnit.myUnit.name + " DEFEATED"
-	if defendingUnit.myUnit.stats["HP"] <= 0:
+	if defendingUnit.myUnit.stats["HP"] <= attackingUnit.myUnit.stats["HP"]:
 		$BattleResults.text = "ENGAGEMENT WON"
 		if enemyDestroyed:
 			$BattleResults.text += " - ENEMY DEFEATED"
 	$Hint.text = "Press Space to return to battlemap"
+	ready = false
 	gameOver = true
 
 
@@ -235,3 +289,21 @@ func rollDice(count: int, tint: Color = Color.white, list: String = "dice"):
 			alliedDice.append(instance)
 		else:
 			print ("ERR")
+
+
+func withdraw():
+	var withdrawVector
+	#directionFromEnemyToPlayer
+	withdrawVector = attackingUnit.global_position - defendingUnit.global_position
+	withdrawVector = withdrawVector.normalized()
+	print (withdrawVector)
+	withdrawVector *= rand_range(200,400)
+	attackingUnit.global_position += withdrawVector
+	print (withdrawVector)
+	$Results.text = "RETREAT"
+	end()
+	$WithdrawButton.disabled = true
+
+
+func _on_WithdrawButton_pressed():
+	withdraw()

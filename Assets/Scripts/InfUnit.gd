@@ -54,6 +54,23 @@ const UnitClass = preload("res://Assets/Classes/Unit.gd")
 var myUnit: UnitClass
 
 
+var retreating = false
+var retreatingModifier = 1.5
+
+
+
+
+func retreat():
+	$RetreatingArrows.visible = true
+	retreating = true
+	speed = speed * retreatingModifier
+
+func stopRetreat():
+	$RetreatingArrows.visible = false
+	retreating = false
+	speed = baseSpeed
+
+
 
 func saveMe():
 	var type = getType()
@@ -126,7 +143,7 @@ func _ready():
 		speed = baseSpeed * 0.2
 	if isArt:
 		$Timer.wait_time = 0.8
-	
+
 	if DEAD:
 		ACTIVATED = false
 		$inf.modulate = Color($inf.modulate.r * 0.2, $inf.modulate.g * 0.2, $inf.modulate.b * 0.2)
@@ -177,7 +194,10 @@ func _process(delta):
 	$HP.text = String(HP)
 	if !DEAD:
 		
+		$HPBar
+		
 		if TRACKING:
+			#print ("TRACKING!!!", detectedUnits)
 			drawLines()
 		
 		if PAUSED:
@@ -198,6 +218,8 @@ func _process(delta):
 				$slowArrow.visible = true
 			if $slowArrow2.visible == false:
 				$slowArrow2.visible = true
+		elif retreating:
+			pass
 		else:
 			speed = baseSpeed
 			if $slowArrow.visible == true:
@@ -250,7 +272,7 @@ func _process(delta):
 		
 		if moving == true && PAUSED == false:
 			$target.global_position = dest
-			$target.visible = true
+			#$target.visible = true
 			var dir = dest - self.global_position
 			dir = dir * 100000
 			dir = dir.clamped(speed)
@@ -259,52 +281,77 @@ func _process(delta):
 				moving = false
 		elif moving == true && PAUSED == true:
 			$target.global_position = dest
-			$target.visible = true
+			#$target.visible = true
 		else:
 			$target.visible = false
 		
-		
 		if SELECTED:
 			$box.visible = true
+			#print (detectedUnits)
 		else:
 			$box.visible = false
+			
 		
+		myUnit.stats["Strength"] = attack
+		
+
+
+func manualDetectionUpdate():
+	var detection = $Detection/CollisionShape2D.shape.radius
+	trackingProgress = 0
+	detectedUnits = []
+	for unit in get_tree().get_nodes_in_group("Unit"):
+		if unit.team != team:
+			if unit.global_position.distance_to(self.global_position) <= detection:
+				#print (name, " has MANUALLY detected unit ", unit.name, "!")
+				detectedUnits.append(unit)	
+	if detectedUnits.size() > 0:
+		detectedUnit = getClosestUnit(detectedUnits)
+		TRACKING = true
 
 
 func _on_Detection_body_entered(body):
 	if body.is_in_group("Unit") && ACTIVATED:
 		if body.team != team:
-			print (name, " has detected unit body ", body.name, "!")
-			#DETECTED = true
-			detectedUnit = body
+			#print (name, " has detected unit body ", body.name, "!")
 			detectedUnits.append(body)
+			if detectedUnits.size() > 0:
+				detectedUnit = getClosestUnit(detectedUnits)
 			if team == 1:
 				TRACKING = true
 
 func _on_Detection_body_exited(body):
 	if body.is_in_group("Unit") && ACTIVATED:
 		if body.team != team:
-			TRACKING = false
-			detectedUnits.remove(detectedUnits.find(body))
-			trackingProgress = 0
+			if detectedUnits.has(body):
+				detectedUnits.remove(detectedUnits.find(body))
+			if detectedUnit == body:
+				detectedUnit = null
 			$Line2D.modulate = Color(0,0.5,0,1)
+			drawLines()
+	if detectedUnits.size() == 0:
+		TRACKING = false
+		trackingProgress = 0
 
 
-
+# Give each line it's own tracking progress!!!
 func drawLines():
 	$Line2D.clear_points()
-	$Line2D.add_point(Vector2(0,0))
-	trackingProgress += trackingSpeed
-	$Line2D.modulate = Color(trackingProgress, 0.5 - (trackingProgress * 0.5), 0, 1)
-	var maybe = Vector2()
-	for unit in detectedUnits:
-		maybe = unit.global_position - global_position
-		$Line2D.add_point(maybe)
+	if detectedUnits.size() > 0:# && PAUSED == false
+		if !PAUSED:
+			trackingProgress += trackingSpeed
 		$Line2D.add_point(Vector2(0,0))
-	
-	if trackingProgress >= 1:
-		DETECTED = true
-		detectedUnit = detectedUnits[0]
+		$Line2D.modulate = Color(trackingProgress, 0.5 - (trackingProgress * 0.5), 0, 1)
+		var maybe = Vector2()
+		for unit in detectedUnits:
+			maybe = unit.global_position - global_position
+			$Line2D.add_point(maybe)
+			$Line2D.add_point(Vector2(0,0))
+		
+		if trackingProgress >= 0.7:
+			DETECTED = true
+			detectedUnit = detectedUnits[0]
+			#detectedUnit = getClosestUnit()
 
 
 

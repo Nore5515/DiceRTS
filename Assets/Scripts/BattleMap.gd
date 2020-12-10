@@ -53,6 +53,10 @@ export (NodePath) var dicebox
 
 var ENGAGED = false
 
+var selectedUnits = []
+var dragging = false
+var dragStart
+
 func _ready():
 	
 	# lol im keeping this
@@ -65,11 +69,6 @@ func _ready():
 			unit.queue_free()
 		$BuyScreen.queue_free()
 		$PlacementBox.queue_free()
-
-	#if get_node("/root/Global").unitNames.size() > 0:
-		#loadGlobal()
-
-	#begin()
 
 
 func begin():
@@ -86,18 +85,22 @@ func begin():
 
 
 
-
-
-
-
-
-
-
 func loadDice():
-	if ENGAGED == false:
+	$CanvasLayer/DiceBox2D.reset()
+	if $CanvasLayer/DiceBox2D.fight(aUnit, eUnit) == true:
 		deployBox()
-		$CanvasLayer/DiceBox2D.fight(aUnit, eUnit)
 		ENGAGED = true
+		SELECTING = false
+		#print (get_tree().get_nodes_in_group("Unit"))
+	else:
+		print ("get outta here")
+		ENGAGED = false
+		DETECTED = false
+		retractBox()
+		resetSword()
+		call_deferred("clearUnitValues")
+		$zoomTime.stop()
+
 
 func deployBox():
 	deployingBox = true
@@ -108,105 +111,125 @@ func retractBox():
 	deployingBox = false
 
 
+func processDeploy():
+	var box = get_node(dicebox)
+	box.position.y = lerp(box.position.y, 0, 0.05)
+	if box.position.y >= -0.01:
+		box.position.y = 0
+		deployingBox = false
+func processRetract():
+	# ????
+	#resetSword()
+	var box = get_node(dicebox)
+	box.position.y = lerp(box.position.y, -800, 0.05)
+	if box.position.y + 800 <= 0.01:
+		box.position.y = -800
+		retractingBox = false
+
+
+func ifDetected():
+	$Camera2D.global_position = lerp ($Camera2D.global_position, zoomPos, 0.1)
+	#$Camera2D.zoom = lerp ($Camera2D.zoom, Vector2(1,1), 0.05)
+
+
+func moveEnemies():
+	for unit in get_tree().get_nodes_in_group("Unit"):
+		if unit.team == badTeam:
+			var destUnit = unit.getNearest(get_tree().get_nodes_in_group("Unit"))
+			if destUnit != null:
+				var dest = unit.getNearest(get_tree().get_nodes_in_group("Unit")).global_position
+				unit.dest = dest
+				unit.moving = true
+
+
+
+func endFight():
+	ENGAGED = false
+	DETECTED = false
+	retractBox()
+	resetSword()
+	clearUnitValues()
+	$zoomTime.stop()
+
+
 
 func _process(delta):
 	
-	
 	if deployingBox:
-		#print ("DEPLOY")
-		var box = get_node(dicebox)
-		box.position.y = lerp(box.position.y, 0, 0.05)
-		if box.position.y >= -0.01:
-			box.position.y = 0
-			deployingBox = false
+		processDeploy()
 	if retractingBox:
-		#print ("RETRACT")
-		var box = get_node(dicebox)
-		box.position.y = lerp(box.position.y, -800, 0.05)
-		if box.position.y + 800 <= 0.01:
-			box.position.y = -800
-			retractingBox = false
+		processRetract()
 	
+	"""if dragging:
+		$Drawings.draw_rect(Rect2(dragStart, get_global_mouse_position() - dragStart),
+				Color(.5, .5, .5), true)
+		$Drawings.update()"""
 	
-	if unitTags == []:
-		for unit in get_tree().get_nodes_in_group("Unit"):
-			unitTags.append(unit.tag)
-		if get_node("/root/Global").unitTags == []:
-			get_node("/root/Global").unitTags = unitTags
-
 	if begun:
 		
 		if DETECTED:
-			$Camera2D.global_position = lerp ($Camera2D.global_position, zoomPos, 0.1)
-			#$Camera2D.zoom = lerp ($Camera2D.zoom, Vector2(1,1), 0.05)
+			ifDetected()
+		moveEnemies()
+	
 		
-		for unit in get_tree().get_nodes_in_group("Unit"):
-			if unit.team == badTeam:
-				var destUnit = unit.getNearest(get_tree().get_nodes_in_group("Unit"))
-				if destUnit != null:
-					var dest = unit.getNearest(get_tree().get_nodes_in_group("Unit")).global_position
-					unit.dest = dest
-					unit.moving = true
-		
-		if checkDetection():
-			var alliedUnit 
-			var enemyUnit
-			# INF UNIT
-			var unit = checkDetection()
-			
-			# check if detected bodies has stuff in it
-			if unit.detectedUnits.size() > 0:
-				# if so, present it somehow to Global
-				var global = get_node("/root/Global")
-				global.enemiesEngaged = unit.detectedUnits
-				global.detectorUnit = unit
-				# then in Spatial if there's multiple enemies, fight them one at a time until
-				# they're all gone
-				
-				aUnit = unit
-				eUnit = unit.getClosestUnit(unit.detectedUnits)
-
-			else:
+		if ENGAGED == false:
+			if checkDetection() && checkDetection().DEAD == false:
+				print ("DETECTED!")
+				ENGAGED = true
+				var unit = checkDetection()
+				unit.manualDetectionUpdate()
 				if unit.team == playerTeam:
-					alliedUnit = unit
-					enemyUnit = unit.detectedUnit
+					aUnit = unit
+					eUnit = unit.getClosestUnit(unit.detectedUnits)
 				else:
-					alliedUnit = unit.detectedUnit
-					enemyUnit = unit
-				
-				aUnit = alliedUnit
-				eUnit = enemyUnit
-
-			if $zoomTime.is_stopped() && !ENGAGED:
+					aUnit = unit.getClosestUnit(unit.detectedUnits)
+					eUnit = unit
 				print ("Zoom time started!")
 				$zoomTime.start()
-				
+				pauseGame()
+				zoomPos = unit.global_position
+				DETECTED = true
+				if swording == false:
+					makeSwords(unit.global_position)
 
-			pauseGame()
-			zoomPos = unit.global_position
-			DETECTED = true
-			if swording == false:
-				swording = true
-				var instance = load("res://Scenes/SwordCrossing.tscn").instance()
-				add_child(instance)
-				var instancePos = (zoomPos + unit.global_position) * 0.5
-				instancePos.y += 50
-				instance.global_position = instancePos
+
+
+func makeSwords(swordPos: Vector2):
+	print ("Making swords!")
+	if has_node("Swords"):
+		print ("You already have swords, get outta here!")
+	else:
+		swording = true
+		var instance = load("res://Scenes/SwordCrossing.tscn").instance()
+		add_child(instance)
+		var instancePos = (zoomPos + swordPos) * 0.5
+		instancePos.y += 50
+		instance.global_position = instancePos
+		instance.name = "Swords"
+		print ("Made swords!")
 
 
 func clearUnitValues():
 	for unit in get_tree().get_nodes_in_group("Unit"):
 		unit.DETECTED = false
 		unit.TRACKING = false
+		unit.manualDetectionUpdate()
+		unit.drawLines()
 
 
 func checkDetection():# -> UnitClass:
 	for unit in get_tree().get_nodes_in_group("Unit"):
 		if unit.DETECTED:
+			print ("Unit ", unit, " (", unit.name, ") is positive for Detection.")
 			return unit#.myUnit
 	return null
-				
-			
+
+
+func resetSword():
+	if has_node("Swords"):
+		print ("Swords removed.")
+		get_node("Swords").call_deferred("queue_free")
+		swording = false
 
 
 func pauseGame():
@@ -221,55 +244,64 @@ func unpauseGame():
 	PAUSED = false
 	for unit in get_tree().get_nodes_in_group("Unit"):
 		unit.PAUSED = PAUSED
+		unit.manualDetectionUpdate()
+
+
 
 
 func _input(event):
 		
-	if event.is_action_pressed("Space"):
+	if event.is_action_pressed("Space") && ENGAGED == false && $zoomTime.time_left == 0:
 		if begun && !has_node("BuyScreen"):
 			if PAUSED:
 				unpauseGame()
 			else:
 				pauseGame()
-		
-		
-		
-	if event.is_action_pressed("click"):
-		
-		# If you don't haave anyone selected
-		if SELECTING == false:
-			for child in get_children():
-				if child.is_in_group("Unit"):
-					if child.MOUSE_OVER == true:
-						if child.team == playerTeam:
-							childSelected = child
-							child.SELECTED = true
-							SELECTING = true
-							$CanvasLayer/selecting.visible = true
-							return
+	
+	
+	if event.is_action_released("click"):
+		#print (get_global_mouse_position())
+		selectedUnits = []
+		for unit in get_tree().get_nodes_in_group("Unit"):
+			if unit.team == playerTeam:
+				#print (unit.get_node("Collider").shape)
+				unit.SELECTED = $SelectionBox.isShapeInBox(unit)
+				#print (unit.SELECTED)
+				selectedUnits.append(unit)
+		if selectedUnits.size() > 0:
+			SELECTING = true
 
+	if event.is_action_pressed("click") && ENGAGED == false:
 		
-		# If you DO have someone selected
+		#print ("Clicking while units are selected!")
+		$CanvasLayer/selecting.visible = false
+		#if childSelected:
+			#childSelected.SELECTED = false
+			#childSelected.stopRetreat()
+		
+		# If you didn't click anyone it'll just move there
+		for unit in selectedUnits:
+			unit.dest = get_global_mouse_position()
+			unit.moving = true
+			unit.SELECTED = false
+			unit.stopRetreat()
+	
+		SELECTING = false
+		selectedUnits = []
+
+
+		if doubling == false:
+			doubleClickDetection()
 		else:
-			$CanvasLayer/selecting.visible = false
-			childSelected.SELECTED = false
-			SELECTING = false
-			for child in get_children():
-				if child.is_in_group("Unit"):
-					if child.MOUSE_OVER == true:
-						return
-			
-			# If you didn't click anyone it'll just move there
-			childSelected.dest = get_global_mouse_position()
-			childSelected.moving = true
-			
-
-
+			for unit in selectedUnits:
+				childSelected.retreat()
+			#if childSelected:
+				#childSelected.retreat()
 
 
 func _on_zoomTime_timeout():
 	#saveGlobal()
-	print ("LOADING DICE")
+	print ("zoomTime timed out, LOADING DICE")
 	loadDice()
 
 
@@ -299,3 +331,23 @@ func _on_lossTime_timeout():
 			pass#print ("ah u got buy screen its ok")
 	else:
 		twiced = false
+
+
+# UNNECESSArY ?
+func _on_WaitTime_timeout():
+	print ("Wait Time ended.")
+	print ($zoomTime, $zoomTime.time_left, $zoomTime.wait_time)
+	$zoomTime.stop()
+	$zoomTime.wait_time = 0.1
+	$zoomTime.start()
+	begun = true
+	
+
+var doubling = false
+
+func doubleClickDetection():
+	doubling = true
+	$DoubleClick.start()
+
+func _on_DoubleClick_timeout():
+	doubling = false

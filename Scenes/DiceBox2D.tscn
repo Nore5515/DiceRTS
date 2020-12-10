@@ -137,3 +137,17 @@ margin_left = 822.199
 margin_top = 314.729
 margin_right = 852.199
 margin_bottom = 364.729
+
+[node name="WithdrawButton" type="Button" parent="."]
+margin_left = 13.9187
+margin_top = 251.932
+margin_right = 25.9187
+margin_bottom = 271.932
+rect_scale = Vector2( 1.93473, 1.6119 )
+custom_fonts/font = ExtResource( 1 )
+disabled = true
+text = "WITHDRAW [F]"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="WithdrawButton" to="." method="_on_WithdrawButton_pressed"]

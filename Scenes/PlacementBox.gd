@@ -79,6 +79,7 @@ func _input(event):
 					instance.team = 1
 					instance.global_position = $Cursor.global_position
 					get_parent().add_child(instance)
+					instance.myUnit.stats["Strength"] = 20
 					global.infCount -= 1
 					instance.PAUSED = true
 					if boughtTags.has(instance.tag) == false:

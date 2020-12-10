@@ -16,7 +16,7 @@ func _ready():
 	#	removeHP(1)
 
 
-func colorBars():
+func _colorBars():
 	var count = 0
 	for bar in hpBars:
 		if count == 0:
@@ -50,7 +50,7 @@ func addHP(amount: int):
 		instance = load("res://Scenes/Bar.tscn").instance()
 		add_child(instance)
 		hpBars.append(instance)
-	colorBars()
+	_colorBars()
 
 func removeHP(amount: int):
 	#print ("HP removing from ", hp, " to ", hp - amount)
@@ -66,5 +66,5 @@ func removeHP(amount: int):
 		for x in range (amount):
 			hpBars[x].queue_free()
 			hpBars.remove(x)
-	colorBars()
+	_colorBars()
 

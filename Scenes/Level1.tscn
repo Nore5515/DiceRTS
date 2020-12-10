@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scenes/InfUnit.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Art/forstMap.png" type="Texture" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://Scenes/BuyScreen.gd" type="Script" id=11]
 [ext_resource path="res://Assets/Art/BuyMenu.png" type="Texture" id=12]
 [ext_resource path="res://Scenes/DiceBox2D.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Scenes/SelectionBox.tscn" type="PackedScene" id=14]
 
 [node name="Level1" type="Node2D"]
 position = Vector2( 2.86395, -1.43198 )
@@ -349,6 +350,16 @@ team = 2
 [node name="InfUnit6" parent="." instance=ExtResource( 1 )]
 position = Vector2( 2132.55, -136.161 )
 team = 2
+
+[node name="WaitTime" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="DoubleClick" type="Timer" parent="."]
+wait_time = 0.35
+one_shot = true
+
+[node name="SelectionBox" parent="." instance=ExtResource( 14 )]
 [connection signal="timeout" from="zoomTime" to="." method="_on_zoomTime_timeout"]
 [connection signal="body_entered" from="Slowdown" to="Slowdown" method="_on_Slowdown_body_entered"]
 [connection signal="body_exited" from="Slowdown" to="Slowdown" method="_on_Slowdown_body_exited"]
@@ -360,3 +371,5 @@ team = 2
 [connection signal="pressed" from="BuyScreen/plusArt" to="BuyScreen" method="_on_plusArt_pressed"]
 [connection signal="pressed" from="BuyScreen/Button" to="BuyScreen" method="_on_Button_pressed"]
 [connection signal="timeout" from="lossTime" to="." method="_on_lossTime_timeout"]
+[connection signal="timeout" from="WaitTime" to="." method="_on_WaitTime_timeout"]
+[connection signal="timeout" from="DoubleClick" to="." method="_on_DoubleClick_timeout"]
