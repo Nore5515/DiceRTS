@@ -57,6 +57,7 @@ var selectedUnits = []
 var dragging = false
 var dragStart
 
+
 func _ready():
 	
 	# lol im keeping this
@@ -248,6 +249,24 @@ func unpauseGame():
 
 
 
+func updateSelection():
+	var foo = "Updating Selection."
+	selectedUnits = []
+	for unit in get_tree().get_nodes_in_group("Unit"):
+		unit.deselect()
+		if unit.team == playerTeam:
+			#print ("Checking if unit ", unit, " is in box...")
+			if $SelectionBox.isShapeInBox(unit):
+				print ("Unit was in box!")
+				unit.select()
+				#unit.SELECTED = $SelectionBox.isShapeInBox(unit)
+				selectedUnits.append(unit)
+	if selectedUnits.size() > 0:
+		SELECTING = true
+		foo += " || At least one unit was selected."
+	#print (foo)
+
+
 
 func _input(event):
 		
@@ -259,19 +278,11 @@ func _input(event):
 				pauseGame()
 	
 	
-	if event.is_action_released("click"):
-		#print (get_global_mouse_position())
-		selectedUnits = []
-		for unit in get_tree().get_nodes_in_group("Unit"):
-			if unit.team == playerTeam:
-				#print (unit.get_node("Collider").shape)
-				unit.SELECTED = $SelectionBox.isShapeInBox(unit)
-				#print (unit.SELECTED)
-				selectedUnits.append(unit)
-		if selectedUnits.size() > 0:
-			SELECTING = true
+	#if event.is_action_released("click"):
+		#updateSelection()
 
-	if event.is_action_pressed("click") && ENGAGED == false:
+	#if event.is_action_pressed("click") && ENGAGED == false:
+	if event.is_action_pressed("rClick") && ENGAGED == false:
 		
 		#print ("Clicking while units are selected!")
 		$CanvasLayer/selecting.visible = false
@@ -283,17 +294,18 @@ func _input(event):
 		for unit in selectedUnits:
 			unit.dest = get_global_mouse_position()
 			unit.moving = true
-			unit.SELECTED = false
 			unit.stopRetreat()
+			unit.deselect()
 	
+			
 		SELECTING = false
 		selectedUnits = []
-
+		
 
 		if doubling == false:
 			doubleClickDetection()
 		else:
-			for unit in selectedUnits:
+			if childSelected:
 				childSelected.retreat()
 			#if childSelected:
 				#childSelected.retreat()

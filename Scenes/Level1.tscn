@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Scenes/InfUnit.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Art/forstMap.png" type="Texture" id=2]
@@ -14,9 +14,9 @@
 [ext_resource path="res://Assets/Art/BuyMenu.png" type="Texture" id=12]
 [ext_resource path="res://Scenes/DiceBox2D.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Scenes/SelectionBox.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Assets/Art/dot.png" type="Texture" id=15]
 
 [node name="Level1" type="Node2D"]
-position = Vector2( 2.86395, -1.43198 )
 script = ExtResource( 3 )
 playerColor = Color( 0.278431, 0.737255, 0.211765, 1 )
 badColor = Color( 0.729412, 0.329412, 0.329412, 1 )
@@ -328,27 +328,27 @@ sinking = true
 autostart = true
 
 [node name="InfUnit" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1310.27, 305.528 )
+position = Vector2( 1310.27, -1e+06 )
 team = 2
 
 [node name="InfUnit2" parent="." instance=ExtResource( 1 )]
-position = Vector2( 47.8848, 1399.67 )
+position = Vector2( 47.8848, -1e+06 )
 team = 2
 
 [node name="InfUnit3" parent="." instance=ExtResource( 1 )]
-position = Vector2( -828.471, 9.89856 )
+position = Vector2( -828.471, -1e+06 )
 team = 2
 
 [node name="InfUnit4" parent="." instance=ExtResource( 1 )]
-position = Vector2( -332.754, -215.829 )
+position = Vector2( -332.754, -1e+06 )
 team = 2
 
 [node name="InfUnit5" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1982.06, 815.437 )
+position = Vector2( 1982.06, -1e+06 )
 team = 2
 
 [node name="InfUnit6" parent="." instance=ExtResource( 1 )]
-position = Vector2( 2132.55, -136.161 )
+position = Vector2( 2132.55, -1e+06 )
 team = 2
 
 [node name="WaitTime" type="Timer" parent="."]
@@ -360,6 +360,12 @@ wait_time = 0.35
 one_shot = true
 
 [node name="SelectionBox" parent="." instance=ExtResource( 14 )]
+battlemap = NodePath("..")
+
+[node name="artillery" type="Sprite" parent="."]
+position = Vector2( -2.59099, 1.63598 )
+scale = Vector2( 0.0420168, 0.0420168 )
+texture = ExtResource( 15 )
 [connection signal="timeout" from="zoomTime" to="." method="_on_zoomTime_timeout"]
 [connection signal="body_entered" from="Slowdown" to="Slowdown" method="_on_Slowdown_body_entered"]
 [connection signal="body_exited" from="Slowdown" to="Slowdown" method="_on_Slowdown_body_exited"]

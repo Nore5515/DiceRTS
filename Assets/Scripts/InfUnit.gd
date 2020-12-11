@@ -57,7 +57,8 @@ var myUnit: UnitClass
 var retreating = false
 var retreatingModifier = 1.5
 
-
+var avoidWeight = 0.5
+var idling = false
 
 
 func retreat():
@@ -190,8 +191,18 @@ func getNearest(listUnits):
 	return nearestUnit
 
 
+func select():
+	#print ("Unit ", name, " selected!")
+	SELECTED = true
+
+func deselect():
+	#print ("Deselected Unit ", name)
+	SELECTED = false
+
+
 func _process(delta):
-	$HP.text = String(HP)
+	$HP.text = String(HP)	
+	
 	if !DEAD:
 		
 		$HPBar
@@ -270,15 +281,25 @@ func _process(delta):
 		if $Detection/CollisionShape2D.shape.radius != detectionRange:
 			$Detection/CollisionShape2D.shape.radius = detectionRange
 		
-		if moving == true && PAUSED == false:
+		
+		if idling:
+			var dir = avoid() * avoidWeight
+			dir *= speed
+			move_and_collide(dir * delta)
+			if avoid() == Vector2.ZERO:
+				moving = false
+				idling = false
+		elif moving == true && PAUSED == false && idling == false:
 			$target.global_position = dest
 			#$target.visible = true
 			var dir = dest - self.global_position
-			dir = dir * 100000
-			dir = dir.clamped(speed)
+			dir = dir.normalized()
+			dir += avoid() * avoidWeight
+			dir = dir.normalized()
+			dir = dir * speed
 			move_and_collide(dir * delta)
 			if self.global_position.distance_to(dest) < 5:
-				moving = false
+				idling = true
 		elif moving == true && PAUSED == true:
 			$target.global_position = dest
 			#$target.visible = true
@@ -293,7 +314,38 @@ func _process(delta):
 			
 		
 		myUnit.stats["Strength"] = attack
-		
+	
+
+
+var foo = {}
+
+func debugPrint(line: String):
+	if foo.has(line) == false:
+		foo[line] = 0
+	else:
+		for key in foo.keys():
+			if foo[key] >= 30:
+				print (key)
+				foo[key] = 0
+			else:
+				foo[key] += 1
+
+
+func avoid():
+	
+	# Calculates avoidance vector based on nearby units.
+	var result = Vector2.ZERO
+	var neighbors = $BumpSpace.get_overlapping_bodies()
+	for n in neighbors:
+		if n != self:
+			result += n.global_position.direction_to(global_position)
+	if result != Vector2.ZERO:
+		result /= neighbors.size()
+		#print ("Works ", result.normalized())
+		return result.normalized()
+	else:
+		#print ("Done.")
+		return result
 
 
 func manualDetectionUpdate():
