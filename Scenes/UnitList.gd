@@ -42,14 +42,14 @@ func updateStuff():
 	init = false
 
 func setSquadGlobal():
-	updateStuff()
 	squad = global.squad
+	updateStuff()
 
 func setSquadLocal(localSquad):
 	#print  ("calling update")
-	updateStuff()
 	#print ("setting locals to ", localSquad)
 	squad = localSquad
+	updateStuff()
 
 
 func resetSelected():

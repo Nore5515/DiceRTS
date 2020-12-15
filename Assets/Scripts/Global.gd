@@ -93,6 +93,13 @@ func _process(delta):
 	temp = alliedDice
 
 
+func increaseVolume():
+	$AudioStreamPlayer2D.volume_db += 1
+
+func decreaseVolume():
+	$AudioStreamPlayer2D.volume_db -= 1
+
+
 
 func endMusic():
 	$AudioStreamPlayer2D.queue_free()

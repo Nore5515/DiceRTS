@@ -49,6 +49,12 @@ func _ready():
 		$ScrollBox/ScrollContainer.update()
 		print ("\t", global.localSquad, " vs ", global.squad)
 	"""
+	#global.squad += global.localSquad
+	for squaddie in global.localSquad:
+		if global.squad.has(squaddie):
+			pass
+		else:
+			global.squad.append(squaddie)
 	$ScrollBox/ScrollContainer.setSquadGlobal()
 	
 	global.unitTags = []

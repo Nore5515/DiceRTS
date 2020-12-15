@@ -10,14 +10,19 @@ func _on_Goal_body_entered(body):
 		if body.team == 1:
 			if levelName == "Level1":
 				get_node("/root/Global").beat1 = true
+				get_node("/root/Global").budget += 3
 			elif levelName == "Level2":
 				get_node("/root/Global").beat2 = true
-			elif levelName == "Level3":
+				get_node("/root/Global").budget += 10
+			elif levelName == "Level3" || levelName == "Siege":
 				get_node("/root/Global").beat3 = true
+				get_node("/root/Global").budget += 100
 				get_tree().change_scene("res://Scenes/End.tscn")
 			elif levelName == "Cache":
+				get_node("/root/Global").budget += 0
 				get_node("/root/Global").beatOptional = true
 			elif levelName == "Checkpoint":
+				get_node("/root/Global").budget += 6
 				get_node("/root/Global").beatCheckpoint = true
 			saveAllAllies()
 			overrideGlobal()
@@ -33,7 +38,9 @@ func saveAllAllies():
 
 func overrideGlobal():
 	var global = get_node("/root/Global")
+	global.localSquad = squad
+	
 	print (global.squad, " vs ", squad)
-	for squaddie in squad:
-		global.squad.append(squaddie)
+	#for squaddie in squad:
+	#	global.squad.append(squaddie)
 

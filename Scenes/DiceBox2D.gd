@@ -63,7 +63,8 @@ func _input(event):
 		get_parent().get_parent().resetSword()
 		$Hint.text = ""
 		clearAll()
-		print (defendingUnit.myUnit.stats["Strength"])
+		print ("Enemy Strength: ", defendingUnit.myUnit.stats["Strength"])
+		print ("Your Strength: ", attackingUnit.myUnit.stats["Strength"])
 		rollBadDice(defendingUnit.myUnit.stats["Strength"])
 		rollGoodDice(attackingUnit.myUnit.stats["Strength"])
 		ready = false
@@ -113,19 +114,22 @@ func updateText():
 	updateStrength()
 	if alliedTotal() != 0 && enemyTotal() != 0:
 		$Results.text = getResults()
+		updateStrength()
 		if attackingUnit.myUnit.stats["HP"] > 0 && defendingUnit.myUnit.stats["HP"] > 0:
 			ready = true
 			firstRound = false
 			$WithdrawButton.disabled = false
 		else:
 			print ("Someone's dead???")
+			
 
 
 func updateStrength():
 	if attackingUnit != null && defendingUnit != null:
 		$YourStrength.text = "Strength: " + String(attackingUnit.myUnit.stats["Strength"])
 		$EnemyStrength.text = "Strength: " + String(defendingUnit.myUnit.stats["Strength"])
-
+		goodDice = attackingUnit.myUnit.stats["Strength"]
+		badDice = defendingUnit.myUnit.stats["Strength"]
 
 func fight(aUnit, eUnit):
 	
@@ -145,6 +149,7 @@ func fight(aUnit, eUnit):
 		$EnemyIcon.setPic(defendingUnit.getBattleType())
 		
 		# calls fight with null unit
+		print ("Setting unit dice to strengths")
 		goodDice = attackingUnit.myUnit.stats["Strength"]
 		badDice = defendingUnit.myUnit.stats["Strength"]
 		

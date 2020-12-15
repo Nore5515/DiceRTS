@@ -261,9 +261,9 @@ func unpauseGame():
 	PAUSED = false
 	for unit in get_tree().get_nodes_in_group("Unit"):
 		unit.PAUSED = PAUSED
-		unit.manualDetectionUpdate()
+		#unit.manualDetectionUpdate()
 
-
+	
 
 func updateSelection():
 	var foo = "Updating Selection."

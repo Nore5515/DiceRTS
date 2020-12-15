@@ -115,6 +115,7 @@ func addUnitInstance(unitInstance):
 	instance.team = 1
 	instance.global_position = $Cursor.global_position
 	instance.setUnit(selected)
+	print (selected)
 	get_parent().add_child(instance)
 	instance.PAUSED = true
 	if boughtTags.has(instance.tag) == false:

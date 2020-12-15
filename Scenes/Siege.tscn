@@ -94,7 +94,6 @@ __meta__ = {
 }
 
 [node name="DiceBox2D" parent="CanvasLayer" instance=ExtResource( 3 )]
-modulate = Color( 1, 1, 1, 0.607843 )
 position = Vector2( 0, -800 )
 scale = Vector2( 1, 1.007 )
 

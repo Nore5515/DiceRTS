@@ -159,11 +159,25 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HSlider" type="HSlider" parent="optionsMenu"]
-margin_left = -378.295
-margin_top = -172.519
-margin_right = -199.0
-margin_bottom = -156.519
+[node name="Down" type="Button" parent="optionsMenu"]
+margin_left = -261.253
+margin_top = -178.859
+margin_right = -241.253
+margin_bottom = -158.859
+rect_rotation = -89.9999
+focus_mode = 0
+enabled_focus_mode = 0
+text = "<"
+
+[node name="Up" type="Button" parent="optionsMenu"]
+margin_left = -261.741
+margin_top = -204.218
+margin_right = -241.741
+margin_bottom = -184.218
+rect_rotation = -89.9999
+focus_mode = 0
+enabled_focus_mode = 0
+text = ">"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -201,6 +215,31 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Label" type="Label" parent="optionsMenu"]
+modulate = Color( 0.839216, 0.0784314, 0.0784314, 1 )
+margin_left = -375.409
+margin_top = -138.308
+margin_right = -267.409
+margin_bottom = -107.308
+rect_scale = Vector2( 1.81253, 1.81253 )
+text = "MISFUNCTIONAL
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="optionsMenu"]
+modulate = Color( 0.839216, 0.0784314, 0.0784314, 1 )
+margin_left = -144.895
+margin_top = -249.075
+margin_right = -36.8946
+margin_bottom = -218.075
+rect_scale = Vector2( 1.81253, 1.81253 )
+text = "OUTDATED"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="optionsButtonIcon" type="Sprite" parent="."]
 position = Vector2( 105, 421 )
 texture = ExtResource( 17 )
@@ -234,7 +273,7 @@ texture = ExtResource( 7 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="helpButton/Node2D/helpBox"]
 frames = SubResource( 1 )
-frame = 14
+frame = 2
 playing = true
 
 [node name="help0" type="Control" parent="helpButton/Node2D"]
@@ -456,6 +495,7 @@ __meta__ = {
 }
 
 [node name="LoadingScreen" parent="." instance=ExtResource( 19 )]
+position = Vector2( 0, 663.221 )
 [connection signal="mouse_entered" from="BADS" to="optionsClosed" method="_on_BADS_mouse_entered"]
 [connection signal="mouse_exited" from="BADS" to="optionsClosed" method="_on_BADS_mouse_exited"]
 [connection signal="pressed" from="start" to="." method="_on_start_pressed"]
@@ -468,6 +508,8 @@ __meta__ = {
 [connection signal="pressed" from="optionsMenu/med" to="." method="_on_med_pressed"]
 [connection signal="pressed" from="optionsMenu/hard" to="." method="_on_hard_pressed"]
 [connection signal="pressed" from="optionsMenu/insane" to="." method="_on_insane_pressed"]
+[connection signal="pressed" from="optionsMenu/Down" to="." method="_on_Down_pressed"]
+[connection signal="pressed" from="optionsMenu/Up" to="." method="_on_Up_pressed"]
 [connection signal="pressed" from="optionsMenu/PassTurnButton" to="optionsMenu" method="_on_PassTurnButton_pressed"]
 [connection signal="pressed" from="optionsMenu/TossDiceButton" to="optionsMenu" method="_on_TossDiceButton_pressed"]
 [connection signal="pressed" from="optionsMenu/PauseGameButton" to="optionsMenu" method="_on_PauseGameButton_pressed"]

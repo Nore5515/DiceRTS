@@ -173,7 +173,7 @@ func loadMe(data):
 func _ready():
 	
 	if myUnit == null:
-		myUnit = UnitClass.new("DSADASDS", getType())
+		myUnit = UnitClass.new("Enemy", getType())
 	
 	$Line2D.end_cap_mode = 2
 	$Line2D.modulate = Color(0,0.5,0,1)

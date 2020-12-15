@@ -47,7 +47,7 @@ func harm(amount: int):
 	stats["HP"] = HP
 	
 	if HP == 1:
-		#print ("Crippled!")
+		print ("Crippled!", round(stats["Strength"] * 0.5))
 		stats["Strength"] = round(stats["Strength"] * 0.5)
 
 

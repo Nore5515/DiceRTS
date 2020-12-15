@@ -83,7 +83,7 @@ func genUnitStats(unitType):
 	
 	if unitType == "inf":
 		uni = load("res://Assets/Classes/Unit.gd").new("Bob", "inf")
-		$Price.text = "3"
+		$Price.text = "1"
 		for stat in uni.stats:
 			statArray.append(stat)
 		var count = 0

@@ -9,8 +9,8 @@ var hoveringEasy = false
 
 
 
-func _ready():
-	$LoadingScreen.sink()
+#func _ready():
+	#$LoadingScreen.sink()
 	
 
 
@@ -66,3 +66,12 @@ func _on_LoadingScreen_animationComplete():
 
 func _on_Credits_pressed():
 	get_tree().change_scene("res://Scenes/End.tscn")
+
+
+
+func _on_Down_pressed():
+	get_node("/root/Global").decreaseVolume()
+
+
+func _on_Up_pressed():
+	get_node("/root/Global").increaseVolume()

@@ -42,6 +42,10 @@ var dialogue = [
 		"green", "What do you call a fly with no legs...?",
 		"green", "A walk! c:"
 	],
+	["green", "Wanna hear a joke?", 
+		"green", "What do you call a fly with no legs...?",
+		"yellow", "Wait, I said the joke wrong..."
+	],
 	["green", "I'm very excited to play with you!",
 		"yellow", "UHHHH...don't take that the wrong way please!"
 	]

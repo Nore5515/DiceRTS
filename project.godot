@@ -18,7 +18,7 @@ _global_script_class_icons={
 config/name="DiceRTS"
 run/main_scene="res://Scenes/Title.tscn"
 boot_splash/image="res://Assets/Art/help0.PNG"
-config/icon="res://Assets/Art/icon.png"
+config/icon="res://Assets/Art/help0.PNG"
 
 [autoload]
 
