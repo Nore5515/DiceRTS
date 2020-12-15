@@ -1,30 +1,33 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://Scenes/Goal.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scenes/InfUnit.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Assets/Art/level2.png" type="Texture" id=3]
-[ext_resource path="res://Assets/Art/wooden-plank-textured-background-material_53876-33591.jpg" type="Texture" id=4]
-[ext_resource path="res://Assets/Scripts/BattleMap.gd" type="Script" id=5]
-[ext_resource path="res://Assets/Scripts/Camera2D.gd" type="Script" id=6]
-[ext_resource path="res://Scenes/Slowdown.gd" type="Script" id=7]
-[ext_resource path="res://Scenes/PlacementBox.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Scenes/BuyScreen.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/Slowdown.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Scripts/Camera2D.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Fonts/Font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Scenes/PlacementBox.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/SelectionBox.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Goal.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/LoadingScreen.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/InfUnit.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/DiceBox2D.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Assets/Art/wooden-plank-textured-background-material_53876-33591.jpg" type="Texture" id=10]
+[ext_resource path="res://Assets/Scripts/BattleMap.gd" type="Script" id=11]
+[ext_resource path="res://Assets/Art/forstMap.png" type="Texture" id=12]
 
-[node name="Level2" type="Node2D"]
-position = Vector2( 2.86395, -1.43198 )
-script = ExtResource( 5 )
+[node name="Checkpoint" type="Node2D"]
+script = ExtResource( 11 )
 playerColor = Color( 0.278431, 0.737255, 0.211765, 1 )
 badColor = Color( 0.729412, 0.329412, 0.329412, 1 )
+dicebox = NodePath("../Level2/CanvasLayer/DiceBox2D")
 
 [node name="wooden-plank-textured-background-material_53876-33591" type="Sprite" parent="."]
-position = Vector2( 1054.4, 517.865 )
+position = Vector2( 1058.6, 517.865 )
 scale = Vector2( 9.01582, 6.45268 )
-texture = ExtResource( 4 )
+texture = ExtResource( 10 )
 
 [node name="forstMap" type="Sprite" parent="."]
 position = Vector2( -1010.37, -324.503 )
-scale = Vector2( 2.173, 1.57951 )
-texture = ExtResource( 3 )
+scale = Vector2( 3.84277, 1.57951 )
+texture = ExtResource( 12 )
 centered = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -36,88 +39,90 @@ limit_top = -695
 limit_right = 3385
 limit_bottom = 1746
 editor_draw_limits = true
-script = ExtResource( 6 )
-
-[node name="InfUnit3" parent="." instance=ExtResource( 2 )]
-position = Vector2( -203.438, 794.288 )
-team = 2
-
-[node name="InfUnit4" parent="." instance=ExtResource( 2 )]
-position = Vector2( 574.16, 817.063 )
-team = 2
-
-[node name="InfUnit10" parent="." instance=ExtResource( 2 )]
-position = Vector2( 906.004, -17.0093 )
-team = 2
-
-[node name="InfUnit11" parent="." instance=ExtResource( 2 )]
-position = Vector2( -868.034, -229.346 )
-team = 2
-
-[node name="InfUnit12" parent="." instance=ExtResource( 2 )]
-position = Vector2( -888.583, 750.143 )
-team = 2
-
-[node name="InfUnit5" parent="." instance=ExtResource( 2 )]
-position = Vector2( 2441.7, -194.791 )
-team = 2
-
-[node name="InfUnit6" parent="." instance=ExtResource( 2 )]
-position = Vector2( 2718.25, 49.2255 )
-team = 2
-
-[node name="InfUnit7" parent="." instance=ExtResource( 2 )]
-position = Vector2( 2763.8, 306.256 )
-team = 2
-
-[node name="InfUnit8" parent="." instance=ExtResource( 2 )]
-position = Vector2( 2793.08, 608.835 )
-team = 2
+script = ExtResource( 2 )
 
 [node name="zoomTime" type="Timer" parent="."]
+wait_time = 1.5
 one_shot = true
 
-[node name="Goal" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1159.98, 1261.26 )
+[node name="Goal" parent="." instance=ExtResource( 6 )]
+position = Vector2( 2474.42, 1066.04 )
 scale = Vector2( 5.89165, 5.89165 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Paused" type="Label" parent="CanvasLayer"]
-margin_left = 324.884
-margin_top = -1.07423
-margin_right = 375.884
-margin_bottom = 12.9258
-rect_scale = Vector2( 5.74111, 5.74111 )
+margin_left = -9.53674e-07
+margin_top = 1.52588e-05
+margin_right = 179.0
+margin_bottom = 18.0
+rect_scale = Vector2( 1.12572, 2.88042 )
+custom_fonts/font = ExtResource( 3 )
 text = "PAUSED"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="selecting" type="Label" parent="CanvasLayer"]
 visible = false
-margin_left = 324.884
 margin_top = 510.385
-margin_right = 392.884
-margin_bottom = 524.385
+margin_right = 265.0
+margin_bottom = 528.385
 rect_scale = Vector2( 3.88654, 5.0192 )
-text = "SELECTING"
+custom_fonts/font = ExtResource( 3 )
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="DiceBox2D" parent="CanvasLayer" instance=ExtResource( 9 )]
+modulate = Color( 1, 1, 1, 0.607843 )
+position = Vector2( 0, -800 )
+scale = Vector2( 1, 1.007 )
+
 [node name="Slowdown" type="Area2D" parent="."]
-position = Vector2( 775.38, 929.346 )
-script = ExtResource( 7 )
+position = Vector2( 322.69, 361.559 )
+script = ExtResource( 1 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Slowdown"]
-polygon = PoolVector2Array( -1791.16, -941.816, -794.55, -1000.04, -500.019, -1092.51, 780.851, -1133.6, 1808.29, -1092.51, 2068.57, -986.338, 1928.15, -414.399, 1328.82, 181.514, 1143.88, 438.372, -572.788, 449.817, 217.046, 98.779, 428.701, -169.661, 444.188, -381.316, 62.1768, -556.835, -531.49, -541.348, -934.15, -510.374, -1785.93, -396.803, -1785.93, -887.223, -2513.82, -913.035, -2555.12, 919.587, 3102.78, 924.75, 3097.62, -1737.39, -2560.28, -1763.2, -2524.14, -963.04 )
+polygon = PoolVector2Array( -1333.41, -685.913, 490.499, -699.145, 498.089, -630.839, 589.164, -554.944, 534.123, -484.193, 553.644, -396.348, 839.956, -311.755, 846.463, -253.192, 1526.45, -87.2609, 1523.2, -67.7395, 2092.57, 46.1345, 2596.87, 81.9235, 2600.12, 950.62, 1705.4, 937.606, 1262.92, 791.196, 1243.4, 602.491, 872.491, 501.631, 748.857, 534.166, 403.981, 456.081, 316.135, 335.7, -158.882, 160.009, -1359.44, 46.1346, -1337.17, -648.716, -1639.99, -947.934, -1558.47, 1282.57, 2954.62, 1311.17, 2861.49, -1023.97, -1611.14, -968.062 )
 
-[node name="PlacementBox" parent="." instance=ExtResource( 8 )]
-position = Vector2( -458.936, 220.714 )
+[node name="PlacementBox" parent="." instance=ExtResource( 4 )]
+position = Vector2( 444.156, 236.209 )
 
-[node name="BuyScreen" parent="." instance=ExtResource( 9 )]
-budget = 12
+[node name="lossTime" type="Timer" parent="."]
+autostart = true
+
+[node name="LoadingScreen" parent="." instance=ExtResource( 7 )]
+visible = false
+sinking = true
+
+[node name="InfUnit" parent="." instance=ExtResource( 8 )]
+position = Vector2( 1760.55, 482.288 )
+team = 2
+
+[node name="InfUnit2" parent="." instance=ExtResource( 8 )]
+position = Vector2( 1562.59, 836.853 )
+team = 2
+
+[node name="InfUnit3" parent="." instance=ExtResource( 8 )]
+position = Vector2( 2695.04, 1108.32 )
+team = 2
+
+[node name="WaitTime" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="DoubleClick" type="Timer" parent="."]
+wait_time = 0.35
+one_shot = true
+
+[node name="SelectionBox" parent="." instance=ExtResource( 5 )]
+battlemap = NodePath("../../Level2")
 [connection signal="timeout" from="zoomTime" to="." method="_on_zoomTime_timeout"]
 [connection signal="body_entered" from="Slowdown" to="Slowdown" method="_on_Slowdown_body_entered"]
 [connection signal="body_exited" from="Slowdown" to="Slowdown" method="_on_Slowdown_body_exited"]
+[connection signal="timeout" from="lossTime" to="." method="_on_lossTime_timeout"]
+[connection signal="timeout" from="WaitTime" to="." method="_on_WaitTime_timeout"]
+[connection signal="timeout" from="DoubleClick" to="." method="_on_DoubleClick_timeout"]

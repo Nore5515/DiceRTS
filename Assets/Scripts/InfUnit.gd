@@ -117,6 +117,12 @@ func getClosestUnit(unitList):
 	return null
 
 
+func setUnit(newUnit):
+	myUnit = newUnit
+	HP = myUnit.stats["HP"]
+	attack = myUnit.stats["Strength"]
+
+
 func loadMe(data):
 	#print ("LOADING ", name, data)
 	global_position = data["global_pos"]
@@ -133,7 +139,8 @@ func loadMe(data):
 
 func _ready():
 	
-	myUnit = UnitClass.new("Name", getType())
+	if myUnit == null:
+		myUnit = UnitClass.new("DSADASDS", getType())
 	
 	$Line2D.end_cap_mode = 2
 	$Line2D.modulate = Color(0,0.5,0,1)
@@ -201,7 +208,8 @@ func deselect():
 
 
 func _process(delta):
-	$HP.text = String(HP)	
+	$Name.text = myUnit.name + " " + String(HP)
+	#print (myUnit)
 	
 	if !DEAD:
 		
@@ -242,7 +250,7 @@ func _process(delta):
 		if DUGIN:
 			$shield.visible = true
 			if isArt:
-				detectionRange = 6000
+				detectionRange = 2000
 				attack = 7
 			else:
 				detectionRange = round (baseDetectionRange * 0.5)
@@ -290,6 +298,10 @@ func _process(delta):
 				moving = false
 				idling = false
 		elif moving == true && PAUSED == false && idling == false:
+			
+			if getType() == "Art":
+				return
+			
 			$target.global_position = dest
 			#$target.visible = true
 			var dir = dest - self.global_position
@@ -369,8 +381,8 @@ func _on_Detection_body_entered(body):
 			detectedUnits.append(body)
 			if detectedUnits.size() > 0:
 				detectedUnit = getClosestUnit(detectedUnits)
-			if team == 1:
-				TRACKING = true
+			#if team == 1:
+			TRACKING = true
 
 func _on_Detection_body_exited(body):
 	if body.is_in_group("Unit") && ACTIVATED:

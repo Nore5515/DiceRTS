@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scenes/InfUnit.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Art/forstMap.png" type="Texture" id=2]
@@ -10,11 +10,8 @@
 [ext_resource path="res://Scenes/Slowdown.gd" type="Script" id=8]
 [ext_resource path="res://Scenes/LoadingScreen.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/PlacementBox.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Scenes/BuyScreen.gd" type="Script" id=11]
-[ext_resource path="res://Assets/Art/BuyMenu.png" type="Texture" id=12]
 [ext_resource path="res://Scenes/DiceBox2D.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Scenes/SelectionBox.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Assets/Art/dot.png" type="Texture" id=15]
 
 [node name="Level1" type="Node2D"]
 script = ExtResource( 3 )
@@ -55,9 +52,11 @@ scale = Vector2( 5.89165, 5.89165 )
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Paused" type="Label" parent="CanvasLayer"]
+margin_left = -9.53674e-07
+margin_top = 1.52588e-05
 margin_right = 179.0
 margin_bottom = 18.0
-rect_scale = Vector2( 5.74111, 5.74111 )
+rect_scale = Vector2( 1.12572, 2.88042 )
 custom_fonts/font = ExtResource( 7 )
 text = "PAUSED"
 align = 1
@@ -66,19 +65,19 @@ __meta__ = {
 }
 
 [node name="selecting" type="Label" parent="CanvasLayer"]
+visible = false
 margin_top = 510.385
 margin_right = 265.0
 margin_bottom = 528.385
 rect_scale = Vector2( 3.88654, 5.0192 )
 custom_fonts/font = ExtResource( 7 )
-text = "SELECTING"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="DiceBox2D" parent="CanvasLayer" instance=ExtResource( 13 )]
-modulate = Color( 1, 1, 1, 0.294118 )
+modulate = Color( 1, 1, 1, 0.607843 )
 position = Vector2( 0, -800 )
 scale = Vector2( 1, 1.007 )
 
@@ -92,263 +91,23 @@ polygon = PoolVector2Array( -1333.41, -685.913, 490.499, -699.145, 498.089, -630
 [node name="PlacementBox" parent="." instance=ExtResource( 10 )]
 position = Vector2( 444.156, 236.209 )
 
-[node name="BuyScreen" type="CanvasLayer" parent="."]
-script = ExtResource( 11 )
-budget = 8
-
-[node name="BuyMenu" type="Sprite" parent="BuyScreen"]
-texture = ExtResource( 12 )
-centered = false
-
-[node name="minusInf" type="Button" parent="BuyScreen"]
-margin_left = 604.932
-margin_top = 85.6485
-margin_right = 679.565
-margin_bottom = 170.683
-focus_mode = 0
-custom_fonts/font = ExtResource( 7 )
-enabled_focus_mode = 0
-flat = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="plusInf" type="Button" parent="BuyScreen"]
-margin_left = 715.705
-margin_top = 85.6485
-margin_right = 790.338
-margin_bottom = 170.683
-focus_mode = 0
-custom_fonts/font = ExtResource( 7 )
-enabled_focus_mode = 0
-flat = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="minusVeh" type="Button" parent="BuyScreen"]
-margin_left = 604.932
-margin_top = 242.848
-margin_right = 679.565
-margin_bottom = 327.883
-focus_mode = 0
-custom_fonts/font = ExtResource( 7 )
-enabled_focus_mode = 0
-flat = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="plusVeh" type="Button" parent="BuyScreen"]
-margin_left = 715.705
-margin_top = 242.848
-margin_right = 790.338
-margin_bottom = 327.883
-focus_mode = 0
-custom_fonts/font = ExtResource( 7 )
-enabled_focus_mode = 0
-flat = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="minusArt" type="Button" parent="BuyScreen"]
-margin_left = 604.932
-margin_top = 435.886
-margin_right = 679.565
-margin_bottom = 520.921
-focus_mode = 0
-custom_fonts/font = ExtResource( 7 )
-enabled_focus_mode = 0
-flat = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="plusArt" type="Button" parent="BuyScreen"]
-margin_left = 715.705
-margin_top = 435.886
-margin_right = 790.338
-margin_bottom = 520.921
-focus_mode = 0
-custom_fonts/font = ExtResource( 7 )
-enabled_focus_mode = 0
-flat = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TextBudget" type="Label" parent="BuyScreen"]
-margin_left = 903.08
-margin_top = 1.80501
-margin_right = 936.538
-margin_bottom = 19.805
-rect_scale = Vector2( 2.965, 4.163 )
-custom_fonts/font = ExtResource( 7 )
-text = "7"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TextInf" type="Label" parent="BuyScreen"]
-margin_left = 801.515
-margin_top = 95.4751
-margin_right = 841.515
-margin_bottom = 121.475
-rect_scale = Vector2( 2.965, 4.163 )
-custom_fonts/font = ExtResource( 7 )
-text = "7"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TextInfPrice" type="Label" parent="BuyScreen"]
-margin_left = 934.895
-margin_top = 95.4751
-margin_right = 974.895
-margin_bottom = 121.475
-rect_scale = Vector2( 2.965, 4.163 )
-custom_fonts/font = ExtResource( 7 )
-text = "7"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TextVeh" type="Label" parent="BuyScreen"]
-margin_left = 801.515
-margin_top = 248.773
-margin_right = 841.515
-margin_bottom = 274.773
-rect_scale = Vector2( 2.965, 4.163 )
-custom_fonts/font = ExtResource( 7 )
-text = "7"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TextVehPrice" type="Label" parent="BuyScreen"]
-margin_left = 924.065
-margin_top = 248.773
-margin_right = 964.065
-margin_bottom = 274.773
-rect_scale = Vector2( 2.965, 4.163 )
-custom_fonts/font = ExtResource( 7 )
-text = "7"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TextArt" type="Label" parent="BuyScreen"]
-margin_left = 801.515
-margin_top = 448.219
-margin_right = 841.515
-margin_bottom = 474.219
-rect_scale = Vector2( 2.965, 4.163 )
-custom_fonts/font = ExtResource( 7 )
-text = "7"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TextArtPrice" type="Label" parent="BuyScreen"]
-margin_left = 924.065
-margin_top = 448.219
-margin_right = 964.065
-margin_bottom = 474.219
-rect_scale = Vector2( 2.965, 4.163 )
-custom_fonts/font = ExtResource( 7 )
-text = "7"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TextTotal" type="Label" parent="BuyScreen"]
-margin_left = 877.539
-margin_top = 553.707
-margin_right = 910.997
-margin_bottom = 571.707
-rect_scale = Vector2( 3.99893, 2.42254 )
-custom_fonts/font = ExtResource( 7 )
-text = "7"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button" type="Button" parent="BuyScreen"]
-margin_left = 604.932
-margin_top = 539.132
-margin_right = 714.932
-margin_bottom = 571.132
-rect_scale = Vector2( 2.38892, 1.61396 )
-custom_fonts/font = ExtResource( 7 )
-text = "CONFIRM"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="BuyScreen"]
-margin_left = 188.949
-margin_top = 44.3214
-margin_right = 228.949
-margin_bottom = 58.3214
-custom_fonts/font = ExtResource( 7 )
-text = "$2"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label2" type="Label" parent="BuyScreen"]
-margin_left = 205.278
-margin_top = 222.773
-margin_right = 245.278
-margin_bottom = 236.773
-custom_fonts/font = ExtResource( 7 )
-text = "$4"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label3" type="Label" parent="BuyScreen"]
-margin_left = 194.781
-margin_top = 422.219
-margin_right = 234.781
-margin_bottom = 436.219
-custom_fonts/font = ExtResource( 7 )
-text = "$6"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="LoadingScreen" parent="BuyScreen" instance=ExtResource( 9 )]
-sinking = true
-
 [node name="lossTime" type="Timer" parent="."]
 autostart = true
 
+[node name="LoadingScreen" parent="." instance=ExtResource( 9 )]
+visible = false
+sinking = true
+
 [node name="InfUnit" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1310.27, -1e+06 )
+position = Vector2( 1760.55, 482.288 )
 team = 2
 
 [node name="InfUnit2" parent="." instance=ExtResource( 1 )]
-position = Vector2( 47.8848, -1e+06 )
+position = Vector2( 1562.59, 836.853 )
 team = 2
 
 [node name="InfUnit3" parent="." instance=ExtResource( 1 )]
-position = Vector2( -828.471, -1e+06 )
-team = 2
-
-[node name="InfUnit4" parent="." instance=ExtResource( 1 )]
-position = Vector2( -332.754, -1e+06 )
-team = 2
-
-[node name="InfUnit5" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1982.06, -1e+06 )
-team = 2
-
-[node name="InfUnit6" parent="." instance=ExtResource( 1 )]
-position = Vector2( 2132.55, -1e+06 )
+position = Vector2( 2695.04, 1108.32 )
 team = 2
 
 [node name="WaitTime" type="Timer" parent="."]
@@ -361,21 +120,9 @@ one_shot = true
 
 [node name="SelectionBox" parent="." instance=ExtResource( 14 )]
 battlemap = NodePath("..")
-
-[node name="artillery" type="Sprite" parent="."]
-position = Vector2( -2.59099, 1.63598 )
-scale = Vector2( 0.0420168, 0.0420168 )
-texture = ExtResource( 15 )
 [connection signal="timeout" from="zoomTime" to="." method="_on_zoomTime_timeout"]
 [connection signal="body_entered" from="Slowdown" to="Slowdown" method="_on_Slowdown_body_entered"]
 [connection signal="body_exited" from="Slowdown" to="Slowdown" method="_on_Slowdown_body_exited"]
-[connection signal="pressed" from="BuyScreen/minusInf" to="BuyScreen" method="_on_minusInf_pressed"]
-[connection signal="pressed" from="BuyScreen/plusInf" to="BuyScreen" method="_on_plusInf_pressed"]
-[connection signal="pressed" from="BuyScreen/minusVeh" to="BuyScreen" method="_on_minusVeh_pressed"]
-[connection signal="pressed" from="BuyScreen/plusVeh" to="BuyScreen" method="_on_plusVeh_pressed"]
-[connection signal="pressed" from="BuyScreen/minusArt" to="BuyScreen" method="_on_minusArt_pressed"]
-[connection signal="pressed" from="BuyScreen/plusArt" to="BuyScreen" method="_on_plusArt_pressed"]
-[connection signal="pressed" from="BuyScreen/Button" to="BuyScreen" method="_on_Button_pressed"]
 [connection signal="timeout" from="lossTime" to="." method="_on_lossTime_timeout"]
 [connection signal="timeout" from="WaitTime" to="." method="_on_WaitTime_timeout"]
 [connection signal="timeout" from="DoubleClick" to="." method="_on_DoubleClick_timeout"]

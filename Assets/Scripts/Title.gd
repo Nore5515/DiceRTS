@@ -7,9 +7,17 @@ var hoveringEasy = false
 
 
 
+
+
+func _ready():
+	$LoadingScreen.sink()
+	
+
+
 func _on_start_pressed():
 	get_node("/root/Global").difficulty = difficulty
-	get_tree().change_scene("res://Scenes/Campaign.tscn")
+	$LoadingScreen.rise()
+	
 
 
 #func _on_options_pressed():
@@ -50,3 +58,7 @@ func _on_insane_pressed():
 	difficulty = "insane"
 
 
+
+
+func _on_LoadingScreen_animationComplete():
+	get_tree().change_scene("res://Scenes/Campaign.tscn")

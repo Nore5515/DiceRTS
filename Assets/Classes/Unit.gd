@@ -190,7 +190,7 @@ func genQuips():
 		addQuip(msg)
 		msg = name + " needs coffee. Right. Now."
 	elif mood == "frustrated":
-		msg = name + " keeps biting their lip. He's about to punch someone." 
+		msg = name + " looks like he's about to punch someone." 
 	elif mood == "sad":
 		msg = "If anyone needs a hug here, it's " + name + "."
 		addQuip(msg)

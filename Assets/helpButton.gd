@@ -21,6 +21,9 @@ func _on_helpButton_pressed():
 		goingUp = false
 	elif !goingUp:
 		goingUp = true
+		$Node2D.visible = true
+		get_parent().get_node("optionsClosed").disable()
+		
 
 
 func _process(delta):
@@ -32,6 +35,7 @@ func _process(delta):
 		if !goingUp:
 			$Node2D.global_position = lerp($Node2D.global_position, initPos, 0.1)
 			if $Node2D.global_position.distance_to(initPos) < 1.0:
+				$Node2D.visible = false
 				moving = false
 
 

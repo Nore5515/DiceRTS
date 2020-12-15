@@ -142,6 +142,8 @@ func _on_CycleSoul_pressed():
 		$Personality.text = personalityList[randi()%(personalityList.size())]
 
 
+export (NodePath) var scrollCont
+
 func _on_RecruitButton_pressed():
 	if !corrupted:
 		if unitTypeSet != "":
@@ -156,7 +158,8 @@ func _on_RecruitButton_pressed():
 				var newUnit = unitRef.new(unitName, unitType)
 				newUnit.setPersonality(personalityNum)
 				global.squad.append(newUnit)
-				get_parent().get_parent().get_node("ScrollContainer").updateStuff()
+				get_node(scrollCont).setSquadLocal(global.squad)
+				get_node(scrollCont).updateStuff()
 				clear()
 			else:
 				fadingFunds = true

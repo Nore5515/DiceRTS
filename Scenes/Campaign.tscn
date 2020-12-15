@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://Assets/Art/campaignMap.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Models/pawn.obj" type="ArrayMesh" id=2]
@@ -10,7 +10,7 @@
 [ext_resource path="res://Imported Assets/Godot-orbit-camera-master/OrbitCamera.gd" type="Script" id=8]
 [ext_resource path="res://Assets/Fonts/Font.tres" type="DynamicFont" id=9]
 [ext_resource path="res://Scenes/HelpButton.gd" type="Script" id=10]
-[ext_resource path="res://Scenes/UnitList.gd" type="Script" id=11]
+[ext_resource path="res://Scenes/ScrollContainer.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scenes/SquadButton.gd" type="Script" id=12]
 [ext_resource path="res://Assets/Art/BetterBuyMenu.png" type="Texture" id=13]
 [ext_resource path="res://Assets/Art/inf.png" type="Texture" id=14]
@@ -20,6 +20,16 @@
 [ext_resource path="res://Imported Assets/Table/table_med_trestle_dif.png" type="Texture" id=18]
 [ext_resource path="res://Imported Assets/Table/table_medieval_trestle.obj" type="ArrayMesh" id=19]
 [ext_resource path="res://Scenes/LoadingScreen.tscn" type="PackedScene" id=20]
+[ext_resource path="res://Assets/Materials/smallRoomTexture.png" type="Texture" id=21]
+[ext_resource path="res://Assets/Models/smallRoom.obj" type="ArrayMesh" id=22]
+[ext_resource path="res://Scenes/OrbitPoint.gd" type="Script" id=23]
+[ext_resource path="res://Scenes/stars.tscn" type="PackedScene" id=24]
+[ext_resource path="res://Assets/Models/body.obj" type="ArrayMesh" id=25]
+[ext_resource path="res://Assets/Models/head.obj" type="ArrayMesh" id=26]
+[ext_resource path="res://Assets/Materials/bodyTexture.png" type="Texture" id=27]
+[ext_resource path="res://Assets/Materials/headTextured.png" type="Texture" id=28]
+[ext_resource path="res://Scenes/head.gd" type="Script" id=29]
+[ext_resource path="res://Assets/Fonts/DigitalFont.tres" type="DynamicFont" id=30]
 
 [sub_resource type="PlaneMesh" id=1]
 
@@ -45,13 +55,28 @@ albedo_texture = ExtResource( 7 )
 [sub_resource type="SpatialMaterial" id=8]
 albedo_texture = ExtResource( 7 )
 
-[sub_resource type="SpatialMaterial" id=9]
+[sub_resource type="Environment" id=9]
+background_mode = 1
+background_energy = 1.15
+ambient_light_color = Color( 1, 1, 1, 1 )
+ambient_light_energy = 0.23
+
+[sub_resource type="SpatialMaterial" id=10]
 albedo_texture = ExtResource( 18 )
+
+[sub_resource type="SpatialMaterial" id=11]
+albedo_texture = ExtResource( 21 )
+
+[sub_resource type="SpatialMaterial" id=12]
+albedo_texture = ExtResource( 27 )
+
+[sub_resource type="SpatialMaterial" id=13]
+albedo_texture = ExtResource( 28 )
 
 [node name="Campaign" type="Spatial"]
 script = ExtResource( 3 )
 camPath = NodePath("CameraRig/ClippedCamera")
-loc1 = NodePath("Entry Point")
+loc1 = NodePath("EntryPoint")
 loc2 = NodePath("Ambush")
 loc3 = NodePath("Siege")
 
@@ -89,22 +114,23 @@ margin_left = -529.549
 margin_top = -225.037
 margin_right = -431.0
 margin_bottom = -211.037
-text = "This is the title of the mission!"
+text = "3. This is the title of the mission!"
 autowrap = true
 
 [node name="Label2" type="Label" parent="CanvasLayer/Button/Control"]
 margin_left = -526.72
-margin_top = 13.2423
-margin_right = -330.72
-margin_bottom = 27.2423
-text = "These are the units in your squad. You can see their HP as CurrentHP/MaxHP"
+margin_top = 1.50257
+margin_right = -2.0
+margin_bottom = 32.5026
+text = "4. These are the units in your squad. You can see their HP, name and battles fought. After a mission, all units in your squad will heal 1."
+autowrap = true
 
 [node name="Label3" type="Label" parent="CanvasLayer/Button/Control"]
 margin_left = -405.055
 margin_top = -92.1495
 margin_right = -78.0553
 margin_bottom = -61.1495
-text = "Click on a flagpole to go to that mission!
+text = "2. Click on a flagpole to go to that mission!
 The confirm button will appear once you've arrived."
 align = 1
 
@@ -114,9 +140,12 @@ margin_top = -149.754
 margin_right = -253.0
 margin_bottom = -118.754
 rect_scale = Vector2( 0.602717, 0.602717 )
-text = "Use the middle mouse button to rotate the camera, and WASD to move the camera!"
+text = "1. Use the middle mouse button to rotate the camera, and WASD to move the camera!"
 align = 1
 autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="LocationTitle" type="Label" parent="CanvasLayer"]
 anchor_right = 1.0
@@ -137,31 +166,6 @@ margin_bottom = 121.0
 custom_fonts/font = ExtResource( 9 )
 align = 1
 autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer"]
-margin_top = 451.511
-margin_right = 1028.0
-margin_bottom = 597.535
-follow_focus = true
-script = ExtResource( 11 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Timer" type="Timer" parent="CanvasLayer/ScrollContainer"]
-wait_time = 3.0
-one_shot = true
-autostart = true
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/ScrollContainer"]
-margin_right = 128.0
-margin_bottom = 128.0
-rect_min_size = Vector2( 128, 128 )
-rect_clip_content = true
-size_flags_horizontal = 0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -213,6 +217,7 @@ script = ExtResource( 17 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+scrollCont = NodePath("../../../ScrollBox/ScrollContainer")
 
 [node name="BetterBuyMenu" type="Sprite" parent="CanvasLayer/SquadButton/BuyMenu"]
 scale = Vector2( 0.609269, 0.609269 )
@@ -461,10 +466,26 @@ margin_bottom = 305.232
 text = "Pick a unit first!"
 
 [node name="LoadingScreen" parent="CanvasLayer" instance=ExtResource( 20 )]
-position = Vector2( 0, 640.964 )
+position = Vector2( 0, 655.262 )
+
+[node name="AIText" type="Label" parent="CanvasLayer"]
+margin_left = -102.913
+margin_top = -0.000274658
+margin_right = 56.0871
+margin_bottom = 19.9997
+grow_horizontal = 2
+rect_scale = Vector2( 1.2547, 1.18979 )
+custom_fonts/font = ExtResource( 30 )
+text = "Howdy"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="pawn" type="MeshInstance" parent="."]
-transform = Transform( 0.340562, 0, 0, 0, 0.340562, 0, 0, 0, 0.340562, -7.65422, 0.0422654, -2.9042 )
+transform = Transform( 0.340562, 0, 0, 0, 0.340562, 0, 0, 0, 0.340562, -10.8363, 0.0422654, -3.06435 )
 mesh = ExtResource( 2 )
 material/0 = null
 
@@ -499,30 +520,31 @@ script = ExtResource( 4 )
 transform = Transform( 1, 0, 0, 0, 0.399149, 0.916886, 0, -0.916886, 0.399149, 0.677, 10.3752, 4.99296 )
 environment = SubResource( 4 )
 
-[node name="Entry Point" type="StaticBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.815, 0, -1.66978 )
+[node name="EntryPoint" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.51938, -0.0519311, -2.29171 )
 
-[node name="CollisionShape" type="CollisionShape" parent="Entry Point"]
+[node name="CollisionShape" type="CollisionShape" parent="EntryPoint"]
 shape = SubResource( 5 )
 
-[node name="square" type="CSGBox" parent="Entry Point"]
+[node name="square" type="CSGBox" parent="EntryPoint"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0413513, -0.031827, 0.0437956 )
 visible = false
 
-[node name="flagpole" type="MeshInstance" parent="Entry Point"]
+[node name="flagpole" type="MeshInstance" parent="EntryPoint"]
 transform = Transform( -1.94316e-08, 0, -0.444544, 0, 0.444544, 0, 0.444544, 0, -1.94316e-08, -0.12645, -0.0326813, -0.0309992 )
 mesh = ExtResource( 6 )
 material/0 = SubResource( 6 )
 
-[node name="SpotLight2" type="SpotLight" parent="Entry Point"]
+[node name="SpotLight2" type="SpotLight" parent="EntryPoint"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.090971, 4.23606, 0.112645 )
+visible = false
 light_energy = 16.0
 shadow_enabled = true
 spot_range = 5.82312
 spot_angle = 25.4415
 
 [node name="Ambush" type="StaticBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0866, 9.53674e-07, -0.762011 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.99327, 9.53674e-07, -0.167673 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Ambush"]
 shape = SubResource( 5 )
@@ -538,13 +560,60 @@ material/0 = SubResource( 7 )
 
 [node name="SpotLight3" type="SpotLight" parent="Ambush"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.0204051, 4.23606, 0.31615 )
+visible = false
+light_energy = 16.0
+shadow_enabled = true
+spot_range = 5.82312
+spot_angle = 25.4415
+
+[node name="Cache" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.07345, -0.0857275, 2.20769 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Cache"]
+shape = SubResource( 5 )
+
+[node name="square" type="CSGBox" parent="Cache"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0413513, -0.031827, 0.0437956 )
+visible = false
+
+[node name="flagpole" type="MeshInstance" parent="Cache"]
+transform = Transform( -1.94316e-08, 0, -0.444544, 0, 0.444544, 0, 0.444544, 0, -1.94316e-08, 0.0785546, -0.0326823, 0.0800047 )
+mesh = ExtResource( 6 )
+material/0 = SubResource( 7 )
+
+[node name="SpotLight3" type="SpotLight" parent="Cache"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.0204051, 4.23606, 0.31615 )
+visible = false
+light_energy = 16.0
+shadow_enabled = true
+spot_range = 5.82312
+spot_angle = 25.4415
+
+[node name="Checkpoint" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.35716, -0.135797, -1.7787 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Checkpoint"]
+shape = SubResource( 5 )
+
+[node name="square" type="CSGBox" parent="Checkpoint"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0413513, -0.031827, 0.0437956 )
+visible = false
+
+[node name="flagpole" type="MeshInstance" parent="Checkpoint"]
+transform = Transform( -1.94316e-08, 0, -0.444544, 0, 0.444544, 0, 0.444544, 0, -1.94316e-08, 0.0785546, -0.0326823, 0.0800047 )
+mesh = ExtResource( 6 )
+material/0 = SubResource( 7 )
+
+[node name="SpotLight3" type="SpotLight" parent="Checkpoint"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.0204051, 4.23606, 0.31615 )
+visible = false
 light_energy = 16.0
 shadow_enabled = true
 spot_range = 5.82312
 spot_angle = 25.4415
 
 [node name="Siege" type="StaticBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.93873, 9.53674e-07, -0.537806 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.80093, 9.53674e-07, -0.439763 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Siege"]
 shape = SubResource( 5 )
@@ -560,6 +629,7 @@ material/0 = SubResource( 8 )
 
 [node name="SpotLight4" type="SpotLight" parent="Siege"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.270065, 4.23606, 0.257991 )
+visible = false
 light_energy = 16.0
 shadow_enabled = true
 spot_range = 5.82312
@@ -573,7 +643,9 @@ horizontalSensitivity = 0.006
 target = NodePath("../MovableAnchor")
 
 [node name="ClippedCamera" type="ClippedCamera" parent="CameraRig"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0562229, -0.0874615, 0.0688 )
 keep_aspect = 0
+environment = SubResource( 9 )
 current = true
 fov = 90.0
 size = 7.31429
@@ -582,9 +654,9 @@ far = 2000.0
 margin = 1.0
 
 [node name="table_medieval_trestle" type="MeshInstance" parent="."]
-transform = Transform( 5.76858, 0, 0, 0, 5.76858, 0, 0, 0, 5.76858, -0.213092, -5.70017, -1.44373 )
+transform = Transform( 5.76858, 0, 0, 0, 5.76858, 0, 0, 0, 5.76858, -0.213, -5.614, -1.444 )
 mesh = ExtResource( 19 )
-material/0 = SubResource( 9 )
+material/0 = SubResource( 10 )
 
 [node name="MovableAnchor" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
@@ -592,8 +664,53 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
 [node name="Timer2" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
+
+[node name="smallRoom" type="MeshInstance" parent="."]
+transform = Transform( -1.50458e-07, 0, 3.44208, 0, 3.44208, 0, -3.44208, 0, -1.50458e-07, 0.875854, -5.68831, -0.450335 )
+mesh = ExtResource( 22 )
+material/0 = SubResource( 11 )
+
+[node name="SpotLight" type="SpotLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.575075, 31.9953, -0.767739 )
+spot_range = 40.6757
+spot_attenuation = 1.51572
+spot_angle = 48.1312
+
+[node name="OrbitPoint" type="Spatial" parent="."]
+script = ExtResource( 23 )
+
+[node name="stars1" parent="OrbitPoint" instance=ExtResource( 24 )]
+transform = Transform( -6.77972e-07, 0, 15.5102, 0, 15.5102, 0, -15.5102, 0, -6.77972e-07, -269.472, 0, 0 )
+visible = false
+
+[node name="body" type="MeshInstance" parent="."]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1.39819, 0, 1, 0, -4.37114e-08, 0.665415, -3.96965, -10.2509 )
+mesh = ExtResource( 25 )
+material/0 = SubResource( 12 )
+
+[node name="Spatial" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.677, 2.0105, -10.279 )
+script = ExtResource( 29 )
+
+[node name="head" type="MeshInstance" parent="Spatial"]
+transform = Transform( -7.12933e-08, 0, 1.631, 0, 1.631, 0, -1.631, 0, -7.12933e-08, 0.000449121, -7.43401, 0.0180874 )
+mesh = ExtResource( 26 )
+material/0 = SubResource( 13 )
+
+[node name="Timer3" type="Timer" parent="Spatial"]
+one_shot = true
+
+[node name="fadeTimer" type="Timer" parent="Spatial"]
+wait_time = 2.0
+one_shot = true
+
+[node name="ScrollBox" type="CanvasLayer" parent="."]
+
+[node name="ScrollContainer" parent="ScrollBox" instance=ExtResource( 11 )]
+margin_top = 452.0
+margin_right = 750.0
+margin_bottom = 598.0
 [connection signal="pressed" from="CanvasLayer/Button" to="CanvasLayer/Button" method="_on_Button_pressed"]
-[connection signal="timeout" from="CanvasLayer/ScrollContainer/Timer" to="CanvasLayer/ScrollContainer" method="_on_Timer_timeout"]
 [connection signal="pressed" from="CanvasLayer/BeginButton" to="." method="_on_BeginButton_pressed"]
 [connection signal="pressed" from="CanvasLayer/SquadButton" to="CanvasLayer/SquadButton" method="_on_SquadButton_pressed"]
 [connection signal="pressed" from="CanvasLayer/SquadButton/BuyMenu/ScrollContainer/VBoxContainer/InfButton" to="CanvasLayer/SquadButton/BuyMenu" method="_on_InfButton_pressed"]
@@ -606,3 +723,5 @@ one_shot = true
 [connection signal="tween_all_completed" from="Tween" to="." method="_on_Tween_tween_all_completed"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="Timer2" to="." method="_on_Timer2_timeout"]
+[connection signal="timeout" from="Spatial/Timer3" to="Spatial" method="_on_Timer3_timeout"]
+[connection signal="timeout" from="Spatial/fadeTimer" to="Spatial" method="_on_fadeTimer_timeout"]

@@ -6,12 +6,18 @@ export (bool) var rising = false
 export (bool) var sinking = false
 
 
+
+signal animationComplete
+
+
 func rise():
+	print ("Rose")
 	rising = true
 	play("default")
 
 
 func sink():
+	print ("Sank")
 	sinking = true
 	play("default")
 
@@ -28,4 +34,7 @@ func _process(delta):
 
 
 func _on_LoadingScreen_animation_finished():
+	emit_signal("animationComplete")
+	print ("DEATH", get_parent().get_children())
 	call_deferred("queue_free", self)
+	queue_free()

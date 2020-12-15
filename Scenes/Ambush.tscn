@@ -1,0 +1,142 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Scenes/Slowdown.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Scripts/Camera2D.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Fonts/Font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Scenes/PlacementBox.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/SelectionBox.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Goal.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/LoadingScreen.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/DiceBox2D.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Assets/Art/newstuff/AmbushMap.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Art/wooden-plank-textured-background-material_53876-33591.jpg" type="Texture" id=10]
+[ext_resource path="res://Assets/Scripts/BattleMap.gd" type="Script" id=11]
+[ext_resource path="res://Scenes/ArtUnit.tscn" type="PackedScene" id=12]
+
+[node name="Ambush" type="Node2D"]
+script = ExtResource( 11 )
+playerColor = Color( 0.278431, 0.737255, 0.211765, 1 )
+badColor = Color( 0.729412, 0.329412, 0.329412, 1 )
+dicebox = NodePath("CanvasLayer/DiceBox2D")
+
+[node name="wooden-plank-textured-background-material_53876-33591" type="Sprite" parent="."]
+position = Vector2( 1058.6, 517.865 )
+scale = Vector2( 9.01582, 6.45268 )
+texture = ExtResource( 10 )
+
+[node name="forstMap" type="Sprite" parent="."]
+position = Vector2( -1465.49, -634.738 )
+scale = Vector2( 2.49381, 2.13792 )
+texture = ExtResource( 9 )
+centered = false
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 679.918, 390.683 )
+current = true
+zoom = Vector2( 2, 2 )
+limit_left = -1283
+limit_top = -695
+limit_right = 3385
+limit_bottom = 1746
+editor_draw_limits = true
+script = ExtResource( 2 )
+
+[node name="zoomTime" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="Goal" parent="." instance=ExtResource( 6 )]
+position = Vector2( -707.206, 353.684 )
+scale = Vector2( 5.89165, 5.89165 )
+levelName = "Ambush"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Paused" type="Label" parent="CanvasLayer"]
+margin_left = -9.53674e-07
+margin_top = 1.52588e-05
+margin_right = 179.0
+margin_bottom = 18.0
+rect_scale = Vector2( 1.12572, 2.88042 )
+custom_fonts/font = ExtResource( 3 )
+text = "PAUSED"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="selecting" type="Label" parent="CanvasLayer"]
+visible = false
+margin_top = 510.385
+margin_right = 265.0
+margin_bottom = 528.385
+rect_scale = Vector2( 3.88654, 5.0192 )
+custom_fonts/font = ExtResource( 3 )
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DiceBox2D" parent="CanvasLayer" instance=ExtResource( 8 )]
+modulate = Color( 1, 1, 1, 0.607843 )
+position = Vector2( 0, -800 )
+scale = Vector2( 1, 1.007 )
+
+[node name="Slowdown" type="Area2D" parent="."]
+position = Vector2( 140.793, 542.318 )
+script = ExtResource( 1 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Slowdown"]
+polygon = PoolVector2Array( -1612.06, -645.787, -1136.93, -633.173, -581.901, -507.03, 532.354, -460.778, 931.805, -578.511, 1364.89, -498.621, 1831.62, -422.936, 1705.48, -1192.4, 3193.95, -1179.79, 3193.95, 1145.43, 1684.45, 1132.82, 1667.63, 678.706, 1495.24, 788.029, 826.686, 640.863, -279.16, 598.816, -1200, 443.24, -1612.06, 460.059, -1607.86, -612.149, -1910.6, -612.149, -1910.6, 1305.21, 3757.39, 1292.6, 3732.16, -1394.23, -1910.6, -1360.59, -1919.01, -637.377 )
+
+[node name="MegaSlow" type="Area2D" parent="."]
+position = Vector2( 140.793, 542.318 )
+script = ExtResource( 1 )
+unpassable = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MegaSlow"]
+polygon = PoolVector2Array( 1704.83, -1168.94, 3186.79, -1176.93, 3190.78, -433.957, 1840.64, -394.012, 1728.79, -1113.02 )
+
+[node name="MegaSlow2" type="Area2D" parent="."]
+position = Vector2( 48.9195, 2132.13 )
+script = ExtResource( 1 )
+unpassable = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MegaSlow2"]
+position = Vector2( -3.4248, -23.9736 )
+polygon = PoolVector2Array( 1768.33, -902.693, 3288.94, -1043.11, 3288.94, -419.798, 1792.31, -440.347 )
+
+[node name="PlacementBox" parent="." instance=ExtResource( 4 )]
+position = Vector2( 51.2069, 113.818 )
+
+[node name="lossTime" type="Timer" parent="."]
+autostart = true
+
+[node name="LoadingScreen" parent="." instance=ExtResource( 7 )]
+visible = false
+sinking = true
+
+[node name="WaitTime" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="DoubleClick" type="Timer" parent="."]
+wait_time = 0.35
+one_shot = true
+
+[node name="SelectionBox" parent="." instance=ExtResource( 5 )]
+battlemap = NodePath("..")
+
+[node name="ArtUnit" parent="." instance=ExtResource( 12 )]
+position = Vector2( 2782.88, 581.197 )
+team = 2
+[connection signal="timeout" from="zoomTime" to="." method="_on_zoomTime_timeout"]
+[connection signal="body_entered" from="Slowdown" to="Slowdown" method="_on_Slowdown_body_entered"]
+[connection signal="body_exited" from="Slowdown" to="Slowdown" method="_on_Slowdown_body_exited"]
+[connection signal="body_entered" from="MegaSlow" to="MegaSlow" method="_on_Slowdown_body_entered"]
+[connection signal="body_exited" from="MegaSlow" to="MegaSlow" method="_on_Slowdown_body_exited"]
+[connection signal="body_entered" from="MegaSlow2" to="MegaSlow2" method="_on_Slowdown_body_entered"]
+[connection signal="body_exited" from="MegaSlow2" to="MegaSlow2" method="_on_Slowdown_body_exited"]
+[connection signal="timeout" from="lossTime" to="." method="_on_lossTime_timeout"]
+[connection signal="timeout" from="WaitTime" to="." method="_on_WaitTime_timeout"]
+[connection signal="timeout" from="DoubleClick" to="." method="_on_DoubleClick_timeout"]

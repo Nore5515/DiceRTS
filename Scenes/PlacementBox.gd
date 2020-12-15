@@ -8,29 +8,53 @@ var selecting = ""
 
 var boughtTags = []
 
+
+var units = []
+
+#export (NodePath) var scrollContainer
+var scrollContainer
+
+
 func makeVisible():
 	for child in $CanvasLayer.get_children():
 		child.visible = true
 
 
 func _ready():
+	scrollContainer = $CanvasLayer/ScrollContainer.get_path()
 	global = get_node("/root/Global")
 	cleanCursor()
-	for child in $CanvasLayer.get_children():
-		child.visible = false
+	#for child in $CanvasLayer.get_children():
+		#child.visible = false
+	
+
+
+func setup():
+	for unit in units:
+		pass
+
+var selected
 
 
 func _process(delta):
 	
-	if global.infCount == 0 && global.vehCount == 0 && global.artCount == 0:
-		$CanvasLayer/Button.visible = true
+	if $CanvasLayer/ScrollContainer.squad.size() == 0:
+		#$CanvasLayer/Button.visible = true
+		$CanvasLayer/Button.disabled = false
+	else:
+		$CanvasLayer/Button.disabled = true
 	
-	$CanvasLayer/infCount.text = String(global.infCount)
-	$CanvasLayer/vehCount.text = String(global.vehCount)
-	$CanvasLayer/artCount.text = String(global.artCount)
-	
+	if $CanvasLayer/ScrollContainer.selectedUnits.size() > 0:
+		if $CanvasLayer/ScrollContainer.selectedUnits.size() >= 2:
+			$CanvasLayer/ScrollContainer.resetSelected()
+		else:
+			selected = $CanvasLayer/ScrollContainer.selectedUnits[0]
+			selecting = selected.type
+	else:
+		selecting = ""
+
+
 	$Cursor.global_position = get_global_mouse_position()
-	
 	if selecting == "":
 		cleanCursor()
 	elif selecting == "inf":
@@ -42,6 +66,7 @@ func _process(delta):
 	elif selecting == "art":
 		cleanCursor()
 		$Cursor/artCursor.visible = true
+
 
 
 func cleanCursor():
@@ -70,41 +95,33 @@ func _on_artButton_pressed():
 func _input(event):
 	if event.is_action_pressed("esc"):
 		selecting = ""
+		get_node(scrollContainer).resetSelected()
 	
 	elif event.is_action_pressed("click"):
 		if over:
 			if selecting == "inf":
-				if global.infCount > 0:	
-					var instance = load("res://Scenes/InfUnit.tscn").instance()
-					instance.team = 1
-					instance.global_position = $Cursor.global_position
-					get_parent().add_child(instance)
-					instance.myUnit.stats["Strength"] = 20
-					global.infCount -= 1
-					instance.PAUSED = true
-					if boughtTags.has(instance.tag) == false:
-						boughtTags.append(instance.tag)
+				var instance = load("res://Scenes/InfUnit.tscn").instance() 
+				addUnitInstance(instance)
 			elif selecting == "veh":
-				if global.vehCount > 0:
-					var instance = load("res://Scenes/VehicalUnit.tscn").instance()
-					instance.team = 1
-					instance.global_position = $Cursor.global_position
-					get_parent().add_child(instance)
-					global.vehCount -= 1
-					instance.PAUSED = true
-					if boughtTags.has(instance.tag) == false:
-						boughtTags.append(instance.tag)
+				var instance = load("res://Scenes/VehicalUnit.tscn").instance()
+				addUnitInstance(instance)
 			elif selecting == "art":
-				if global.artCount > 0:
-					var instance = load("res://Scenes/ArtUnit.tscn").instance()
-					instance.team = 1
-					instance.global_position = $Cursor.global_position
-					get_parent().add_child(instance)
-					global.artCount -= 1
-					instance.PAUSED = true
-					if boughtTags.has(instance.tag) == false:
-						boughtTags.append(instance.tag)
+				var instance = load("res://Scenes/ArtUnit.tscn").instance()
+				addUnitInstance(instance)
 
+
+func addUnitInstance(unitInstance):
+	var instance = unitInstance
+	instance.team = 1
+	instance.global_position = $Cursor.global_position
+	instance.setUnit(selected)
+	get_parent().add_child(instance)
+	instance.PAUSED = true
+	if boughtTags.has(instance.tag) == false:
+		boughtTags.append(instance.tag)
+	get_node(scrollContainer).removeFromSquad(selected)
+	cleanCursor()
+	get_node(scrollContainer).resetSelected()
 
 
 

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/smallRoom.obj-b89f3925264ffa61631f24e78b54fc59.mesh"
+
+[deps]
+
+files=[ "res://.import/smallRoom.obj-b89f3925264ffa61631f24e78b54fc59.mesh" ]
+
+source_file="res://Assets/Models/smallRoom.obj"
+dest_files=[ "res://.import/smallRoom.obj-b89f3925264ffa61631f24e78b54fc59.mesh", "res://.import/smallRoom.obj-b89f3925264ffa61631f24e78b54fc59.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

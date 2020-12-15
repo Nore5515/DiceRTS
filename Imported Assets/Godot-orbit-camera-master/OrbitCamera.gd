@@ -1,7 +1,7 @@
 extends Spatial
 
 # Control variables
-export var maxPitch : float = 45
+export var maxPitch : float = 15
 export var minPitch : float = -45
 export var maxZoom : float = 20
 export var minZoom : float = 4

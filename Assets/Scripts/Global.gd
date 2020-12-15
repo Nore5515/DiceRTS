@@ -63,13 +63,19 @@ var unitTags = []
 
 var corpses = []
 
-var beat1 = false
+var beat1 = true
 var beat2 = false
 var beat3 = false
+var beatOptional = false
+var beatCheckpoint = false
+
+var availableLevels = []
 
 var budget = 20
 
 var squad = []
+
+var localSquad = []
 
 var init
 

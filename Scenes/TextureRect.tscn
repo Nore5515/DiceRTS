@@ -1,11 +1,14 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Assets/Art/artillery.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/TextureRect.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Art/leftSword.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Art/rightSword.png" type="Texture" id=4]
 
 [node name="TextureRect" type="TextureRect"]
+margin_top = 0.372192
 margin_right = 128.0
-margin_bottom = 128.0
+margin_bottom = 128.372
 rect_min_size = Vector2( 128, 128 )
 texture = ExtResource( 1 )
 expand = true
@@ -19,11 +22,46 @@ __meta__ = {
 margin_right = 72.0
 margin_bottom = 14.0
 text = "Richard 3/3"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="combats" type="Label" parent="."]
 margin_top = 109.129
 margin_right = 40.0
 margin_bottom = 123.129
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Swords" type="Control" parent="."]
+modulate = Color( 0.431373, 0.137255, 0.137255, 0 )
+margin_left = 16.8322
+margin_top = 4.2885
+margin_right = 56.8322
+margin_bottom = 44.2885
+rect_scale = Vector2( 2.05266, 2.05266 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Swords"]
+margin_left = -17.4859
+margin_top = -17.8274
+margin_right = 22.5141
+margin_bottom = 22.1726
+rect_scale = Vector2( 1.6395, 1.6395 )
+texture = ExtResource( 4 )
+expand = true
+
+[node name="TextureRect2" type="TextureRect" parent="Swords"]
+margin_left = -13.2799
+margin_top = -17.1804
+margin_right = 26.7201
+margin_bottom = 22.8196
+rect_scale = Vector2( 1.6253, 1.63401 )
+texture = ExtResource( 3 )
+expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

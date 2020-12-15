@@ -77,6 +77,8 @@ func _input(event):
 		down = false
 		
 	if event.is_action_pressed("scrollDown"):
+		print (zoom)
+		get_parent().get_node("SelectionBox").update()
 		if zoom.x < 4:
 			zoom.x += 0.1
 			zoom.y += 0.1
@@ -84,10 +86,12 @@ func _input(event):
 			zoom.x = 4
 			zoom.y = 4
 	if event.is_action_pressed("scrollUp"):
-		if zoom.x > 1:
+		print (zoom)
+		get_parent().get_node("SelectionBox").update()
+		if zoom.x > 2:
 			zoom.x -= 0.1
 			zoom.y -= 0.1
 		else:
-			zoom.x = 1
-			zoom.y = 1
+			zoom.x = 2
+			zoom.y = 2
 	

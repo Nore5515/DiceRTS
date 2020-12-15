@@ -13,6 +13,9 @@ var rect: Rect2
 
 var rects = []
 
+var flashPoints = []
+var flashPointsRadi = []
+
 export (NodePath) var battlemap
 
 func _input(event):
@@ -31,7 +34,11 @@ func _input(event):
 		#print ("Mouse Pos:", get_global_mouse_position())
 		update()
 		get_node(battlemap).updateSelection()
-		
+	
+	if event.is_action_pressed("rClick"):
+		flashPoints.append(get_global_mouse_position())
+		flashPointsRadi.append(100)
+	
 	if event is InputEventMouseMotion && dragging:
 		rect = Rect2(dragStart, get_global_mouse_position() - dragStart)
 		rect = reRect(rect)
@@ -113,22 +120,37 @@ func isPointInBox(point: Vector2):
 	return rect.has_point(point)
 
 
+func _process(delta):
+	var x = 0
+	for radi in flashPointsRadi:
+		if flashPointsRadi[x] > 0:
+			flashPointsRadi[x] = lerp(flashPointsRadi[x], -5, 0.1)
+		else:
+			flashPointsRadi.remove(x)
+			flashPoints.remove(x)
+		x += 1
+	if flashPointsRadi.size() > 0:
+		update()
+
+
 func _draw():
 	
-	#draw_rect(reRect(Rect2(0,0,-100,100)), Color(1,0,0))
-	#draw_rect(Rect2(0,0,-100,100), Color(0,1,0))
+	var x = 0
+	for point in flashPoints:
+		draw_circle(point, flashPointsRadi[x], Color(0.5,0.5,0.5))
+		x += 1
 	
-	for rect in rects:
-		draw_rect(rect, Color(0.5,0.5,0.5))
+	#for rect in rects:
+	#	draw_rect(rect, Color(0.5,0.5,0.5))
 	
 	if dragging:
-		#print ("You are dragging.")
+		print ("You are dragging.")
 		if rect != null:
-			#print ("Drawing Rect.", rect)
+			print ("Drawing Rect.", rect)
 			draw_rect(rect,
 				Color(.5, .5, .5), true)
-		#else:
-			#print ("Rect appears to be null.")
+		else:
+			print ("Rect appears to be null.")
 	#else:
 		#print ("You are NOT dragging.")
 		#draw_rect(Rect2(dragStart, get_global_mouse_position() - dragStart),

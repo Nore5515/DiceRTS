@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Assets/Art/title.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Scripts/Title.gd" type="Script" id=2]
@@ -18,6 +18,7 @@
 [ext_resource path="res://Scenes/optionsClosed.gd" type="Script" id=16]
 [ext_resource path="res://Assets/Art/newstuff/optionsButton.png" type="Texture" id=17]
 [ext_resource path="res://Scenes/optionsMenu.gd" type="Script" id=18]
+[ext_resource path="res://Scenes/LoadingScreen.tscn" type="PackedScene" id=19]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -62,207 +63,9 @@ margin_left = 394.505
 margin_top = 115.289
 margin_right = 661.505
 margin_bottom = 180.289
-focus_mode = 0
-enabled_focus_mode = 0
+focus_mode = 1
+enabled_focus_mode = 1
 flat = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="helpButton" type="TextureButton" parent="."]
-margin_left = 818.0
-margin_top = 137.0
-margin_right = 2554.0
-margin_bottom = 1416.0
-rect_scale = Vector2( 0.0945018, 0.106751 )
-expand = true
-script = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Timer" type="Timer" parent="helpButton"]
-wait_time = 3.0
-
-[node name="Node2D" type="Node2D" parent="helpButton"]
-visible = false
-position = Vector2( 79.752, 1708.54 )
-
-[node name="helpBox" type="Sprite" parent="helpButton/Node2D"]
-position = Vector2( -3518.25, -181.652 )
-scale = Vector2( 5.55501, 5.555 )
-texture = ExtResource( 7 )
-
-[node name="AnimatedSprite" type="AnimatedSprite" parent="helpButton/Node2D/helpBox"]
-frames = SubResource( 1 )
-frame = 18
-playing = true
-
-[node name="help0" type="Control" parent="helpButton/Node2D"]
-margin_right = 40.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="help1" type="Sprite" parent="helpButton/Node2D/help0"]
-position = Vector2( -1045.67, -792.864 )
-scale = Vector2( 3.23824, 3.23824 )
-texture = ExtResource( 10 )
-
-[node name="Label" type="Label" parent="helpButton/Node2D/help0"]
-modulate = Color( 0, 0, 0, 1 )
-margin_left = -2640.3
-margin_top = -1653.33
-margin_right = -2241.3
-margin_bottom = -1622.33
-rect_scale = Vector2( 8.34468, 9.1657 )
-text = "Hello! I'm Dicey, your help guide. Click on one of the buttons
-to my right if you need help!"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button" type="Button" parent="helpButton/Node2D"]
-margin_left = -4619.35
-margin_top = -1859.72
-margin_right = -4508.35
-margin_bottom = -1827.72
-rect_scale = Vector2( 9.80761, 13.0462 )
-custom_fonts/font = ExtResource( 14 )
-text = "HOW TO PLAY"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button2" type="Button" parent="helpButton/Node2D"]
-margin_left = -4560.72
-margin_top = -1340.97
-margin_right = -4457.72
-margin_bottom = -1320.97
-rect_scale = Vector2( 10.6365, 18.7974 )
-custom_fonts/font = ExtResource( 14 )
-text = "BATTLEMAP"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button3" type="Button" parent="helpButton/Node2D"]
-margin_left = -4560.72
-margin_top = -761.088
-margin_right = -4457.72
-margin_bottom = -741.088
-rect_scale = Vector2( 13.2158, 15.6341 )
-custom_fonts/font = ExtResource( 14 )
-text = "DICE BOX"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button4" type="Button" parent="helpButton/Node2D"]
-margin_left = -4560.72
-margin_top = -152.217
-margin_right = -4457.72
-margin_bottom = -132.217
-rect_scale = Vector2( 14.4298, 14.4298 )
-custom_fonts/font = ExtResource( 14 )
-text = "WIP"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="help1" type="Control" parent="helpButton/Node2D"]
-visible = false
-margin_right = 40.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="help1" type="Sprite" parent="helpButton/Node2D/help1"]
-position = Vector2( -1045.67, -792.864 )
-scale = Vector2( 3.23824, 3.23824 )
-texture = ExtResource( 13 )
-
-[node name="Label" type="Label" parent="helpButton/Node2D/help1"]
-modulate = Color( 0, 0, 0, 1 )
-margin_left = -2731.56
-margin_top = -1883.28
-margin_right = -2332.56
-margin_bottom = -1869.28
-rect_scale = Vector2( 8.11962, 8.11962 )
-text = "When you start the game, you'll likely see something like this!"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label2" type="Label" parent="helpButton/Node2D/help1"]
-modulate = Color( 0, 0, 0, 1 )
-margin_left = -2578.17
-margin_top = 183.096
-margin_right = -2179.17
-margin_bottom = 333.096
-rect_scale = Vector2( 8.11962, 8.11962 )
-text = "This is the battlemap. Here, units that are GREEN are yours.
-Units RED are hostile. Each unit has its health, as a number, 
-over their head.
-Once a unit runs out of health, they are destroyed.
-Units can be controlled by clicking on them, then clicking on a
-point on the map.
-You can (and should) use WASD and the scroll wheel to move 
-around the map!
-Your goal is to have at least one unit reach the flag. When
-two units get too close to each other, they engage!
-To know more about combat, go to the DICE BOX.
-"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="help2" type="Control" parent="helpButton/Node2D"]
-visible = false
-margin_right = 40.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="help1" type="Sprite" parent="helpButton/Node2D/help2"]
-position = Vector2( -1045.67, -792.864 )
-scale = Vector2( 3.23824, 3.23824 )
-texture = ExtResource( 8 )
-
-[node name="Label" type="Label" parent="helpButton/Node2D/help2"]
-modulate = Color( 0, 0, 0, 1 )
-margin_left = -2671.86
-margin_top = -1939.1
-margin_right = -2272.86
-margin_bottom = -1925.1
-rect_scale = Vector2( 8.75939, 10.9146 )
-text = "This is the battlemap. Here, you'll manage your strategy."
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label2" type="Label" parent="helpButton/Node2D/help2"]
-modulate = Color( 0, 0, 0, 1 )
-margin_left = -2554.36
-margin_top = 186.464
-margin_right = -2141.36
-margin_bottom = 387.464
-rect_scale = Vector2( 7.56419, 7.60455 )
-text = "Units, when not moving, have a shield next to their symbol.
-This means that they are \"defending\", and will have a significant
-defensive boost!
-You may have noticed black circles, with dot's inside them,
-on your units or wherever you click to command your units.
-These are the unit's destinations! Typically, the enemy will place
-their destination right over your units. If a unit does NOT have
-a circle+dot over them, the enemy is not targetting them.
-Despite your defensive boost, be aware that it is likely a 
-loosing battle to stay still. Your best bet to victory is to 
-get to the goal! Remember, only ONE unit needs to
-make it..."
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -405,6 +208,229 @@ centered = false
 region_enabled = true
 region_rect = Rect2( 95.6122, 411.432, 155.125, 77.5623 )
 
+[node name="helpButton" type="TextureButton" parent="."]
+margin_left = 818.0
+margin_top = 137.0
+margin_right = 2554.0
+margin_bottom = 1416.0
+rect_scale = Vector2( 0.0945018, 0.106751 )
+expand = true
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="helpButton"]
+wait_time = 3.0
+
+[node name="Node2D" type="Node2D" parent="helpButton"]
+visible = false
+position = Vector2( 79.752, 1708.54 )
+
+[node name="helpBox" type="Sprite" parent="helpButton/Node2D"]
+position = Vector2( -3518.25, -181.652 )
+scale = Vector2( 5.55501, 5.555 )
+texture = ExtResource( 7 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="helpButton/Node2D/helpBox"]
+frames = SubResource( 1 )
+frame = 16
+playing = true
+
+[node name="help0" type="Control" parent="helpButton/Node2D"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="help1" type="Sprite" parent="helpButton/Node2D/help0"]
+position = Vector2( -1045.67, -792.864 )
+scale = Vector2( 3.23824, 3.23824 )
+texture = ExtResource( 10 )
+
+[node name="Label" type="Label" parent="helpButton/Node2D/help0"]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = -2640.3
+margin_top = -1653.33
+margin_right = -2241.3
+margin_bottom = -1622.33
+rect_scale = Vector2( 8.34468, 9.1657 )
+text = "Hello! I'm Dicey, your help guide. Click on one of the buttons
+to my right if you need help!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="helpButton/Node2D"]
+margin_left = -4619.35
+margin_top = -1859.72
+margin_right = -4508.35
+margin_bottom = -1827.72
+rect_scale = Vector2( 9.80761, 13.0462 )
+custom_fonts/font = ExtResource( 14 )
+text = "HOW TO PLAY"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button2" type="Button" parent="helpButton/Node2D"]
+margin_left = -4560.72
+margin_top = -1442.24
+margin_right = -4411.72
+margin_bottom = -1418.24
+rect_scale = Vector2( 10.6365, 18.7974 )
+custom_fonts/font = ExtResource( 14 )
+text = "BATTLEMAP"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button3" type="Button" parent="helpButton/Node2D"]
+margin_left = -4560.72
+margin_top = -980.715
+margin_right = -4444.72
+margin_bottom = -956.715
+rect_scale = Vector2( 13.2158, 15.6341 )
+custom_fonts/font = ExtResource( 14 )
+text = "DICE BOX"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button4" type="Button" parent="helpButton/Node2D"]
+margin_left = -4560.72
+margin_top = -605.497
+margin_right = -4457.72
+margin_bottom = -581.497
+rect_scale = Vector2( 14.4298, 14.4298 )
+custom_fonts/font = ExtResource( 14 )
+text = "WIP"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="help1" type="Control" parent="helpButton/Node2D"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="help1" type="Sprite" parent="helpButton/Node2D/help1"]
+position = Vector2( -1045.67, -792.864 )
+scale = Vector2( 3.23824, 3.23824 )
+texture = ExtResource( 13 )
+
+[node name="Label" type="Label" parent="helpButton/Node2D/help1"]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = -2731.56
+margin_top = -1883.28
+margin_right = -2332.56
+margin_bottom = -1869.28
+rect_scale = Vector2( 8.11962, 8.11962 )
+text = "When you start the game, you'll likely see something like this!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="helpButton/Node2D/help1"]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = -2578.17
+margin_top = 183.096
+margin_right = -2179.17
+margin_bottom = 333.096
+rect_scale = Vector2( 8.11962, 8.11962 )
+text = "This is the battlemap. Here, units that are GREEN are yours.
+Units RED are hostile. Each unit has its health, as a number, 
+over their head.
+Once a unit runs out of health, they are destroyed.
+Units can be controlled by clicking on them, then clicking on a
+point on the map.
+You can (and should) use WASD and the scroll wheel to move 
+around the map!
+Your goal is to have at least one unit reach the flag. When
+two units get too close to each other, they engage!
+To know more about combat, go to the DICE BOX.
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="help2" type="Control" parent="helpButton/Node2D"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="help1" type="Sprite" parent="helpButton/Node2D/help2"]
+position = Vector2( -1045.67, -792.864 )
+scale = Vector2( 3.23824, 3.23824 )
+texture = ExtResource( 8 )
+
+[node name="Label" type="Label" parent="helpButton/Node2D/help2"]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = -2671.86
+margin_top = -1939.1
+margin_right = -2272.86
+margin_bottom = -1925.1
+rect_scale = Vector2( 8.75939, 10.9146 )
+text = "This is the battlemap. Here, you'll manage your strategy."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="helpButton/Node2D/help2"]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = -2554.36
+margin_top = 186.464
+margin_right = -2141.36
+margin_bottom = 387.464
+rect_scale = Vector2( 7.56419, 7.60455 )
+text = "Units, when not moving, have a shield next to their symbol.
+This means that they are \"defending\", and will have a significant
+defensive boost!
+You may have noticed black circles, with dot's inside them,
+on your units or wherever you click to command your units.
+These are the unit's destinations! Typically, the enemy will place
+their destination right over your units. If a unit does NOT have
+a circle+dot over them, the enemy is not targetting them.
+Despite your defensive boost, be aware that it is likely a 
+loosing battle to stay still. Your best bet to victory is to 
+get to the goal! Remember, only ONE unit needs to
+make it..."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="helpButton/Node2D"]
+modulate = Color( 1, 0, 0, 1 )
+margin_left = -7173.36
+margin_top = -108.467
+margin_right = -7020.36
+margin_bottom = -94.4668
+rect_scale = Vector2( 48.7504, 48.7504 )
+text = "OUTDATED; DISREGARD"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="helpButton/Node2D"]
+modulate = Color( 1, 0, 0, 1 )
+margin_left = -568.075
+margin_top = -1272.02
+margin_right = -415.075
+margin_bottom = -1241.02
+rect_scale = Vector2( 17.4696, 17.4696 )
+text = "CLICK HERE -->
+TO GO BACK"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2( 626.321, 367.006 )
 z_index = 5
@@ -414,15 +440,11 @@ collision_mask = 33
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 z_index = 4
 shape = SubResource( 2 )
+
+[node name="LoadingScreen" parent="." instance=ExtResource( 19 )]
 [connection signal="mouse_entered" from="BADS" to="optionsClosed" method="_on_BADS_mouse_entered"]
 [connection signal="mouse_exited" from="BADS" to="optionsClosed" method="_on_BADS_mouse_exited"]
 [connection signal="pressed" from="start" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="helpButton" to="helpButton" method="_on_helpButton_pressed"]
-[connection signal="timeout" from="helpButton/Timer" to="helpButton" method="_on_Timer_timeout"]
-[connection signal="pressed" from="helpButton/Node2D/Button" to="helpButton" method="_on_Button_pressed"]
-[connection signal="pressed" from="helpButton/Node2D/Button2" to="helpButton" method="_on_Button2_pressed"]
-[connection signal="pressed" from="helpButton/Node2D/Button3" to="helpButton" method="_on_Button3_pressed"]
-[connection signal="pressed" from="helpButton/Node2D/Button4" to="helpButton" method="_on_Button4_pressed"]
 [connection signal="mouse_entered" from="optionsButton" to="optionsClosed" method="_on_optionsButton_mouse_entered"]
 [connection signal="mouse_exited" from="optionsButton" to="optionsClosed" method="_on_optionsButton_mouse_exited"]
 [connection signal="pressed" from="optionsButton" to="optionsClosed" method="_on_options_pressed"]
@@ -435,5 +457,12 @@ shape = SubResource( 2 )
 [connection signal="pressed" from="optionsMenu/PassTurnButton" to="optionsMenu" method="_on_PassTurnButton_pressed"]
 [connection signal="pressed" from="optionsMenu/TossDiceButton" to="optionsMenu" method="_on_TossDiceButton_pressed"]
 [connection signal="pressed" from="optionsMenu/PauseGameButton" to="optionsMenu" method="_on_PauseGameButton_pressed"]
+[connection signal="pressed" from="helpButton" to="helpButton" method="_on_helpButton_pressed"]
+[connection signal="timeout" from="helpButton/Timer" to="helpButton" method="_on_Timer_timeout"]
+[connection signal="pressed" from="helpButton/Node2D/Button" to="helpButton" method="_on_Button_pressed"]
+[connection signal="pressed" from="helpButton/Node2D/Button2" to="helpButton" method="_on_Button2_pressed"]
+[connection signal="pressed" from="helpButton/Node2D/Button3" to="helpButton" method="_on_Button3_pressed"]
+[connection signal="pressed" from="helpButton/Node2D/Button4" to="helpButton" method="_on_Button4_pressed"]
 [connection signal="mouse_entered" from="Area2D" to="optionsClosed" method="_on_Area2D_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="optionsClosed" method="_on_Area2D_mouse_exited"]
+[connection signal="animationComplete" from="LoadingScreen" to="." method="_on_LoadingScreen_animationComplete"]

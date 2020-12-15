@@ -30,3 +30,4 @@ func setPic(typeOfUnit):
 	
 	else:
 		print ("ERROR\t", typeOfUnit)
+		setPic("art_cannon")

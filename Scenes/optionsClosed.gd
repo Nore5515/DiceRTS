@@ -34,6 +34,8 @@ func activate():
 	activated = true
 	moving = true
 	visible = true
+	get_parent().get_node("helpButton").moving = true
+	get_parent().get_node("helpButton").goingUp = false
 
 func disable():
 	activated = false

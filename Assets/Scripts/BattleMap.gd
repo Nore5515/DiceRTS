@@ -63,6 +63,9 @@ func _ready():
 	# lol im keeping this
 	print ("WHAT IS GOING ON")
 	
+	print ("Setting the scroll container's local squad to ", get_node("/root/Global").localSquad)
+	$PlacementBox/CanvasLayer/ScrollContainer.setSquadLocal(get_node("/root/Global").localSquad)
+	
 	pauseGame()
 	#begin()
 	if get_node("/root/Global").init:
@@ -136,11 +139,14 @@ func ifDetected():
 func moveEnemies():
 	for unit in get_tree().get_nodes_in_group("Unit"):
 		if unit.team == badTeam:
-			var destUnit = unit.getNearest(get_tree().get_nodes_in_group("Unit"))
-			if destUnit != null:
-				var dest = unit.getNearest(get_tree().get_nodes_in_group("Unit")).global_position
-				unit.dest = dest
-				unit.moving = true
+			if unit.getType() != "Art":
+				var destUnit = unit.getNearest(get_tree().get_nodes_in_group("Unit"))
+				if destUnit != null:
+					var dest = unit.getNearest(get_tree().get_nodes_in_group("Unit")).global_position
+					unit.dest = dest
+					unit.moving = true
+			else:
+				unit.moving = false 
 
 
 

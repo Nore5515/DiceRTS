@@ -1,0 +1,159 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Scenes/Slowdown.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Scripts/Camera2D.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Fonts/Font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Scenes/PlacementBox.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/SelectionBox.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Goal.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/LoadingScreen.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/InfUnit.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/DiceBox2D.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Assets/Art/wooden-plank-textured-background-material_53876-33591.jpg" type="Texture" id=10]
+[ext_resource path="res://Assets/Scripts/BattleMap.gd" type="Script" id=11]
+[ext_resource path="res://Assets/Art/newstuff/CheckpointMap.png" type="Texture" id=12]
+
+[node name="Checkpoint" type="Node2D"]
+script = ExtResource( 11 )
+playerColor = Color( 0.278431, 0.737255, 0.211765, 1 )
+badColor = Color( 0.729412, 0.329412, 0.329412, 1 )
+dicebox = NodePath("CanvasLayer/DiceBox2D")
+
+[node name="wooden-plank-textured-background-material_53876-33591" type="Sprite" parent="."]
+position = Vector2( 1058.6, 517.865 )
+scale = Vector2( 9.01582, 6.45268 )
+texture = ExtResource( 10 )
+
+[node name="forstMap" type="Sprite" parent="."]
+position = Vector2( -1465.49, -634.738 )
+scale = Vector2( 2.49381, 2.13792 )
+texture = ExtResource( 12 )
+centered = false
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 679.918, 390.683 )
+current = true
+zoom = Vector2( 2, 2 )
+limit_left = -1283
+limit_top = -695
+limit_right = 3385
+limit_bottom = 1746
+editor_draw_limits = true
+script = ExtResource( 2 )
+
+[node name="zoomTime" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="Goal" parent="." instance=ExtResource( 6 )]
+position = Vector2( 2474.42, 1066.04 )
+scale = Vector2( 5.89165, 5.89165 )
+levelName = "Checkpoint"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Paused" type="Label" parent="CanvasLayer"]
+margin_left = -9.53674e-07
+margin_top = 1.52588e-05
+margin_right = 179.0
+margin_bottom = 18.0
+rect_scale = Vector2( 1.12572, 2.88042 )
+custom_fonts/font = ExtResource( 3 )
+text = "PAUSED"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="selecting" type="Label" parent="CanvasLayer"]
+visible = false
+margin_top = 510.385
+margin_right = 265.0
+margin_bottom = 528.385
+rect_scale = Vector2( 3.88654, 5.0192 )
+custom_fonts/font = ExtResource( 3 )
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DiceBox2D" parent="CanvasLayer" instance=ExtResource( 9 )]
+modulate = Color( 1, 1, 1, 0.607843 )
+position = Vector2( 0, -800 )
+scale = Vector2( 1, 1.007 )
+
+[node name="Slowdown" type="Area2D" parent="."]
+position = Vector2( 140.793, 542.318 )
+script = ExtResource( 1 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Slowdown"]
+polygon = PoolVector2Array( -1611.95, -209.74, -1186.55, -238.581, -681.845, -177.295, -76.1992, -0.648193, 208.599, 280.545, 493.397, 471.612, 1481.18, 705.939, 1751.55, 1160.17, 3236.83, 1152.96, 3211.59, 150.763, 1124.55, -312.247, 908.186, -766.605, 702.489, -858.647, 478.555, -1180.78, -1590.32, -1190.31, -1619.16, -238.581, -1893.27, -216.257, -1910.09, -1393.58, 3745.28, -1347.33, 3757.9, 1406.77, -1943.73, 1398.36, -1901.68, -199.438, -1901.68, -199.438 )
+
+[node name="MegaSlow" type="Area2D" parent="."]
+position = Vector2( 140.793, 542.318 )
+script = ExtResource( 1 )
+unpassable = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MegaSlow"]
+polygon = PoolVector2Array( 700.001, 512.717, 744.416, 444.244, 426.11, 325.804, 662.989, 18.6017, 951.685, 122.236, 1286.65, -244.186, 1323.66, -227.53, 1012.76, 137.041, 1421.74, 296.194, 1210.77, 610.799, 801.785, 462.75, 762.922, 531.223 )
+
+[node name="PlacementBox" parent="." instance=ExtResource( 4 )]
+position = Vector2( 119.703, 48.7471 )
+
+[node name="lossTime" type="Timer" parent="."]
+autostart = true
+
+[node name="LoadingScreen" parent="." instance=ExtResource( 7 )]
+visible = false
+sinking = true
+
+[node name="InfUnit" parent="." instance=ExtResource( 8 )]
+position = Vector2( 2516.31, 625.788 )
+team = 2
+
+[node name="InfUnit2" parent="." instance=ExtResource( 8 )]
+position = Vector2( 2093.54, 1164.51 )
+team = 2
+
+[node name="InfUnit3" parent="." instance=ExtResource( 8 )]
+position = Vector2( 2100.87, 779.161 )
+team = 2
+
+[node name="InfUnit4" parent="." instance=ExtResource( 8 )]
+position = Vector2( 1152.8, 320.514 )
+team = 2
+
+[node name="InfUnit5" parent="." instance=ExtResource( 8 )]
+position = Vector2( 565.536, 655.255 )
+team = 2
+
+[node name="InfUnit6" parent="." instance=ExtResource( 8 )]
+position = Vector2( 1069.96, 809.342 )
+team = 2
+
+[node name="InfUnit7" parent="." instance=ExtResource( 8 )]
+position = Vector2( -647.673, -480.882 )
+team = 2
+
+[node name="InfUnit8" parent="." instance=ExtResource( 8 )]
+position = Vector2( -1123.02, -57.4653 )
+team = 2
+
+[node name="WaitTime" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="DoubleClick" type="Timer" parent="."]
+wait_time = 0.35
+one_shot = true
+
+[node name="SelectionBox" parent="." instance=ExtResource( 5 )]
+battlemap = NodePath("..")
+[connection signal="timeout" from="zoomTime" to="." method="_on_zoomTime_timeout"]
+[connection signal="body_entered" from="Slowdown" to="Slowdown" method="_on_Slowdown_body_entered"]
+[connection signal="body_exited" from="Slowdown" to="Slowdown" method="_on_Slowdown_body_exited"]
+[connection signal="body_entered" from="MegaSlow" to="MegaSlow" method="_on_Slowdown_body_entered"]
+[connection signal="body_exited" from="MegaSlow" to="MegaSlow" method="_on_Slowdown_body_exited"]
+[connection signal="timeout" from="lossTime" to="." method="_on_lossTime_timeout"]
+[connection signal="timeout" from="WaitTime" to="." method="_on_WaitTime_timeout"]
+[connection signal="timeout" from="DoubleClick" to="." method="_on_DoubleClick_timeout"]

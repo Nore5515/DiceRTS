@@ -10,8 +10,8 @@ func _init():
 	defense = 5
 	baseDefense = 5
 	
-	detectionRange = 1600
-	baseDetectionRange = 1600
+	detectionRange = 500
+	baseDetectionRange = 500
 	
 	speed = 200
 	baseSpeed = 200
