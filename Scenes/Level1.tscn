@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scenes/InfUnit.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Art/forstMap.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://Scenes/Slowdown.gd" type="Script" id=8]
 [ext_resource path="res://Scenes/LoadingScreen.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/PlacementBox.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scenes/ArtUnit.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scenes/DiceBox2D.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Scenes/SelectionBox.tscn" type="PackedScene" id=14]
 
@@ -120,6 +121,10 @@ one_shot = true
 
 [node name="SelectionBox" parent="." instance=ExtResource( 14 )]
 battlemap = NodePath("..")
+
+[node name="ArtUnit" parent="." instance=ExtResource( 11 )]
+position = Vector2( 2426.56, 682.912 )
+team = 2
 [connection signal="timeout" from="zoomTime" to="." method="_on_zoomTime_timeout"]
 [connection signal="body_entered" from="Slowdown" to="Slowdown" method="_on_Slowdown_body_entered"]
 [connection signal="body_exited" from="Slowdown" to="Slowdown" method="_on_Slowdown_body_exited"]

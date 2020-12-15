@@ -63,7 +63,7 @@ func _on_VehButton_pressed():
 func _on_ArtButton_pressed():
 	$UnitIcon.texture = load("res://Assets/Art/artillery.png")
 	$UnitTitle.text = "MOBILE ARTILLERY"
-	$UnitDesc.text = "The price of one of these could save a hundred struggling schools. But can schools fire a shell a quarter of the map away?"
+	$UnitDesc.text = "The price of one of these could save a hundred struggling schools. But can schools fire a shell a third of the map away?"
 	$UnitStats.text = genUnitStats("art")
 	unitTypeSet = "art"
 
@@ -125,7 +125,6 @@ func genUnitStats(unitType):
 			personalityNum = personalityList[randi()%(personalityList.size())]
 			$Personality.text = personalityNum
 		return msg
-	
 	
 	return msg
 

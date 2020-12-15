@@ -64,8 +64,8 @@ var unitTags = []
 var corpses = []
 
 var beat1 = true
-var beat2 = false
-var beat3 = false
+var beat2 = true
+var beat3 = true
 var beatOptional = false
 var beatCheckpoint = false
 
@@ -92,3 +92,10 @@ func _process(delta):
 		print ("allied dice changed from ", temp, " to ", alliedDice)
 	temp = alliedDice
 
+
+
+func endMusic():
+	$AudioStreamPlayer2D.queue_free()
+
+func _on_AudioStreamPlayer2D_finished():
+	$AudioStreamPlayer2D.play()

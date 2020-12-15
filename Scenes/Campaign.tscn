@@ -122,8 +122,11 @@ margin_left = -526.72
 margin_top = 1.50257
 margin_right = -2.0
 margin_bottom = 32.5026
-text = "4. These are the units in your squad. You can see their HP, name and battles fought. After a mission, all units in your squad will heal 1."
+text = "4. These are the units in your squad. You can see their HP, name and battles fought. Click one to select him for battle."
 autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label3" type="Label" parent="CanvasLayer/Button/Control"]
 margin_left = -405.055
@@ -465,9 +468,6 @@ margin_right = 481.704
 margin_bottom = 305.232
 text = "Pick a unit first!"
 
-[node name="LoadingScreen" parent="CanvasLayer" instance=ExtResource( 20 )]
-position = Vector2( 0, 655.262 )
-
 [node name="AIText" type="Label" parent="CanvasLayer"]
 margin_left = -102.913
 margin_top = -0.000274658
@@ -710,6 +710,9 @@ one_shot = true
 margin_top = 452.0
 margin_right = 750.0
 margin_bottom = 598.0
+
+[node name="LoadingScreen" parent="ScrollBox" instance=ExtResource( 20 )]
+position = Vector2( 0, 655.262 )
 [connection signal="pressed" from="CanvasLayer/Button" to="CanvasLayer/Button" method="_on_Button_pressed"]
 [connection signal="pressed" from="CanvasLayer/BeginButton" to="." method="_on_BeginButton_pressed"]
 [connection signal="pressed" from="CanvasLayer/SquadButton" to="CanvasLayer/SquadButton" method="_on_SquadButton_pressed"]
@@ -719,9 +722,9 @@ margin_bottom = 598.0
 [connection signal="pressed" from="CanvasLayer/SquadButton/BuyMenu/DoneButton" to="CanvasLayer/SquadButton/BuyMenu" method="_on_DoneButton_pressed"]
 [connection signal="pressed" from="CanvasLayer/SquadButton/BuyMenu/RecruitButton" to="CanvasLayer/SquadButton/BuyMenu" method="_on_RecruitButton_pressed"]
 [connection signal="pressed" from="CanvasLayer/SquadButton/BuyMenu/CycleSoul" to="CanvasLayer/SquadButton/BuyMenu" method="_on_CycleSoul_pressed"]
-[connection signal="animation_finished" from="CanvasLayer/LoadingScreen" to="." method="_on_LoadingScreen_animation_finished"]
 [connection signal="tween_all_completed" from="Tween" to="." method="_on_Tween_tween_all_completed"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="Timer2" to="." method="_on_Timer2_timeout"]
 [connection signal="timeout" from="Spatial/Timer3" to="Spatial" method="_on_Timer3_timeout"]
 [connection signal="timeout" from="Spatial/fadeTimer" to="Spatial" method="_on_fadeTimer_timeout"]
+[connection signal="animation_finished" from="ScrollBox/LoadingScreen" to="." method="_on_LoadingScreen_animation_finished"]

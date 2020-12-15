@@ -192,6 +192,10 @@ func _process(delta):
 					aUnit = unit.getClosestUnit(unit.detectedUnits)
 					eUnit = unit
 				print ("Zoom time started!")
+				#print ("Allied Unit: ", aUnit, "/", aUnit.team)
+				#print ("Enemy Unit: ", eUnit, "/", eUnit.team)
+				if eUnit == null || aUnit == null:
+					endFight()
 				$zoomTime.start()
 				pauseGame()
 				zoomPos = unit.global_position
@@ -237,6 +241,12 @@ func resetSword():
 		print ("Swords removed.")
 		get_node("Swords").call_deferred("queue_free")
 		swording = false
+
+
+func resetArtilleryFort():
+	for unit in get_tree().get_nodes_in_group("Unit"):
+		if unit.getType() == "Art":
+			unit.DIGGING_IN = false
 
 
 func pauseGame():

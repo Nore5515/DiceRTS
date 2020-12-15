@@ -180,6 +180,9 @@ func _input(event):
 			var dest = result.collider.translation
 			destName = result.collider.name
 			moveToDest(dest)
+	
+	if event.is_action_pressed("esc"):
+		get_tree().change_scene("res://Scenes/Title.tscn")
 
 
 func _on_BeginButton_pressed():
@@ -203,7 +206,7 @@ func _on_BeginButton_pressed():
 	elif destName == "Checkpoint":
 		loading = true
 	if loading:
-		$CanvasLayer/LoadingScreen.rise()
+		$ScrollBox/LoadingScreen.rise()
 
 
 func _on_LoadingScreen_animation_finished():

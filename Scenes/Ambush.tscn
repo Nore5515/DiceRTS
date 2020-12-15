@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scenes/Slowdown.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scripts/Camera2D.gd" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Assets/Art/wooden-plank-textured-background-material_53876-33591.jpg" type="Texture" id=10]
 [ext_resource path="res://Assets/Scripts/BattleMap.gd" type="Script" id=11]
 [ext_resource path="res://Scenes/ArtUnit.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Scenes/InfUnit.tscn" type="PackedScene" id=13]
 
 [node name="Ambush" type="Node2D"]
 script = ExtResource( 11 )
@@ -46,7 +47,7 @@ wait_time = 1.5
 one_shot = true
 
 [node name="Goal" parent="." instance=ExtResource( 6 )]
-position = Vector2( -707.206, 353.684 )
+position = Vector2( 3103.62, 588.264 )
 scale = Vector2( 5.89165, 5.89165 )
 levelName = "Ambush"
 
@@ -107,7 +108,7 @@ position = Vector2( -3.4248, -23.9736 )
 polygon = PoolVector2Array( 1768.33, -902.693, 3288.94, -1043.11, 3288.94, -419.798, 1792.31, -440.347 )
 
 [node name="PlacementBox" parent="." instance=ExtResource( 4 )]
-position = Vector2( 51.2069, 113.818 )
+position = Vector2( -758.759, 410.363 )
 
 [node name="lossTime" type="Timer" parent="."]
 autostart = true
@@ -129,6 +130,30 @@ battlemap = NodePath("..")
 
 [node name="ArtUnit" parent="." instance=ExtResource( 12 )]
 position = Vector2( 2782.88, 581.197 )
+team = 2
+
+[node name="InfUnit" parent="." instance=ExtResource( 13 )]
+position = Vector2( -1009.08, -429.023 )
+team = 2
+
+[node name="InfUnit2" parent="." instance=ExtResource( 13 )]
+position = Vector2( -207.962, -451.153 )
+team = 2
+
+[node name="InfUnit3" parent="." instance=ExtResource( 13 )]
+position = Vector2( 1150.83, -358.207 )
+team = 2
+
+[node name="InfUnit4" parent="." instance=ExtResource( 13 )]
+position = Vector2( -1243.66, 1522.86 )
+team = 2
+
+[node name="InfUnit5" parent="." instance=ExtResource( 13 )]
+position = Vector2( -115.015, 1443.19 )
+team = 2
+
+[node name="InfUnit6" parent="." instance=ExtResource( 13 )]
+position = Vector2( 1248.21, 1527.29 )
 team = 2
 [connection signal="timeout" from="zoomTime" to="." method="_on_zoomTime_timeout"]
 [connection signal="body_entered" from="Slowdown" to="Slowdown" method="_on_Slowdown_body_entered"]

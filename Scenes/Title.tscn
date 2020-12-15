@@ -234,7 +234,7 @@ texture = ExtResource( 7 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="helpButton/Node2D/helpBox"]
 frames = SubResource( 1 )
-frame = 16
+frame = 14
 playing = true
 
 [node name="help0" type="Control" parent="helpButton/Node2D"]
@@ -441,6 +441,20 @@ collision_mask = 33
 z_index = 4
 shape = SubResource( 2 )
 
+[node name="Credits" type="Button" parent="."]
+margin_left = 2.7207
+margin_top = 573.354
+margin_right = 159.721
+margin_bottom = 593.354
+rect_scale = Vector2( 1.35243, 1.35243 )
+focus_mode = 0
+enabled_focus_mode = 0
+text = "CLICK ME FOR CREDITS"
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="LoadingScreen" parent="." instance=ExtResource( 19 )]
 [connection signal="mouse_entered" from="BADS" to="optionsClosed" method="_on_BADS_mouse_entered"]
 [connection signal="mouse_exited" from="BADS" to="optionsClosed" method="_on_BADS_mouse_exited"]
@@ -465,4 +479,5 @@ shape = SubResource( 2 )
 [connection signal="pressed" from="helpButton/Node2D/Button4" to="helpButton" method="_on_Button4_pressed"]
 [connection signal="mouse_entered" from="Area2D" to="optionsClosed" method="_on_Area2D_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="optionsClosed" method="_on_Area2D_mouse_exited"]
+[connection signal="pressed" from="Credits" to="." method="_on_Credits_pressed"]
 [connection signal="animationComplete" from="LoadingScreen" to="." method="_on_LoadingScreen_animationComplete"]

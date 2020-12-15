@@ -93,7 +93,7 @@ func fillQueueLevel():
 
 func _on_Timer3_timeout():
 	
-	if get_parent().get_node("CanvasLayer/LoadingScreen").is_playing() == false:
+	if get_parent().get_node("ScrollBox/LoadingScreen").is_playing() == false:
 		
 		if levelDialoguePriority:
 			fillQueueLevel()

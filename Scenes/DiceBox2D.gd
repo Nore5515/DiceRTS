@@ -117,6 +117,8 @@ func updateText():
 			ready = true
 			firstRound = false
 			$WithdrawButton.disabled = false
+		else:
+			print ("Someone's dead???")
 
 
 func updateStrength():
@@ -134,9 +136,13 @@ func fight(aUnit, eUnit):
 		print ("Start the fight!")
 		attackingUnit = aUnit
 		defendingUnit = eUnit
+		print ("In-Box Attacker (ally): ", attackingUnit, "/", attackingUnit.team)
+		print ("In-Box Defender (enemy): ", defendingUnit, "/", defendingUnit.team)
+		print ("aUnit Unit Stats:" , attackingUnit.myUnit.stats)
+		print ("eUnit Unit Stats:" , defendingUnit.myUnit.stats)
 		
-		$AllyIcon.setPic(attackingUnit.getType())
-		$EnemyIcon.setPic(defendingUnit.getType())
+		$AllyIcon.setPic(attackingUnit.getBattleType())
+		$EnemyIcon.setPic(defendingUnit.getBattleType())
 		
 		# calls fight with null unit
 		goodDice = attackingUnit.myUnit.stats["Strength"]
@@ -150,6 +156,7 @@ func fight(aUnit, eUnit):
 
 func end():
 	print ("End the fight!")
+	get_parent().get_parent().resetArtilleryFort()
 	if attackingUnit.myUnit.stats["HP"] <= 0:
 		allyDestroyed = true
 	else:

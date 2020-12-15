@@ -62,3 +62,7 @@ func _on_insane_pressed():
 
 func _on_LoadingScreen_animationComplete():
 	get_tree().change_scene("res://Scenes/Campaign.tscn")
+
+
+func _on_Credits_pressed():
+	get_tree().change_scene("res://Scenes/End.tscn")

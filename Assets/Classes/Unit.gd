@@ -119,7 +119,7 @@ func genStats():
 		stats.WeatherResist = "Low"
 		stats.Reach = "Long"
 		stats.Price = 6
-	elif type == "art":
+	elif type == "art" || type == "Art":
 		stats.Strength = 1
 		stats.HP = 3
 		stats.MaxHP = 3

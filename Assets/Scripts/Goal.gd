@@ -14,6 +14,7 @@ func _on_Goal_body_entered(body):
 				get_node("/root/Global").beat2 = true
 			elif levelName == "Level3":
 				get_node("/root/Global").beat3 = true
+				get_tree().change_scene("res://Scenes/End.tscn")
 			elif levelName == "Cache":
 				get_node("/root/Global").beatOptional = true
 			elif levelName == "Checkpoint":

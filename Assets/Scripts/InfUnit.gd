@@ -101,6 +101,36 @@ func getType() -> String:
 		type = "Inf"
 	return type
 
+func getBattleType() -> String:
+	var type
+	if isVehicle:
+		type = "veh"
+	elif isArt:
+		#if distanceToClosest() < 100:
+		#	type = "art_off_guard"
+		if DUGIN:
+			type = "art_cannon"
+		else:
+			type = "art_off_guard"
+	else:
+		type = "Inf"
+	return type
+
+
+func distanceToClosest():
+	if detectedUnits.size() > 0:
+		var closest = detectedUnits[0]
+		var uGP
+		var cGP = closest.global_position.distance_to(self.global_position)
+		for unit in detectedUnits:
+			if unit.team != team:
+				uGP = unit.global_position.distance_to(self.global_position)
+				if uGP < cGP:
+					closest = unit
+					cGP = closest.global_position.distance_to(self.global_position)
+		print ("Closest Unit Distance:" , cGP)
+		return cGP
+	return null
 
 # return InfUnit
 func getClosestUnit(unitList):
@@ -109,15 +139,18 @@ func getClosestUnit(unitList):
 		var uGP
 		var cGP = closest.global_position.distance_to(self.global_position)
 		for unit in detectedUnits:
-			uGP = unit.global_position.distance_to(self.global_position)
-			if uGP < cGP:
-				closest = unit
-				cGP = closest.global_position.distance_to(self.global_position)
+			if unit.team != team:
+				uGP = unit.global_position.distance_to(self.global_position)
+				if uGP < cGP:
+					closest = unit
+					cGP = closest.global_position.distance_to(self.global_position)
+		print ("Closest Unit:" , closest)
 		return closest
 	return null
 
 
 func setUnit(newUnit):
+	print ("Setunit called!")
 	myUnit = newUnit
 	HP = myUnit.stats["HP"]
 	attack = myUnit.stats["Strength"]
@@ -144,7 +177,7 @@ func _ready():
 	
 	$Line2D.end_cap_mode = 2
 	$Line2D.modulate = Color(0,0.5,0,1)
-	
+
 	if SLOWED:
 		speed = baseSpeed * 0.5
 	if MEGASLOWED:
@@ -159,7 +192,7 @@ func _ready():
 	if tag == "":
 		for x in range(10):
 			tag += String(randi() % 10)
-	
+
 
 func paint(newColor):
 	$inf.modulate = newColor
@@ -275,7 +308,13 @@ func _process(delta):
 				$dot3.visible = false
 				DIGGING_PROGRESS = 0
 		
-		if isVehicle == false && !PAUSED:
+		if !PAUSED:
+			
+			if team != 1 && getType() == "Art":
+				if detectionRange != round(baseDetectionRange * 0.5):
+					#print ("stopped moving!")
+					DIGGING_IN = true
+			
 			if moving:
 				if detectionRange != baseDetectionRange:
 					#print ("Moving now!")
@@ -299,7 +338,7 @@ func _process(delta):
 				idling = false
 		elif moving == true && PAUSED == false && idling == false:
 			
-			if getType() == "Art":
+			if getType() == "Art" && team != 1:
 				return
 			
 			$target.global_position = dest

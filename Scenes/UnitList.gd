@@ -67,7 +67,7 @@ func setup():
 	for squaddie in squad:
 		instance = load("res://Scenes/TextureRect.tscn").instance()
 		if self.get_parent().has_node("Control") == false:
-			#print ("Since there's no bark box, instancing with null as its bark box.")
+			print ("Since there's no bark box, instancing with null as its bark box.")
 			instance.init(squaddie, null)
 		else:
 			#print ("Since there's a bark box, instancing normally.")
